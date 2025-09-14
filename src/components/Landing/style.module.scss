@@ -123,20 +123,19 @@
     display: block;
   }
 
-  /* Switch to a 2-column grid for the two small images to avoid calc() overflow */
   .imageContainerRight {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* equal columns */
+    grid-template-columns: 1fr 1fr;
     gap: 0.5rem;
     width: 100%;
     min-width: 0;
   }
 
   .imageContainerRight img {
-    width: 100%;         /* fill grid cell */
-    height: auto;        /* maintain aspect ratio */
-    aspect-ratio: 17 / 16; /* keep your intended shape */
-    object-fit: cover;   /* crop gracefully if needed */
+    width: 100%;
+    height: auto;
+    aspect-ratio: 17 / 16;
+    object-fit: cover;
     display: block;
   }
 
