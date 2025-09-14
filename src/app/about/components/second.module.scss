@@ -1,0 +1,69 @@
+
+:root {
+  --page-bg: #c7c4c4;
+  --ink: #151515;
+  --maxw: 1100px;
+  --pad-x: clamp(16px, 6vw, 100px);
+  --pad-y: clamp(64px, 10vh, 120px);
+}
+
+.secondPage {
+  background: var(--page-bg);
+  width: 100vw;
+  max-width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+  display: grid;
+  place-items: center;
+  padding: var(--pad-y) var(--pad-x);
+  box-sizing: border-box;
+}
+
+.inner {
+  width: 100%;
+  max-width: var(--maxw);
+}
+
+.title {
+  font-family: "Amiamie", Arial, sans-serif;
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  font-size: clamp(2.25rem, 6vw, 6rem);
+  margin: 0 0 1rem 0;
+  position: relative;
+  will-change: transform, opacity;
+
+}
+
+.lead {
+  font-family: "Amiamie", Arial, sans-serif;
+  color: var(--ink);
+  max-width: 70ch;
+  font-size: clamp(1rem, 1.1vw + 0.9rem, 1.35rem);
+  font-weight: 500;
+  line-height: 1.6;
+  margin: 1.25rem 0 0 0;
+  text-wrap: pretty;
+  hyphens: auto;
+  will-change: transform, opacity;
+}
+
+.titleSplit,
+.leadSplit {
+  font-kerning: none;
+}
+
+.leadSplit :global(.line) {
+  display: block;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .titleSplit,
+  .leadSplit {
+    transition: none !important;
+    animation: none !important;
+  }
+}

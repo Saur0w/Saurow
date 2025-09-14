@@ -1,0 +1,277 @@
+
+$primary: #ffffff;
+$accent: #f7f7f7;
+$background: #151515;
+$text-primary: #ffffff;
+$text-secondary: rgba(255, 255, 255, 0.7);
+$border: rgba(255, 255, 255, 0.08);
+$success: #00d4aa;
+$error: #ff4757;
+
+$space-xs: 0.5rem;
+$space-sm: 1rem;
+$space-md: 1.5rem;
+$space-lg: 2rem;
+$space-xl: 3rem;
+$space-2xl: 4rem;
+$transition-fast: 0.15s ease;
+$transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+.contactContainer {
+  position: relative;
+  top: 0;
+  height: auto;
+  padding: 150px $space-lg $space-2xl;
+  background: $background;
+  color: $text-primary;
+  font-family: 'Poppins', sans-serif;
+
+  .heading {
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 500;
+    align-items: flex-start;
+    margin-left: 150px;
+    margin-bottom: $space-2xl;
+    letter-spacing: -0.02em;
+  }
+
+  .contactContent {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: $space-2xl;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: $space-xl;
+    }
+  }
+}
+
+.formContainer {
+  .contactForm {
+    display: flex;
+    flex-direction: column;
+    gap: $space-xl;
+
+    .formGroup {
+      position: relative;
+
+      label {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: $text-secondary;
+        margin-bottom: $space-xs;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        padding: $space-md 0 $space-sm;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid $border;
+        color: $text-primary;
+        font-size: 1rem;
+        font-weight: 300;
+        transition: border-color $transition-smooth;
+
+        &:focus {
+          outline: none;
+          border-bottom-color: $accent;
+        }
+
+        &::placeholder {
+          color: rgba(255, 255, 255, 0.3);
+          font-weight: 300;
+        }
+      }
+
+      textarea {
+        min-height: 100px;
+        resize: vertical;
+        font-family: inherit;
+      }
+    }
+
+    .submitButton {
+      align-self: flex-start;
+      padding: $space-md $space-xl;
+      background: transparent;
+      color: $accent;
+      border: 1px solid #c2bebe;
+      border-radius: 10rem;
+      font-size: 0.9rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all $transition-smooth;
+      display: flex;
+      align-items: center;
+      gap: $space-sm;
+
+      &:hover:not(:disabled) {
+        border-color: $accent;
+        background: rgba(37, 58, 16, 0.05);
+
+        svg {
+          transform: translateX(4px);
+        }
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      svg {
+        transition: transform $transition-fast;
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    .statusMessage {
+      padding: $space-md;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      font-weight: 400;
+
+      &.successMessage {
+        background: rgba(0, 212, 170, 0.1);
+        color: $success;
+        border-left: 2px solid $success;
+      }
+
+      &.errorMessage {
+        background: rgba(255, 71, 87, 0.1);
+        color: $error;
+        border-left: 2px solid $error;
+      }
+    }
+  }
+}
+
+.contactDetails {
+  h5 {
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin-bottom: $space-xl;
+    color: $text-primary;
+  }
+
+  .detailItem {
+    display: flex;
+    align-items: flex-start;
+    gap: $space-md;
+    margin-bottom: $space-lg;
+
+    .detailIcon {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 107, 53, 0.1);
+      border-radius: 50%;
+      color: $accent;
+      flex-shrink: 0;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    div:last-child {
+      .detailLabel {
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: $text-secondary;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: $space-xs;
+      }
+
+      p {
+        margin: 0;
+        font-size: 0.95rem;
+        font-weight: 300;
+        color: $text-primary;
+      }
+    }
+  }
+
+  .socialLinks {
+    margin-top: $space-2xl;
+    padding-top: $space-lg;
+    border-top: 1px solid $border;
+
+    h6 {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: $text-secondary;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: $space-md;
+    }
+
+    .socialIcons {
+      display: flex;
+      gap: $space-sm;
+
+      .socialIcon {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        color: $text-secondary;
+        transition: all $transition-smooth;
+
+        &:hover {
+          background: rgba(255, 107, 53, 0.1);
+          border-color: rgba(255, 107, 53, 0.2);
+          color: $accent;
+          transform: translateY(-2px);
+        }
+
+        svg {
+          width: 16px;
+          height: 16px;
+        }
+      }
+    }
+  }
+}
+
+// Responsive refinements
+@media (max-width: 480px) {
+  .contactContainer {
+    padding: $space-xl $space-md;
+
+    .heading {
+      margin-bottom: $space-xl;
+    }
+  }
+
+  .formContainer .contactForm {
+    .submitButton {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .contactDetails {
+    .detailItem {
+      gap: $space-sm;
+    }
+  }
+}

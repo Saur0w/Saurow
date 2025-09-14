@@ -1,0 +1,266 @@
+.headerContainer {
+  position: absolute;
+  width: 100vw;
+  max-width: 100%;
+  overflow-x: hidden;
+  font-family: 'Poppins', sans-serif;
+  background-color: transparent;
+}
+
+.header {
+  background: transparent;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: 1rem 0;
+  color: #151515;
+
+  @media (max-width: 768px) {
+    z-index: 10;
+    padding: 1.2rem 0;
+  }
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  z-index: 101;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.logoText {
+  h1 {
+    margin: 0;
+
+    .headText {
+      font-size: 2rem;
+      font-weight: 400;
+      color: #151515; // default logo text color
+      transition: color 0.3s;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    @media (max-width: 768px) {
+      .headText {
+        font-size: 1.75rem;
+      }
+    }
+  }
+}
+
+.desktopNav {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+
+  .el{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+    padding: 15px;
+    cursor: pointer;
+
+    &:hover{
+      .indicator{
+        transform: scale(1);
+        background-color: #151515;
+      }
+    }
+    .indicator{
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      top: 45px;
+      left: 50%;
+      background-color: transparent;
+      border-radius: 50%;
+      transform: scale(0) translateX(-50%);
+      transition: transform 0.2s cubic-bezier(0.76, 0, 0.24, 1);
+    }
+  }
+  a{
+    cursor: pointer;
+    text-decoration: none;
+  }
+}
+
+.navItem {
+  color: #151515; // default desktop nav color
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.activeNavItem {
+  text-decoration: underline;
+}
+
+.mobileMenuBtn {
+  display: none;
+
+  @media (max-width: 768px) {
+    display: block;
+    cursor: pointer;
+    z-index: 101;
+    padding: 0.5rem;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    span {
+      color: #151515;
+      font-weight: 500;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+    }
+  }
+}
+
+/* Only the .darkHeader (work/contact) switches logo and desktop nav colors to white */
+.darkHeader {
+  .brand .headText {
+    color: #fff !important;
+  }
+  .desktopNav .navItem {
+    color: #fff !important;
+  }
+  .desktopNav .el:hover .indicator {
+    background-color: #fff !important;
+  }
+}
+
+.menuOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #f7f7f7; // stays light, so all menu nav items stay black
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+
+  @media (min-width: 769px) {
+    display: none;
+  }
+}
+
+.menuOverlayBar {
+  padding: 1.2rem 2rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+  .menuClose {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    padding: 0.5rem;
+
+    &:hover {
+      transform: rotate(90deg);
+    }
+
+    span {
+      color: #151515;
+      font-size: 1.5rem;
+      font-weight: 300;
+    }
+  }
+}
+
+.menuContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.menuLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.menuLinkItem {
+  width: 100%;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.menuLink {
+  color: #151515; // always black in mobile menu, never switched
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  text-decoration: none;
+  display: block;
+  padding: 0.5rem 0;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  font-family: 'Poppins', sans-serif;
+
+  &:hover {
+    color: #151515;
+    transform: translateX(20px);
+  }
+}
+
+.menuFooter {
+  padding: 2rem;
+
+  p {
+    color: #151515;
+    font-size: 0.9rem;
+    margin: 0;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+.mobileMenuBtnWhite span {
+  color: #fff !important;
+}
+
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+
+  .menuOverlayBar,
+  .menuContent,
+  .menuFooter {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .logoText h1 .headText {
+    font-size: 1.5rem;
+  }
+}

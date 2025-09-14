@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+.landing {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 15rem;
+  height: 100vh;
+  width: 100vw;
+  max-width: 100%;
+  overflow: hidden;
+  background-color: #f7f7f7;
+  color: #231f20;
+  padding: 300px 2rem 2rem 150px;
+  box-sizing: border-box;
+
+  p {
+    font-size: 1rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 1.5;
+    align-items: flex-start;
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+
+    .getInTouchContainer {
+      margin-top: 50px;
+      width: 250px;
+      a {
+        text-decoration: none;
+        color: #151515;
+      }
+    }
+  }
+
+  .second {
+    display: flex;
+    flex-direction: column;
+    .imageContainer {
+      margin-top: -100px;
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+
+      .abstract {
+        width: 350px;
+        height: 350px;
+        will-change: transform;
+      }
+      .imageContainerRight {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        img {
+          width: 170px;
+          height: 160px;
+        }
+      }
+    }
+
+    .imageText {
+      h1 {
+        font-size: 1.5rem;
+        font-weight: 550;
+        font-family: "Poppins", sans-serif;
+        margin-left: 15px;
+        margin-top: 10px;
+        color: black;
+      }
+    }
+  }
+
+}
+
+@media (max-width: 900px) {
+  .landing {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 150px 1.5rem 1.5rem;
+    width: 100%;
+    min-height: 100px;
+    overflow-x: clip; /* prevent horizontal scroll from transforms/gaps */
+  }
+
+  /* Universal safe-guard for images on small screens */
+  .landing img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .text p {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .getInTouchContainer {
+    width: 200px;
+    margin-top: 1.25rem;
+  }
+
+  .second {
+    gap: 1rem;
+  }
+
+  .imageContainer {
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: -20px;
+    width: 100%;     /* ensure full-width container */
+    min-width: 0;    /* allow children to shrink instead of overflow */
+  }
+
+  .abstract {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Switch to a 2-column grid for the two small images to avoid calc() overflow */
+  .imageContainerRight {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* equal columns */
+    gap: 0.5rem;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .imageContainerRight img {
+    width: 100%;         /* fill grid cell */
+    height: auto;        /* maintain aspect ratio */
+    aspect-ratio: 17 / 16; /* keep your intended shape */
+    object-fit: cover;   /* crop gracefully if needed */
+    display: block;
+  }
+
+  .imageText h1 {
+    font-size: 1.25rem;
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+}
+
