@@ -1,5 +1,10 @@
-import { NextRequest, NextResponse } from 'next/server';
+// Ensure this route runs on the Node.js runtime (required for Nodemailer)
+export const runtime = 'nodejs';
+
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import type { SendMailOptions } from 'nodemailer';
 
 interface ContactFormData {
     name: string;
@@ -12,7 +17,7 @@ export async function POST(req: NextRequest) {
     try {
         const { name, email, message, service }: ContactFormData = await req.json();
 
-        // ✅ Validate required fields
+        // Validate required fields
         if (!name || !email || !message) {
             return NextResponse.json(
                 { success: false, error: 'Missing required fields' },
@@ -20,8 +25,11 @@ export async function POST(req: NextRequest) {
             );
         }
 
-        // ✅ Validate environment variables
-        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+        const user = process.env.EMAIL_USER;
+        const pass = process.env.EMAIL_PASS;
+
+        // Validate environment variables
+        if (!user || !pass) {
             console.error('Missing email configuration');
             return NextResponse.json(
                 { success: false, error: 'Email service not configured' },
@@ -31,29 +39,26 @@ export async function POST(req: NextRequest) {
 
         const transporter = nodemailer.createTransport({
             service: 'gmail',
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS,
-            },
+            auth: { user, pass },
         });
 
-        const mailOptions = {
-            from: process.env.EMAIL_USER,
-            to: process.env.EMAIL_USER,
-            subject: `New Contact Form Submission: ${service}`, // ✅ Fixed typo: was "services"
+        const mailOptions: SendMailOptions = {
+            from: user,
+            to: user,
+            subject: `New Contact Form Submission: ${service || 'General Inquiry'}`,
             text: `
-                Name: ${name}
-                Email: ${email}
-                Service: ${service}
-                Message: ${message}
-            `,
+        Name: ${name}
+        Email: ${email}
+        Service: ${service}
+        Message: ${message}
+      `,
             html: `
-                <h3>New Contact Form Submission</h3>
-                <p><strong>Name:</strong> ${name}</p>
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Service:</strong> ${service}</p>
-                <p><strong>Message:</strong> ${message}</p>
-            `,
+        <h3>New Contact Form Submission</h3>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Service:</strong> ${service}</p>
+        <p><strong>Message:</strong> ${message}</p>
+      `,
         };
 
         await transporter.sendMail(mailOptions);
@@ -62,14 +67,12 @@ export async function POST(req: NextRequest) {
             { success: true, message: 'Email sent successfully' },
             { status: 200 }
         );
-
     } catch (err) {
-        console.error("Error sending email:", err);
-
+        console.error('Error sending email:', err);
         return NextResponse.json(
             {
                 success: false,
-                error: err instanceof Error ? err.message : 'Unknown error occurred'
+                error: err instanceof Error ? err.message : 'Unknown error occurred',
             },
             { status: 500 }
         );
