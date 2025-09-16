@@ -79,8 +79,9 @@ export default function Landing() {
     return (
         <section className={styles.landing} ref={pageRef}>
             <div className={styles.text}>
-                <div ref={landingRef}>
-                    <p>I&#39;m a 22-year-old creative developer from India who<br/> builds web experiences that blur the line between<br /> art and technology.<br/> My focus is on crafting seamless interactions and<br/> bringing digital ideas to life with precision.</p>
+                <div ref={landingRef} className={styles.textContainer}>
+                    <p>I&#39;m a 22-year-old creative developer from India who builds<br /> web experiences that blur the line between art and technology.<br />
+                        My focus is on crafting seamless interactions and bringing digital ideas to life with precision.</p>
                 </div>
                 <div
                     className={styles.getInTouchContainer}

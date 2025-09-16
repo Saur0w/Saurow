@@ -4,7 +4,7 @@
   position: relative;
   display: flex;
   flex-direction: row;
-  gap: 15rem;
+  gap: 10rem;
   height: 100vh;
   width: 100vw;
   max-width: 100%;
@@ -14,6 +14,29 @@
   padding: 300px 2rem 2rem 150px;
   box-sizing: border-box;
 
+  @media (min-width: 1500px) {
+    gap: 20rem;
+  }
+
+  @media (min-width: 1650px) {
+    gap: 30rem;
+  }
+
+  @media (min-width: 1800px) {
+    gap: 35rem;
+  }
+
+  @media (min-width: 1900px) {
+    gap: 40rem;
+  }
+
+  @media (min-height: 1080px) {
+    padding-top: 400px;
+  }
+  @media (max-width: 580px) {
+    align-items: center;
+    justify-content: flex-start;
+  }
   p {
     font-size: 1rem;
     font-family: "Poppins", sans-serif;
@@ -24,8 +47,44 @@
   }
 
   .text {
+    margin-top: -100px;
+    padding-top: 100px;
+    margin-left: -100px;
+    margin-right: -100px;
+    padding-left: 60px;
     display: flex;
     flex-direction: column;
+
+    @media (max-width: 1350px) {
+      padding-right: 0;
+    }
+
+    @media (min-height: 1080px) {
+      margin-top: 50px;
+    }
+
+    @media (max-width: 500px) {
+      font-size: 0.9rem;
+    }
+
+    .textContainer {
+      width: 70ch;
+      max-width: 100%;
+      margin-inline: 0;
+
+       p {
+        font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-weight: 400;
+        font-size: 0.9rem;
+        line-height: 1.8;
+        letter-spacing: 1px;
+        color: #231f20;
+        margin: 0;
+        text-wrap: pretty;
+        overflow-wrap: anywhere;
+        hyphens: auto;
+      }
+    }
 
     .getInTouchContainer {
       margin-top: 50px;
@@ -38,14 +97,28 @@
   }
 
   .second {
+    margin-top: -150px;
+    padding-top: 150px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+
+    @media (min-height: 1080px) {
+      margin-top: -50px;
+    }
+
     .imageContainer {
       margin-top: -100px;
       display: flex;
       flex-direction: row;
       gap: 1rem;
 
+      @media (max-width: 580px) {
+        margin-top: 100px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
       .abstract {
         width: 350px;
         height: 350px;
@@ -58,6 +131,12 @@
         img {
           width: 170px;
           height: 160px;
+        }
+
+        @media (max-width: 580px) {
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
         }
       }
     }
@@ -105,6 +184,7 @@
 
   .second {
     gap: 1rem;
+
   }
 
   .imageContainer {
@@ -112,7 +192,9 @@
     gap: 0.75rem;
     margin-top: -20px;
     width: 100%;     /* ensure full-width container */
-    min-width: 0;    /* allow children to shrink instead of overflow */
+    min-width: 0;
+
+
   }
 
   .abstract {

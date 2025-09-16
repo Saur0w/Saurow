@@ -1,4 +1,4 @@
-// Ensure this route runs on the Node.js runtime (required for Nodemailer)
+
 export const runtime = 'nodejs';
 
 import type { NextRequest } from 'next/server';
@@ -16,8 +16,6 @@ interface ContactFormData {
 export async function POST(req: NextRequest) {
     try {
         const { name, email, message, service }: ContactFormData = await req.json();
-
-        // Validate required fields
         if (!name || !email || !message) {
             return NextResponse.json(
                 { success: false, error: 'Missing required fields' },
@@ -28,7 +26,6 @@ export async function POST(req: NextRequest) {
         const user = process.env.EMAIL_USER;
         const pass = process.env.EMAIL_PASS;
 
-        // Validate environment variables
         if (!user || !pass) {
             console.error('Missing email configuration');
             return NextResponse.json(
