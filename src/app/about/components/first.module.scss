@@ -1,64 +1,158 @@
 .about {
-  min-height: 100vh;
-  width: 100vw;
-  max-width: 100%;
+  /* layout + sizing */
+  min-height: 100svh;             /* safer on mobile toolbars */
+  width: 100%;                     /* avoids 100vw scrollbar creep */
   overflow-x: hidden;
   background-color: #c7c4c4;
+
   display: flex;
   flex-direction: row;
-  gap: 10rem;
-  padding-top: 150px;
-  padding-left: 100px;
-  align-items: flex-start;
+  align-items: center;             /* top-left feel comes from sizes, not offsets */
+  justify-content: space-between;
+  gap: clamp(2rem, 6vw, 10rem);
+
+  /* breathable, no weird negatives */
+  padding: clamp(80px, 12vh, 150px) clamp(16px, 6vw, 100px);
+
   box-sizing: border-box;
 
   .left {
+    flex: 1 1 520px;
+    min-width: 0;                 /* allow wrapping instead of overflow */
+
     h1 {
-      font-size: 10rem;
+      font-size: clamp(3rem, 12vw, 10rem);
       font-weight: 600;
       color: #151515;
       font-family: "Poppins", sans-serif;
-      margin: 0;
+      line-height: 0.9;
+      margin: 0 0 clamp(1rem, 2vh, 1.5rem);
       user-select: none;
+      letter-spacing: -0.02em;
     }
 
     p {
-      font-size: 1.5rem;
+      font-size: clamp(1rem, 1.2vw, 1.5rem);
       font-weight: 400;
       color: #151515;
       font-family: "Poppins", sans-serif;
-      line-height: 1.5;
+      line-height: clamp(1.5, 1.6, 1.7);
+      max-width: 60ch;
+      margin: 0;
+      text-wrap: pretty;
+      overflow-wrap: break-word;
+      hyphens: auto;
     }
   }
 
   .right {
-    margin-top: -50px;
-    flex: 1;
+    margin-top: 100px;
+    flex: 0 0 auto;
+    align-self: center;
 
     img {
-      height: 600px;
-      width: 600px;
+      width: clamp(280px, 35vw, 600px) !important;
+      height: auto !important;
+      object-fit: cover;
+      object-position: center;
+      display: block;
     }
   }
 }
 
+/* Large-to-medium desktops: tighten spacing a bit */
+@media (max-width: 1200px) {
+  .about {
+    gap: clamp(1.5rem, 4vw, 6rem);
+    padding: clamp(72px, 10vh, 120px) clamp(16px, 5vw, 64px);
+
+    .right img {
+      width: clamp(260px, 42vw, 520px) !important;
+    }
+  }
+}
+
+/* Tablets */
+@media (max-width: 992px) {
+  .about {
+    gap: 2.5rem;
+
+    .left p {
+      max-width: 65ch;
+      line-height: 1.6;
+    }
+
+    .right img {
+      width: clamp(240px, 48vw, 460px) !important;
+    }
+  }
+}
+
+/* Stack nicely on mobile; still one-screen fit */
 @media (max-width: 768px) {
   .about {
     flex-direction: column;
-    padding-top: 100px;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    padding: 200px 1.5rem clamp(72px, 12vh, 110px);
 
     .left {
+      text-align: center;
+
       h1 {
-        font-size: 3.5rem;
-        text-align: center;
+        font-size: clamp(2.5rem, 12vw, 3.5rem);
+        margin-bottom: 0.75rem;
+      }
+
+      p {
+        font-size: clamp(0.95rem, 2.8vw, 1.1rem);
+        line-height: 1.6;
+        margin-inline: auto;
+        margin-top: 50px;
       }
     }
 
     .right {
       width: 100%;
+      margin-top: -100px;
+      img {
+        width: min(100%, 520px) !important;
+        margin-inline: auto;
+      }
     }
+  }
+}
+
+/* Compact phones (e.g., ~360×740) */
+@media (max-width: 400px) {
+  .about {
+    gap: 1.25rem;
+    padding: clamp(64px, 12vh, 96px) 1rem;
+
+    .left h1 {
+      font-size: clamp(2.25rem, 11vw, 3rem);
+    }
+
+    .left p {
+      font-size: 0.95rem;
+      line-height: 1.55;
+      max-width: 58ch;
+    }
+
+    .right img {
+      width: min(100%, 420px) !important;
+    }
+  }
+}
+
+/* Short viewports (status bars/toolbars reduce space) */
+@media (max-height: 700px) and (max-width: 992px) {
+  .about {
+    padding-block: clamp(56px, 10vh, 80px);
+    gap: 1.25rem;
+
+    .left h1 { font-size: clamp(2rem, 10vw, 3rem); }
+    .right img { width: clamp(200px, 45vw, 360px) !important; }
   }
 }
