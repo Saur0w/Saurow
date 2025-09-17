@@ -15,6 +15,19 @@
   padding: 1rem 0;
   color: #151515;
 
+  // Large desktop and ultra-wide responsiveness
+  @media (min-width: 1200px) {
+    padding: 1.5rem 0;
+  }
+
+  @media (min-width: 1600px) {
+    padding: 2rem 0;
+  }
+
+  @media (min-width: 1920px) {
+    padding: 2.5rem 0;
+  }
+
   @media (max-width: 768px) {
     z-index: 10;
     padding: 1.2rem 0;
@@ -27,7 +40,29 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  max-width: 1400px;
+
+  // Responsive max-widths for different screen sizes
+  max-width: min(1400px, 90vw);
+
+  @media (min-width: 1200px) {
+    max-width: min(1600px, 92vw);
+    padding: 0 3rem;
+  }
+
+  @media (min-width: 1600px) {
+    max-width: min(1800px, 94vw);
+    padding: 0 4rem;
+  }
+
+  @media (min-width: 1920px) {
+    max-width: min(2000px, 95vw);
+    padding: 0 5rem;
+  }
+
+  @media (min-width: 2560px) {
+    max-width: min(2400px, 96vw);
+    padding: 0 6rem;
+  }
 }
 
 .brand {
@@ -44,11 +79,24 @@
     margin: 0;
 
     .headText {
-      font-size: 2rem;
+      // Fluid typography for better scaling
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
       font-weight: 400;
-      color: #151515; // default logo text color
+      color: #151515;
       transition: color 0.3s;
       font-family: 'Poppins', sans-serif;
+
+      @media (min-width: 1200px) {
+        font-size: clamp(2rem, 3vw, 3rem);
+      }
+
+      @media (min-width: 1600px) {
+        font-size: clamp(2.2rem, 2.5vw, 3.5rem);
+      }
+
+      @media (min-width: 1920px) {
+        font-size: clamp(2.5rem, 2vw, 4rem);
+      }
     }
 
     @media (max-width: 768px) {
@@ -64,11 +112,24 @@
   align-items: center;
   gap: 3rem;
 
+  // Enhanced spacing for large screens
+  @media (min-width: 1200px) {
+    gap: 4rem;
+  }
+
+  @media (min-width: 1600px) {
+    gap: 5rem;
+  }
+
+  @media (min-width: 1920px) {
+    gap: 6rem;
+  }
+
   @media (max-width: 768px) {
     display: none;
   }
 
-  .el{
+  .el {
     display: flex;
     flex-direction: column;
     position: relative;
@@ -76,13 +137,23 @@
     padding: 15px;
     cursor: pointer;
 
-    &:hover{
-      .indicator{
+    // Enhanced padding for larger screens
+    @media (min-width: 1200px) {
+      padding: 20px;
+    }
+
+    @media (min-width: 1600px) {
+      padding: 25px;
+    }
+
+    &:hover {
+      .indicator {
         transform: scale(1);
         background-color: #151515;
       }
     }
-    .indicator{
+
+    .indicator {
       position: absolute;
       width: 5px;
       height: 5px;
@@ -92,24 +163,55 @@
       border-radius: 50%;
       transform: scale(0) translateX(-50%);
       transition: transform 0.2s cubic-bezier(0.76, 0, 0.24, 1);
+
+      // Responsive indicator positioning
+      @media (min-width: 1200px) {
+        top: 50px;
+        width: 6px;
+        height: 6px;
+      }
+
+      @media (min-width: 1600px) {
+        top: 55px;
+        width: 7px;
+        height: 7px;
+      }
     }
   }
-  a{
+
+  a {
     cursor: pointer;
     text-decoration: none;
   }
 }
 
 .navItem {
-  color: #151515; // default desktop nav color
+  color: #151515;
   font-weight: 500;
   text-decoration: none;
-  font-size: 1rem;
+  // Fluid font size for navigation
+  font-size: clamp(0.9rem, 1.2vw, 1.3rem);
   font-family: 'Poppins', sans-serif;
   padding: 0.75rem 1rem;
   border-radius: 8px;
   transition: all 0.3s ease;
   position: relative;
+
+  // Enhanced padding for larger screens
+  @media (min-width: 1200px) {
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+  }
+
+  @media (min-width: 1600px) {
+    padding: 1.2rem 2rem;
+    border-radius: 12px;
+  }
+
+  @media (min-width: 1920px) {
+    padding: 1.5rem 2.5rem;
+    border-radius: 15px;
+  }
 }
 
 .activeNavItem {
@@ -139,7 +241,7 @@
   }
 }
 
-/* Only the .darkHeader (work/contact) switches logo and desktop nav colors to white */
+/* Enhanced dark header styling with better scaling */
 .darkHeader {
   .brand .headText {
     color: #fff !important;
@@ -158,7 +260,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: #f7f7f7; // stays light, so all menu nav items stay black
+  background: #f7f7f7;
   z-index: 1000;
   display: flex;
   flex-direction: column;
@@ -213,7 +315,7 @@
 }
 
 .menuLink {
-  color: #151515; // always black in mobile menu, never switched
+  color: #151515;
   font-size: clamp(2.5rem, 8vw, 4rem);
   font-weight: 400;
   letter-spacing: -0.02em;
@@ -247,6 +349,29 @@
   color: #fff !important;
 }
 
+// Additional breakpoints for ultra-wide displays
+@media (min-width: 2560px) {
+  .desktopNav {
+    gap: 8rem;
+  }
+
+  .navItem {
+    font-size: clamp(1.2rem, 1vw, 1.6rem);
+    padding: 2rem 3rem;
+    border-radius: 18px;
+  }
+}
+
+@media (min-width: 3440px) {
+  .desktopNav {
+    gap: 10rem;
+  }
+
+  .container {
+    max-width: min(2800px, 97vw);
+    padding: 0 8rem;
+  }
+}
 
 @media (max-width: 480px) {
   .container {

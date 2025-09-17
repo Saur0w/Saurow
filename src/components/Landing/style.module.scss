@@ -4,91 +4,93 @@
   position: relative;
   display: flex;
   flex-direction: row;
-  gap: 10rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5rem;
   height: 100vh;
   width: 100vw;
   max-width: 100%;
   overflow: hidden;
   background-color: #f7f7f7;
   color: #231f20;
-  padding: 300px 2rem 2rem 150px;
   box-sizing: border-box;
+  padding: 250px 8rem 0;
 
-  @media (min-width: 1500px) {
-    gap: 20rem;
-  }
-
-  @media (min-width: 1650px) {
-    gap: 30rem;
+  @media (min-width: 1400px) {
+    gap: 6rem;
+    padding: 0 10rem;
   }
 
-  @media (min-width: 1800px) {
-    gap: 35rem;
+  @media (min-width: 1600px) {
+    gap: 8rem;
+    padding: 0 12rem;
   }
 
-  @media (min-width: 1900px) {
-    gap: 40rem;
+  @media (max-width: 1200px) {
+    gap: 3rem;
+    padding: 0 4rem;
   }
 
-  @media (min-height: 1080px) {
-    padding-top: 400px;
+  @media (max-width: 1000px) {
+    gap: 2rem;
+    padding: 0 2rem;
   }
-  @media (max-width: 580px) {
-    align-items: center;
-    justify-content: flex-start;
-  }
-  p {
-    font-size: 1rem;
-    font-family: "Poppins", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    line-height: 1.5;
-    align-items: flex-start;
-  }
+
 
   .text {
-    margin-top: -100px;
-    padding-top: 100px;
-    margin-left: -100px;
-    margin-right: -100px;
-    padding-left: 60px;
+    flex: 1;
     display: flex;
     flex-direction: column;
-
-    @media (max-width: 1350px) {
-      padding-right: 0;
-    }
-
-    @media (min-height: 1080px) {
-      margin-top: 50px;
-    }
+    justify-content: center;
+    max-width: 600px;
 
     @media (max-width: 500px) {
-      font-size: 0.9rem;
+      margin-top: -50px;
     }
 
     .textContainer {
-      width: 70ch;
-      max-width: 100%;
-      margin-inline: 0;
+      width: 100%;
+      margin-bottom: 2rem;
 
-       p {
-        font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
+
+      p {
+        font-family: "Poppins", sans-serif;
         font-weight: 400;
-        font-size: 0.9rem;
+        font-size: 1rem;
         line-height: 1.8;
-        letter-spacing: 1px;
+        letter-spacing: 0.5px;
         color: #231f20;
         margin: 0;
-        text-wrap: pretty;
-        overflow-wrap: anywhere;
-        hyphens: auto;
+        overflow-wrap: break-word;
+
+        @media (max-width: 1200px) {
+          font-size: 0.9rem;
+          line-height: 1.7;
+        }
+
+        @media (max-width: 900px) {
+          font-size: 1rem;
+          line-height: 1.6;
+          text-align: center;
+        }
+
+        @media (max-width: 500px) {
+          font-size: 0.8rem;
+          letter-spacing: 0;
+          line-height: 1.5;
+        }
       }
     }
 
     .getInTouchContainer {
-      margin-top: 50px;
-      width: 250px;
+      display: flex;
+      width: fit-content;
+      font-family: "Poppins", sans-serif;
+
+      @media (max-width: 900px) {
+        align-self: center;
+      }
+
       a {
         text-decoration: none;
         color: #151515;
@@ -97,134 +99,191 @@
   }
 
   .second {
-    margin-top: -150px;
-    padding-top: 150px;
+    flex: 1;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    max-width: 600px;
+    margin-top: -100px;
+    margin-right: -100px;
+    @media (max-width: 900px) {
+      margin: -250px 0 0;
+    }
 
-    @media (min-height: 1080px) {
-      margin-top: -50px;
+    @media (max-width: 1200px) {
+      margin: 0 -50px 0 0;
     }
 
     .imageContainer {
-      margin-top: -100px;
       display: flex;
-      flex-direction: row;
       gap: 1rem;
+      margin-bottom: 2rem;
 
-      @media (max-width: 580px) {
-        margin-top: 100px;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
       .abstract {
-        width: 350px;
-        height: 350px;
+        width: 300px !important;
+        height: 300px !important;
+        object-fit: cover;
         will-change: transform;
+
+        @media (max-width: 1200px) {
+          width: 250px !important;
+          height: 250px !important;
+        }
+
+        @media (max-width: 1000px) {
+          width: 220px !important;
+          height: 220px !important;
+        }
+
+        @media (max-width: 900px) {
+          width: 280px !important;
+          height: 280px !important;
+        }
+
+        @media (max-width: 600px) {
+          width: 240px !important;
+          height: 240px !important;
+        }
+
+        @media (max-width: 480px) {
+          width: 200px !important;
+          height: 200px !important;
+        }
       }
+
       .imageContainerRight {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+
         img {
-          width: 170px;
-          height: 160px;
+          width: 145px !important;
+          height: 140px !important;
+          object-fit: cover;
+
+          @media (max-width: 1200px) {
+            width: 120px !important;
+            height: 115px !important;
+          }
+
+          @media (max-width: 1000px) {
+            width: 105px !important;
+            height: 100px !important;
+          }
+
+          @media (max-width: 900px) {
+            width: 135px !important;
+            height: 130px !important;
+          }
+
+          @media (max-width: 600px) {
+            width: 115px !important;
+            height: 110px !important;
+          }
+
+          @media (max-width: 480px) {
+            width: 95px !important;
+            height: 90px !important;
+          }
         }
 
-        @media (max-width: 580px) {
+        @media (max-width: 600px) {
           flex-direction: row;
-          align-items: center;
-          justify-content: center;
+          gap: 0.5rem;
         }
+      }
+
+
+      @media (max-width: 600px) {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
       }
     }
 
     .imageText {
+      width: 100%;
+      text-align: center;
+
       h1 {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         font-weight: 550;
         font-family: "Poppins", sans-serif;
-        margin-left: 15px;
-        margin-top: 10px;
         color: black;
+        line-height: 1.4;
+        margin: 0;
+
+        @media (max-width: 1200px) {
+          font-size: 1.2rem;
+        }
+
+        @media (max-width: 900px) {
+          font-size: 1.1rem;
+        }
+
+        @media (max-width: 600px) {
+          font-size: 1rem;
+        }
+
+        @media (max-width: 480px) {
+          font-size: 0.9rem;
+          line-height: 1.3;
+        }
       }
     }
   }
-
 }
 
 @media (max-width: 900px) {
   .landing {
     flex-direction: column;
-    gap: 1.5rem;
-    padding: 150px 1.5rem 1.5rem;
-    width: 100%;
-    min-height: 100px;
-    overflow-x: clip; /* prevent horizontal scroll from transforms/gaps */
-  }
-
-  /* Universal safe-guard for images on small screens */
-  .landing img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  .text p {
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-
-  .getInTouchContainer {
-    width: 200px;
-    margin-top: 1.25rem;
-  }
-
-  .second {
-    gap: 1rem;
-
-  }
-
-  .imageContainer {
-    flex-direction: column;
-    gap: 0.75rem;
-    margin-top: -20px;
-    width: 100%;     /* ensure full-width container */
-    min-width: 0;
-
-
-  }
-
-  .abstract {
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-    object-fit: cover;
-    display: block;
-  }
-
-  .imageContainerRight {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.5rem;
-    width: 100%;
-    min-width: 0;
-  }
-
-  .imageContainerRight img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 17 / 16;
-    object-fit: cover;
-    display: block;
-  }
-
-  .imageText h1 {
-    font-size: 1.25rem;
-    margin-left: 0;
-    margin-top: 0.5rem;
+    justify-content: center;
+    gap: 3rem;
+    padding: 2rem 1.5rem;
+    height: 100vh;
   }
 }
 
+@media (max-width: 600px) {
+  .landing {
+    gap: 2rem;
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .landing {
+    gap: 1.5rem;
+    padding: 1rem 0.75rem;
+  }
+}
+
+@media (max-height: 600px) {
+  .landing {
+    .text .textContainer p {
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .second {
+      .imageContainer {
+        margin-bottom: 1rem;
+
+        .abstract {
+          width: 180px !important;
+          height: 180px !important;
+        }
+
+        .imageContainerRight img {
+          width: 85px !important;
+          height: 80px !important;
+        }
+      }
+
+      .imageText h1 {
+        font-size: 0.9rem;
+      }
+    }
+  }
+}
