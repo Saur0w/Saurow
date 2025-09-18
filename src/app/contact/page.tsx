@@ -67,7 +67,7 @@ export default function Contact(): JSX.Element {
     return (
         <div className={styles.contactContainer}>
             <h1 className={styles.heading}>
-                Get in Touch
+                Work with me
             </h1>
 
             <div className={styles.contactContent}>
