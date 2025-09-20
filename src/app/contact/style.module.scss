@@ -46,7 +46,6 @@ $transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     margin-inline: auto;
     display: grid;
     gap: clamp($space-lg, 3vw, $space-2xl);
-    // Two columns on wider screens, single column on small
     grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
 
     @media (max-width: 900px) {
@@ -55,7 +54,6 @@ $transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
-// Form
 .formContainer {
   .contactForm {
     display: flex;
@@ -87,7 +85,6 @@ $transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         font-weight: 300;
         transition: border-color $transition-smooth, box-shadow $transition-smooth;
 
-        // Accessible focus indicator (keyboard-friendly)
         &:focus-visible {
           outline: none;
           border-bottom-color: $accent;
@@ -107,7 +104,7 @@ $transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
       .inputLine {
-        display: none; // decorative divider not needed with focus-visible line
+        display: none;
       }
     }
 
@@ -174,102 +171,6 @@ $transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
-// Right column (details / optional)
-.contactDetails {
-  align-self: start;
-
-  h5 {
-    font-size: 1.25rem;
-    font-weight: 400;
-    margin-bottom: clamp($space-md, 2vw, $space-xl);
-    color: $text-primary;
-  }
-
-  .detailItem {
-    display: flex;
-    align-items: flex-start;
-    gap: $space-md;
-    margin-bottom: $space-lg;
-
-    .detailIcon {
-      width: 32px;
-      height: 32px;
-      display: grid;
-      place-items: center;
-      background: rgba(255, 107, 53, 0.1);
-      border-radius: 50%;
-      color: $accent;
-      flex-shrink: 0;
-
-      svg { width: 16px; height: 16px; }
-    }
-
-    div:last-child {
-      .detailLabel {
-        font-size: 0.8rem;
-        font-weight: 500;
-        color: $text-secondary;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-bottom: $space-xs;
-      }
-
-      p {
-        margin: 0;
-        font-size: 0.95rem;
-        font-weight: 300;
-        color: $text-primary;
-      }
-    }
-  }
-
-  .socialLinks {
-    margin-top: $space-2xl;
-    padding-top: $space-lg;
-    border-top: 1px solid $border;
-
-    h6 {
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: $text-secondary;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: $space-md;
-    }
-
-    .socialIcons {
-      display: flex;
-      gap: $space-sm;
-
-      .socialIcon {
-        width: 36px;
-        height: 36px;
-        display: grid;
-        place-items: center;
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        color: $text-secondary;
-        transition: transform $transition-smooth, background $transition-smooth, border-color $transition-smooth;
-
-        &:hover {
-          background: rgba(255, 107, 53, 0.1);
-          border-color: rgba(255, 107, 53, 0.2);
-          color: $accent;
-          transform: translateY(-2px);
-        }
-
-        &:focus-visible {
-          outline: 2px solid $accent;
-          outline-offset: 2px;
-        }
-
-        svg { width: 16px; height: 16px; }
-      }
-    }
-  }
-}
-
-// Responsive refinements
 @media (max-width: 900px) {
   .contactContainer {
     .heading { text-align: center; }
@@ -295,10 +196,9 @@ $transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   .contactDetails .detailItem { gap: $space-sm; }
 }
 
-// Respect reduced motion users
 @media (prefers-reduced-motion: reduce) {
   .formContainer .contactForm .submitButton,
-  .contactDetails .socialIcons .socialIcon {
+   {
     transition: none;
     transform: none;
   }
