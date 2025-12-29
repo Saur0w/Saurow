@@ -7,6 +7,7 @@ const projects = [
     { title: 'MOSS', subtitle: 'Design & Development' },
     { title: 'JPA (Joshi Payal & Associates)', subtitle: 'Design & Development' },
     { title: 'Orange Circle', subtitle: 'Design & Development'},
+    { title: 'SnS', subtitle: 'Design & Development' },
     { title: 'LogoDeck', subtitle: 'UI & Animation' },
     { title: 'FinSaver', subtitle: 'Product & Front-End' }
 ];
