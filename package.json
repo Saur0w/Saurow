@@ -10,17 +10,13 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
-    "@react-three/drei": "^9.115.0",
-    "@react-three/fiber": "^8.17.10",
-    "@types/three": "^0.180.0",
     "gsap": "^3.13.0",
     "next": "15.5.3",
     "next-view-transitions": "^0.3.4",
     "nodemailer": "^7.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "sass": "^1.92.1",
-    "three": "^0.180.0"
+    "sass": "^1.92.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
