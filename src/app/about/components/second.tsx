@@ -15,12 +15,11 @@ export default function Second() {
     const leadRef = useRef<HTMLParagraphElement>(null);
 
     useGSAP(() => {
-        // 1) Heading: words + chars, slower stagger for a premium feel
         const titleSplit = SplitText.create(titleRef.current!, {
             type: "words,chars",
             wordsClass: "word++",
             charsClass: "char++"
-        }); // [1]
+        });
 
         gsap.from(titleSplit.chars, {
             yPercent: 110,
@@ -33,9 +32,7 @@ export default function Second() {
                 start: "top 78%",
                 once: true
             }
-        }); // [2][1]
-
-        // 2) Paragraph: masked line reveal (true “under-the-mask” effect)
+        });
         const leadSplit = SplitText.create(leadRef.current!, {
             type: "lines",
             linesClass: "line++",

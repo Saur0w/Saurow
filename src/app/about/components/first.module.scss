@@ -1,158 +1,120 @@
 .about {
-  /* layout + sizing */
-  min-height: 100svh;             /* safer on mobile toolbars */
-  width: 100%;                     /* avoids 100vw scrollbar creep */
+  min-height: 100vh;
+  width: 100%;
   overflow-x: hidden;
   background-color: #c7c4c4;
-
+  color: #151515;
   display: flex;
-  flex-direction: row;
-  align-items: center;             /* top-left feel comes from sizes, not offsets */
+  align-items: center;
   justify-content: space-between;
-  gap: clamp(2rem, 6vw, 10rem);
-
-  /* breathable, no weird negatives */
-  padding: clamp(80px, 12vh, 150px) clamp(16px, 6vw, 100px);
-
+  padding: clamp(80px, 10vh, 120px) clamp(24px, 6vw, 120px);
+  gap: clamp(3rem, 5vw, 6rem);
   box-sizing: border-box;
 
   .left {
-    flex: 1 1 520px;
-    min-width: 0;                 /* allow wrapping instead of overflow */
+    flex: 1;
+    max-width: 800px;
+    z-index: 2;
 
     h1 {
-      font-size: clamp(3rem, 12vw, 10rem);
-      font-weight: 600;
-      color: #151515;
       font-family: "Poppins", sans-serif;
-      line-height: 0.9;
-      margin: 0 0 clamp(1rem, 2vh, 1.5rem);
-      user-select: none;
-      letter-spacing: -0.02em;
+      font-size: clamp(3rem, 8vw, 9rem);
+      font-weight: 600;
+      line-height: 1;
+      margin: 0 0 1.5rem 0;
+      letter-spacing: -0.03em;
     }
 
     p {
-      font-size: clamp(1rem, 1.2vw, 1.5rem);
-      font-weight: 400;
-      color: #151515;
       font-family: "Poppins", sans-serif;
-      line-height: clamp(1.5, 1.6, 1.7);
-      max-width: 60ch;
+      font-size: clamp(1rem, 1.2vw, 1.35rem);
+      font-weight: 400;
+      line-height: 1.6;
       margin: 0;
+      color: #151515;
       text-wrap: pretty;
-      overflow-wrap: break-word;
-      hyphens: auto;
+      max-width: 90%;
     }
   }
 
   .right {
-    margin-top: 100px;
-    flex: 0 0 auto;
-    align-self: center;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
 
     img {
-      width: clamp(280px, 35vw, 600px) !important;
-      height: auto !important;
+      width: 100%;
+      max-width: 600px;
+      height: auto;
       object-fit: cover;
-      object-position: center;
       display: block;
     }
   }
 }
-
-/* Large-to-medium desktops: tighten spacing a bit */
-@media (max-width: 1200px) {
+@media (max-width: 1024px) {
   .about {
-    gap: clamp(1.5rem, 4vw, 6rem);
-    padding: clamp(72px, 10vh, 120px) clamp(16px, 5vw, 64px);
+    gap: 3rem;
+    padding: 80px 2rem;
 
-    .right img {
-      width: clamp(260px, 42vw, 520px) !important;
+    .right {
+      margin-top: 0;
     }
   }
 }
 
-/* Tablets */
-@media (max-width: 992px) {
-  .about {
-    gap: 2.5rem;
-
-    .left p {
-      max-width: 65ch;
-      line-height: 1.6;
-    }
-
-    .right img {
-      width: clamp(240px, 48vw, 460px) !important;
-    }
-  }
-}
-
-/* Stack nicely on mobile; still one-screen fit */
 @media (max-width: 768px) {
   .about {
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    gap: 0;
-    padding: 200px 1.5rem clamp(72px, 12vh, 110px);
+    text-align: center;
+    padding: 120px 1.5rem 80px;
+    gap: 3rem;
+    height: auto;
 
     .left {
-      text-align: center;
+      width: 100%;
+      max-width: 100%;
 
       h1 {
-        font-size: clamp(2.5rem, 12vw, 3.5rem);
-        margin-bottom: 0.75rem;
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
       }
 
       p {
-        font-size: clamp(0.95rem, 2.8vw, 1.1rem);
-        line-height: 1.6;
-        margin-inline: auto;
-        margin-top: 50px;
+        font-size: 1rem;
+        line-height: 1.7;
+        max-width: 100%;
       }
     }
 
     .right {
       width: 100%;
-      margin-top: -100px;
+      margin-top: 0;
+
       img {
-        width: min(100%, 520px) !important;
-        margin-inline: auto;
+        max-width: 100%;
+        aspect-ratio: 1;
       }
     }
   }
 }
 
-/* Compact phones (e.g., ~360×740) */
-@media (max-width: 400px) {
+@media (max-width: 480px) {
   .about {
-    gap: 1.25rem;
-    padding: clamp(64px, 12vh, 96px) 1rem;
+    padding: 100px 1.25rem 60px;
+    gap: 2.5rem;
 
     .left h1 {
-      font-size: clamp(2.25rem, 11vw, 3rem);
-    }
-
-    .left p {
-      font-size: 0.95rem;
-      line-height: 1.55;
-      max-width: 58ch;
-    }
-
-    .right img {
-      width: min(100%, 420px) !important;
+      font-size: 2.8rem;
     }
   }
 }
 
-/* Short viewports (status bars/toolbars reduce space) */
-@media (max-height: 700px) and (max-width: 992px) {
-  .about {
-    padding-block: clamp(56px, 10vh, 80px);
-    gap: 1.25rem;
 
-    .left h1 { font-size: clamp(2rem, 10vw, 3rem); }
-    .right img { width: clamp(200px, 45vw, 360px) !important; }
+.desktopBreak {
+  @media (max-width: 900px) {
+    display: none;
   }
 }

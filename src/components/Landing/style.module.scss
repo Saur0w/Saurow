@@ -20,7 +20,7 @@
   @media (max-width: 900px) {
     flex-direction: column;
     justify-content: center;
-    padding: 6rem 2rem;
+    padding: 150px 2rem 6rem;
     height: auto;
   }
 }
@@ -54,6 +54,7 @@
 
   .ctaContainer {
     width: fit-content;
+    font-family: "Poppins", sans-serif;
 
     a {
       text-decoration: none;
