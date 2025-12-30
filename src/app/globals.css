@@ -1,14 +1,32 @@
-* {
-    margin: 0px;
-    padding: 0px;
+:root {
+    --font-display: 'Clash Display', sans-serif;
+    --font-body: 'General Sans', sans-serif;
+    --font-tech: 'Space Mono', monospace;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display), sans-serif;
 }
 
 body {
+    font-family: var(--font-body), sans-serif;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
     background-color: #151515;
 }
+
+code, pre {
+    font-family: var(--font-tech), sans-serif;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
 
 ::selection {
     background: #c0ff0d;
@@ -23,39 +41,44 @@ body {
     display: inline-block;
 }
 
-@keyframes slide-out-left {
-    from {
-        transform: translateX(0%);
+
+@keyframes slide-out-to-left {
+    0% {
+        transform: translateX(0);
         opacity: 1;
-        filter: blur(0px);
+        filter: brightness(1);
     }
-    to {
-        transform: translateX(-100%);
-        opacity: 0.85;
-        filter: blur(2px);
+    100% {
+        transform: translateX(-30%);
+        opacity: 0.5;
+        filter: brightness(0.7);
     }
 }
 
-@keyframes slide-in-right {
-    from {
+@keyframes slide-in-from-right {
+    0% {
         transform: translateX(100%);
-        opacity: 0.85;
-        filter: blur(2px);
+        box-shadow: -20px 0 50px rgba(0, 0, 0, 0.5);
+        z-index: 2;
     }
-    to {
-        transform: translateX(0%);
-        opacity: 1;
-        filter: blur(0px);
+    100% {
+        transform: translateX(0);
+        box-shadow: none;
+        z-index: 2;
     }
 }
 
 ::view-transition-old(root) {
-    animation: 1s cubic-bezier(0.4, 0.0, 0.2, 1) both slide-out-left;
+    animation: 0.8s cubic-bezier(0.6, 0.05, 0.01, 0.9) both slide-out-to-left;
+    z-index: 1;
 }
 
 ::view-transition-new(root) {
-    animation: 0.6s cubic-bezier(0.4, 0.0, 0.2, 1) 0.1s both slide-in-right;
+    animation: 0.8s cubic-bezier(0.6, 0.05, 0.01, 0.9) both slide-in-from-right;
+    z-index: 2;
 }
+
+
 
 
 

@@ -1,33 +1,83 @@
+// Variables for easy changes
+$font-display: 'Clash Display', sans-serif; // The "Cool" font
+$font-tech: 'Space Mono', monospace;        // The "Code" font
+
 .preloader {
+  position: fixed;
   top: 0;
   left: 0;
-  position: fixed;
+  width: 100%;
   height: 100vh;
-  width: 100vw;
-  max-width: 100%;
-  overflow: hidden;
+  background-color: #0F0F0F; // Deep, rich black instead of plain #151515
   z-index: 9999;
-  background-color: #c0ff0d;
   display: flex;
   align-items: center;
   justify-content: center;
-  h1 {
-    color: #151515;
+  overflow: hidden;
+  color: #E0E0E0; // Off-white looks more premium than pure white
+
+  // Ensure smooth exit
+  will-change: transform;
+
+  .content {
+    position: relative;
     display: flex;
-    gap: 4px;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    font-size: 100px;
-    font-family: "Orbitron", sans-serif;
+    width: 100%;
+    height: 100%;
+  }
+
+  .title {
+    font-family: $font-display;
+    font-size: clamp(3.5rem, 12vw, 9rem); // Slightly larger
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    text-transform: uppercase; // Brutalist trend often uses all caps
+    letter-spacing: -0.03em;   // Tighter tracking looks more "designed"
+    margin: 0;
+    line-height: 0.9;          // Tight line-height for impact
+    overflow: hidden;
 
+    // Optional: Add a subtle texture or blend mode if you want to get crazy
+    // mix-blend-mode: difference;
 
-    @media (max-width: 768px) {
-      font-size: 60px;
+    span {
+      display: inline-block;
+      will-change: transform, opacity;
+    }
+  }
+
+  .counter {
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+
+    font-family: $font-tech; // Monospace for numbers is crucial
+    font-size: clamp(14px, 1.5vw, 20px); // Keep it small and elegant
+    font-weight: 400;
+    letter-spacing: -0.05em;
+    color: #888; // Dimmed color for secondary info
+
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    // Optional: Add a "LOADING" label next to the number
+    &::before {
+      content: "LOADING_DATA";
+      font-size: 10px;
+      opacity: 0.5;
+      margin-right: 10px;
+
+      @media (max-width: 600px) {
+        display: none; // Hide label on mobile
+      }
     }
 
-    @media (max-width: 480px) {
-      font-size: 40px;
+    @media (max-width: 768px) {
+      bottom: 20px;
+      right: 20px;
     }
   }
 }
