@@ -42,41 +42,7 @@ code, pre {
 }
 
 
-@keyframes slide-out-to-left {
-    0% {
-        transform: translateX(0);
-        opacity: 1;
-        filter: brightness(1);
-    }
-    100% {
-        transform: translateX(-30%);
-        opacity: 0.5;
-        filter: brightness(0.7);
-    }
-}
 
-@keyframes slide-in-from-right {
-    0% {
-        transform: translateX(100%);
-        box-shadow: -20px 0 50px rgba(0, 0, 0, 0.5);
-        z-index: 2;
-    }
-    100% {
-        transform: translateX(0);
-        box-shadow: none;
-        z-index: 2;
-    }
-}
-
-::view-transition-old(root) {
-    animation: 0.8s cubic-bezier(0.6, 0.05, 0.01, 0.9) both slide-out-to-left;
-    z-index: 1;
-}
-
-::view-transition-new(root) {
-    animation: 0.8s cubic-bezier(0.6, 0.05, 0.01, 0.9) both slide-in-from-right;
-    z-index: 2;
-}
 
 
 

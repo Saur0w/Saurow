@@ -1,183 +1,141 @@
 "use client";
 
 import styles from "./style.module.scss";
-import { Link } from 'next-view-transitions';
-import { useRef, useState, useCallback, useEffect } from "react";
-import { gsap } from "gsap";
+import Link from "next/link";
+import gsap from "gsap";
+import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
-import Magnetic from '@/ui/Magnetic/index';
-import { usePathname } from "next/navigation";
+import React, { useRef } from "react";
+
+if (typeof window !== "undefined") {
+    gsap.registerPlugin(SplitText, useGSAP);
+}
+
+const NAV_ITEMS = [
+    { label: "Home", href: "/" },
+    { label: "Projects", href: "/project" },
+    { label: "About", href: "/about" },
+    { label: "Contact", href: "/contact" },
+];
 
 export default function Header() {
-    const container = useRef<HTMLDivElement>(null);
-    const tl = useRef<gsap.core.Timeline | null>(null);
-
-    const pathname = usePathname();
-    // isDarkPage determines color switch for desktop nav and logo only!
-    const isDarkPage = pathname === "/work" || pathname === "/contact";
-
-    const isActive = (href: string): boolean => pathname === href;
-
-    const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-
-    const closeMenu = useCallback((): void => {
-        setIsMenuOpen(false);
-        document.body.style.overflow = "auto";
-    }, []);
-
-    const handleNavClick = useCallback((): void => {
-        closeMenu();
-    }, [closeMenu]);
-
-    const toggleMobileMenu = useCallback((): void => {
-        setIsMenuOpen(!isMenuOpen);
-    }, [isMenuOpen]);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const pillRef = useRef<HTMLDivElement>(null);
+    const navRef = useRef<HTMLElement>(null);
+    const listRef = useRef<HTMLUListElement>(null);
 
     useGSAP(() => {
-        gsap.set(".menuLinkItemHolder", {
-            y: 75,
-            opacity: 0,
-        });
+        const container = containerRef.current;
+        const pill = pillRef.current;
+        const nav = navRef.current;
+        const list = listRef.current;
 
-        tl.current = gsap
-            .timeline({ paused: true })
-            .to(".menuOverlay", {
-                duration: 1.25,
-                clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-                ease: "power4.inOut",
-            })
-            .to(".menuLinkItemHolder", {
+        if (!container || !pill || !nav || !list) return;
+
+        const menuSplit = new SplitText(".menu-text", { type: "chars" });
+
+        const tl = gsap.timeline({ paused: true });
+
+        tl.to(container, {
+            width: "600px",
+            duration: 0.7,
+            ease: "power4.inOut",
+        }, 0);
+
+        tl.to(menuSplit.chars, {
+            y: -20,
+            opacity: 0,
+            stagger: 0.03,
+            duration: 0.4,
+            ease: "power2.inOut",
+        }, 0);
+
+        tl.to(nav, {
+            opacity: 1,
+            duration: 0.3,
+        }, 0.3);
+
+        tl.fromTo(
+            list.querySelectorAll("a"),
+            { y: 20, opacity: 0 },
+            {
                 y: 0,
                 opacity: 1,
-                duration: 1,
-                stagger: 0.1,
-                ease: "power4.inOut",
-                delay: -0.75,
-            });
-    }, { scope: container });
+                stagger: 0.02,
+                duration: 0.5,
+                ease: "power3.out",
+            },
+            0.35
+        );
 
-    useEffect(() => {
-        if (tl.current) {
-            if (isMenuOpen) {
-                tl.current.play();
-                document.body.style.overflow = "hidden";
-            } else {
-                tl.current.reverse();
-                document.body.style.overflow = "auto";
-            }
-        }
-        return () => {
-            document.body.style.overflow = "auto";
+        const onMouseEnterHeader = () => tl.play();
+        const onMouseLeaveHeader = () => tl.reverse();
+
+        const onMouseEnterItem = (e: MouseEvent) => {
+            const target = e.currentTarget as HTMLLIElement;
+            const { offsetLeft, offsetWidth } = target;
+            const link = target.querySelector("a");
+
+            gsap.to(pill, {
+                x: offsetLeft,
+                width: offsetWidth,
+                opacity: 1,
+                duration: 0.4,
+                ease: "power3.out",
+            });
+
+            if (link) gsap.to(link, { color: "#000000", duration: 0.3 });
+
+            const items = list.querySelectorAll("li");
+            items.forEach((li) => {
+                if (li !== target) {
+                    gsap.to(li.querySelector("a"), { color: "#ffffff", opacity: 0.6, duration: 0.3 });
+                }
+            });
         };
-    }, [isMenuOpen]);
+
+        const onMouseLeaveList = () => {
+            gsap.to(pill, { opacity: 0, duration: 0.3 });
+            gsap.to(list.querySelectorAll("a"), { color: "#ffffff", opacity: 1, duration: 0.3 });
+        };
+
+        container.addEventListener("mouseenter", onMouseEnterHeader);
+        container.addEventListener("mouseleave", onMouseLeaveHeader);
+        list.addEventListener("mouseleave", onMouseLeaveList);
+
+        const navItems = list.querySelectorAll("li");
+        navItems.forEach((item) => {
+            item.addEventListener("mouseenter", onMouseEnterItem as EventListener);
+        });
+
+        return () => {
+            menuSplit.revert();
+            container.removeEventListener("mouseenter", onMouseEnterHeader);
+            container.removeEventListener("mouseleave", onMouseLeaveHeader);
+            list.removeEventListener("mouseleave", onMouseLeaveList);
+            navItems.forEach((item) => {
+                item.removeEventListener("mouseenter", onMouseEnterItem as EventListener);
+            });
+        };
+    }, { scope: containerRef });
 
     return (
-        <div
-            className={`${styles.headerContainer} ${isDarkPage ? styles.darkHeader : ""}`}
-            ref={container}
-        >
-            <header className={styles.header}>
-                <div className={styles.container}>
-                    <Link href="/" className={styles.brand} onClick={handleNavClick}>
-                        <div className={styles.logoText}>
-                            <h1>
-                                <span className={styles.headText}>@Saurow</span>
-                            </h1>
-                        </div>
-                    </Link>
-
-                    <nav className={styles.desktopNav}>
-                        <Magnetic>
-                            <div className={styles.el}>
-                                <Link
-                                    href="/work"
-                                    className={`${styles.navItem} ${isActive("/work") ? styles.activeNavItem : ""}`}
-                                    onClick={handleNavClick}
-                                >
-                                    Work
-                                    <div className={styles.indicator}></div>
+        <header className={styles.header}>
+            <div className={styles.container} ref={containerRef}>
+                <p className="menu-text">Menu</p>
+                <nav ref={navRef} className={styles.nav}>
+                    <ul ref={listRef}>
+                        <div className={styles.pill} ref={pillRef} />
+                        {NAV_ITEMS.map((navLink) => (
+                            <li key={navLink.label}>
+                                <Link href={navLink.href} className="nav-link-text">
+                                    {navLink.label}
                                 </Link>
-                            </div>
-                        </Magnetic>
-
-                        <Magnetic>
-                            <div className={styles.el}>
-                                <Link
-                                    href="/about"
-                                    className={`${styles.navItem} ${isActive("/about") ? styles.activeNavItem : ""}`}
-                                    onClick={handleNavClick}
-                                >
-                                    About
-                                    <div className={styles.indicator}></div>
-                                </Link>
-                            </div>
-                        </Magnetic>
-
-                        <Magnetic>
-                            <div className={styles.el}>
-                                <Link
-                                    href="/contact"
-                                    className={`${styles.navItem} ${isActive("/contact") ? styles.activeNavItem : ""}`}
-                                    onClick={handleNavClick}
-                                >
-                                    Contact
-                                    <div className={styles.indicator}></div>
-                                </Link>
-                            </div>
-                        </Magnetic>
-                    </nav>
-
-                    <div
-                        className={`${styles.mobileMenuBtn} ${isDarkPage ? styles.mobileMenuBtnWhite : ""}`}
-                        onClick={toggleMobileMenu}
-                    >
-                        <span>Menu</span>
-                    </div>
-                </div>
-            </header>
-
-            <div className={`${styles.menuOverlay} menuOverlay`}>
-                <div className={styles.menuOverlayBar}>
-                    <div className={styles.menuClose} onClick={closeMenu}>
-                        <span>&#x2715;</span>
-                    </div>
-                </div>
-                <div className={styles.menuContent}>
-                    <div className={styles.menuLinks}>
-                        <div className={styles.menuLinkItem}>
-                            <div className="menuLinkItemHolder">
-                                <Link href="/" className={styles.menuLink} onClick={handleNavClick}>
-                                    Home
-                                </Link>
-                            </div>
-                        </div>
-                        <div className={styles.menuLinkItem}>
-                            <div className="menuLinkItemHolder">
-                                <Link href="/work" className={styles.menuLink} onClick={handleNavClick}>
-                                    Work
-                                </Link>
-                            </div>
-                        </div>
-                        <div className={styles.menuLinkItem}>
-                            <div className="menuLinkItemHolder">
-                                <Link href="/about" className={styles.menuLink} onClick={handleNavClick}>
-                                    About
-                                </Link>
-                            </div>
-                        </div>
-                        <div className={styles.menuLinkItem}>
-                            <div className="menuLinkItemHolder">
-                                <Link href="/contact" className={styles.menuLink} onClick={handleNavClick}>
-                                    Contact
-                                </Link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className={styles.menuFooter}>
-                    <p>&copy; 2025 Saurow</p>
-                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </nav>
             </div>
-        </div>
+        </header>
     );
 }

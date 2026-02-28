@@ -1,391 +1,95 @@
-.headerContainer {
-  position: absolute;
-  width: 100vw;
-  max-width: 100%;
-  overflow-x: hidden;
-  font-family: 'Poppins', sans-serif;
-  background-color: transparent;
-}
-
 .header {
-  background: transparent;
-  left: 0;
-  right: 0;
-  z-index: 10;
-  padding: 1rem 0;
-  color: #151515;
-
-  // Large desktop and ultra-wide responsiveness
-  @media (min-width: 1200px) {
-    padding: 1.5rem 0;
-  }
-
-  @media (min-width: 1600px) {
-    padding: 2rem 0;
-  }
-
-  @media (min-width: 1920px) {
-    padding: 2.5rem 0;
-  }
-
-  @media (max-width: 768px) {
-    z-index: 10;
-    padding: 1.2rem 0;
-  }
-}
-
-.container {
-  margin: 0 auto;
-  padding: 0 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  // Responsive max-widths for different screen sizes
-  max-width: min(1400px, 90vw);
-
-  @media (min-width: 1200px) {
-    max-width: min(1600px, 92vw);
-    padding: 0 3rem;
-  }
-
-  @media (min-width: 1600px) {
-    max-width: min(1800px, 94vw);
-    padding: 0 4rem;
-  }
-
-  @media (min-width: 1920px) {
-    max-width: min(2000px, 95vw);
-    padding: 0 5rem;
-  }
-
-  @media (min-width: 2560px) {
-    max-width: min(2400px, 96vw);
-    padding: 0 6rem;
-  }
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: inherit;
-  z-index: 101;
-  transition: color 0.3s, transform 0.3s;
-}
-
-.logoText {
-  h1 {
-    margin: 0;
-
-    .headText {
-      // Fluid typography for better scaling
-      font-size: clamp(1.5rem, 4vw, 2.5rem);
-      font-weight: 400;
-      color: #151515;
-      transition: color 0.3s;
-      font-family: 'Poppins', sans-serif;
-
-      @media (min-width: 1200px) {
-        font-size: clamp(2rem, 3vw, 3rem);
-      }
-
-      @media (min-width: 1600px) {
-        font-size: clamp(2.2rem, 2.5vw, 3.5rem);
-      }
-
-      @media (min-width: 1920px) {
-        font-size: clamp(2.5rem, 2vw, 4rem);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .headText {
-        font-size: 1.75rem;
-      }
-    }
-  }
-}
-
-.desktopNav {
-  display: flex;
-  align-items: center;
-  gap: 3rem;
-
-  // Enhanced spacing for large screens
-  @media (min-width: 1200px) {
-    gap: 4rem;
-  }
-
-  @media (min-width: 1600px) {
-    gap: 5rem;
-  }
-
-  @media (min-width: 1920px) {
-    gap: 6rem;
-  }
-
-  @media (max-width: 768px) {
-    display: none;
-  }
-
-  .el {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    z-index: 1;
-    padding: 15px;
-    cursor: pointer;
-
-    // Enhanced padding for larger screens
-    @media (min-width: 1200px) {
-      padding: 20px;
-    }
-
-    @media (min-width: 1600px) {
-      padding: 25px;
-    }
-
-    &:hover {
-      .indicator {
-        transform: scale(1);
-        background-color: #151515;
-      }
-    }
-
-    .indicator {
-      position: absolute;
-      width: 5px;
-      height: 5px;
-      top: 45px;
-      left: 50%;
-      background-color: transparent;
-      border-radius: 50%;
-      transform: scale(0) translateX(-50%);
-      transition: transform 0.2s cubic-bezier(0.76, 0, 0.24, 1);
-
-      // Responsive indicator positioning
-      @media (min-width: 1200px) {
-        top: 50px;
-        width: 6px;
-        height: 6px;
-      }
-
-      @media (min-width: 1600px) {
-        top: 55px;
-        width: 7px;
-        height: 7px;
-      }
-    }
-  }
-
-  a {
-    cursor: pointer;
-    text-decoration: none;
-  }
-}
-
-.navItem {
-  color: #151515;
-  font-weight: 500;
-  text-decoration: none;
-  // Fluid font size for navigation
-  font-size: clamp(0.9rem, 1.2vw, 1.3rem);
-  font-family: 'Poppins', sans-serif;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  position: relative;
-
-  // Enhanced padding for larger screens
-  @media (min-width: 1200px) {
-    padding: 1rem 1.5rem;
-    border-radius: 10px;
-  }
-
-  @media (min-width: 1600px) {
-    padding: 1.2rem 2rem;
-    border-radius: 12px;
-  }
-
-  @media (min-width: 1920px) {
-    padding: 1.5rem 2.5rem;
-    border-radius: 15px;
-  }
-}
-
-.activeNavItem {
-  text-decoration: underline;
-}
-
-.mobileMenuBtn {
-  display: none;
-
-  @media (max-width: 768px) {
-    display: block;
-    cursor: pointer;
-    z-index: 101;
-    padding: 0.5rem;
-    transition: transform 0.2s ease;
-
-    &:hover {
-      transform: scale(1.05);
-    }
-
-    span {
-      color: #151515;
-      font-weight: 500;
-      font-size: 1rem;
-      font-family: 'Poppins', sans-serif;
-    }
-  }
-}
-
-/* Enhanced dark header styling with better scaling */
-.darkHeader {
-  .brand .headText {
-    color: #fff !important;
-  }
-  .desktopNav .navItem {
-    color: #fff !important;
-  }
-  .desktopNav .el:hover .indicator {
-    background-color: #fff !important;
-  }
-}
-
-.menuOverlay {
   position: fixed;
-  top: 0;
+  bottom: 5%;
   left: 0;
+  z-index: 100;
+  background: transparent;
+  height: 80px;
   width: 100vw;
-  height: 100vh;
-  background: #f7f7f7;
-  z-index: 1000;
+  overflow-x: hidden;
   display: flex;
-  flex-direction: column;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
-
-  @media (min-width: 769px) {
-    display: none;
-  }
-}
-
-.menuOverlayBar {
-  padding: 1.2rem 2rem;
-  display: flex;
-  justify-content: flex-end;
   align-items: center;
-
-  .menuClose {
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    padding: 0.5rem;
-
-    &:hover {
-      transform: rotate(90deg);
-    }
-
-    span {
-      color: #151515;
-      font-size: 1.5rem;
-      font-weight: 300;
-    }
-  }
-}
-
-.menuContent {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
   justify-content: center;
-  padding: 2rem;
-  overflow-y: auto;
-}
-
-.menuLinks {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.menuLinkItem {
-  width: 100%;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-}
-
-.menuLink {
-  color: #151515;
-  font-size: clamp(2.5rem, 8vw, 4rem);
-  font-weight: 400;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-  text-decoration: none;
-  display: block;
-  padding: 0.5rem 0;
-  cursor: pointer;
-  transition: all 0.4s ease;
-  font-family: 'Poppins', sans-serif;
-
-  &:hover {
-    color: #151515;
-    transform: translateX(20px);
-  }
-}
-
-.menuFooter {
-  padding: 2rem;
-
-  p {
-    color: #151515;
-    font-size: 0.9rem;
-    margin: 0;
-    text-align: center;
-    font-family: 'Poppins', sans-serif;
-  }
-}
-
-.mobileMenuBtnWhite span {
-  color: #fff !important;
-}
-
-// Additional breakpoints for ultra-wide displays
-@media (min-width: 2560px) {
-  .desktopNav {
-    gap: 8rem;
-  }
-
-  .navItem {
-    font-size: clamp(1.2rem, 1vw, 1.6rem);
-    padding: 2rem 3rem;
-    border-radius: 18px;
-  }
-}
-
-@media (min-width: 3440px) {
-  .desktopNav {
-    gap: 10rem;
-  }
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   .container {
-    max-width: min(2800px, 97vw);
-    padding: 0 8rem;
-  }
-}
+    position: relative;
+    background: #222121;
+    height: 60px;
+    width: 110px;
+    border-radius: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    will-change: width;
 
-@media (max-width: 480px) {
-  .container {
-    padding: 0 1.5rem;
-  }
+    p {
+      position: absolute;
+      margin: 0;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      color: #f2f2f2;
+      display: flex;
+      user-select: none;
+      white-space: nowrap;
+    }
 
-  .menuOverlayBar,
-  .menuContent,
-  .menuFooter {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
+    nav {
+      opacity: 0;
+      width: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
 
-  .logoText h1 .headText {
-    font-size: 1.5rem;
+      ul {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        .pill {
+          position: absolute;
+          background: #f1f1f1;
+          height: 40px;
+          width: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          border-radius: 25px;
+          pointer-events: none;
+          left: 0;
+          opacity: 0;
+          z-index: 0;
+          will-change: transform, width, opacity;
+        }
+
+        li {
+          position: relative;
+          z-index: 1;
+          padding: 10px 35px;
+          cursor: pointer;
+
+          a {
+            display: inline-block;
+            text-decoration: none;
+            color: #f2f2f2;
+            font-size: 0.9rem;
+            font-weight: 400;
+            white-space: nowrap;
+          }
+        }
+      }
+    }
+
+    &:hover nav {
+      pointer-events: auto;
+    }
   }
 }
