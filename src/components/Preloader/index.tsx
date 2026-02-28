@@ -3,20 +3,18 @@
 import styles from './style.module.scss';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
 export default function Preloader() {
     const containerRef = useRef<HTMLDivElement>(null);
     const textRef = useRef<HTMLHeadingElement>(null);
     const counterRef = useRef<HTMLDivElement>(null);
 
-    // We can use a ref for the counter value to avoid re-renders during animation
     const counterValue = { val: 0 };
 
     useGSAP(() => {
         const tl = gsap.timeline();
 
-        // 1. Animate Counter from 0 to 100
         tl.to(counterValue, {
             val: 100,
             duration: 1.5,
@@ -28,16 +26,12 @@ export default function Preloader() {
             }
         });
 
-        // 2. Reveal Name (Staggered Characters)
-        // We manually split text here or use a simple stagger if words are separate
-        // For a simple effect without SplitText plugin (if you want to avoid it here),
-        // we can just scale/fade the text.
         tl.from(textRef.current, {
             y: 50,
             opacity: 0,
             duration: 0.8,
             ease: "power3.out"
-        }, "-=0.5"); // Overlap slightly with counter finishing
+        }, "-=0.5");
 
         // 3. Exit Animation (Slide Up)
         tl.to(containerRef.current, {
