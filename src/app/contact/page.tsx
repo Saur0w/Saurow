@@ -1,6 +1,6 @@
 "use client";
 
-import {JSX, useState} from "react";
+import React, {JSX, useState} from "react";
 import styles from "./style.module.scss";
 
 interface FormData {
@@ -67,7 +67,7 @@ export default function Contact(): JSX.Element {
     return (
         <div className={styles.contactContainer}>
             <h1 className={styles.heading}>
-                Work with me
+                Get in Touch
             </h1>
 
             <div className={styles.contactContent}>

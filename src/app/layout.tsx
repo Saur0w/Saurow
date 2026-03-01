@@ -26,7 +26,7 @@ export default function RootLayout({
                 />
             </head>
             <body>
-            <Preloader />
+            {/*<Preloader />*/}
             <Header />
             {children}
             <Footer />

@@ -1,0 +1,68 @@
+.container{
+  height: 120dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f7f7f7;
+  flex-direction: column;
+  gap: 5rem;
+
+  .heading {
+    margin-top: -300px;
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 0.95;
+      color: #151515;
+      font-family: "Inter", "Poppins", sans-serif;
+    }
+  }
+
+  .body {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-direction: row;
+    justify-content: center;
+    .numbers {
+      font-size: 36px;
+      cursor: pointer;
+      gap: 2rem;
+      display: flex;
+      flex-direction: column;
+
+      p {
+        opacity: 0.5;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        margin: 0;
+
+        &:hover {
+          opacity: 1;
+          transform: translateX(10px); // Subtle nudge to make it feel interactive
+        }
+      }
+
+      /* Optional: This dims the OTHER items when the container
+         is hovered, but keeps the currently hovered one at 1.
+      */
+      &:hover p:not(:hover) {
+        opacity: 0.2;
+      }
+    }
+
+    svg{
+      width: 400px;
+      filter: url('#filter');
+
+      path{
+        display: none;
+      }
+
+      circle{
+        fill: black;
+      }
+    }
+  }
+
+
+}
