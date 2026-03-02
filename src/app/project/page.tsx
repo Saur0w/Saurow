@@ -30,7 +30,7 @@ export default function Projects() {
     return (
         <section className={styles.projects} ref={sectionRef}>
             <div className={styles.list}>
-                {projects.map((p, i) => (
+                {projects.map((p) => (
                     <div className={`${styles.projectItem} projectItem`} key={p.title}>
                         <div className={styles.title}>{p.title}</div>
                         <div className={styles.subtitle}>{p.subtitle}</div>
