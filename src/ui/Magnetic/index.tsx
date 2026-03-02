@@ -52,7 +52,7 @@ export default function MagneticWrapper({ children }: MagneticProps) {
         return children;
     }
 
-    return React.cloneElement(children as React.ReactElement<any>, {
+    return React.cloneElement(children as React.ReactElement<Record<string, unknown>>, {
         ref: magnetic
     });
 }
