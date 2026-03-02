@@ -142,12 +142,8 @@ export default function Footer() {
         <footer ref={footerRef} className={styles.footer}>
             <div className={styles.container}>
 
-                {/* ── Top section ── */}
-                <div className={styles.top}>
-                    <span ref={eyebrowRef} className={styles.eyebrow}>
-                        Open for opportunities
-                    </span>
 
+                <div className={styles.top}>
                     <h1 ref={headingRef} className={styles.heading}>
                         Get{' '}
                         <span className={styles.letterI}>
@@ -163,7 +159,6 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* ── Arrow ── */}
                 <div ref={arrowRef} className={styles.arrow}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                          viewBox="0 0 24 24" strokeWidth="1.2" stroke="currentColor">
@@ -171,11 +166,8 @@ export default function Footer() {
                               d="m19.5 4.5-15 15m0 0h11.25m-11.25 0V8.25" />
                     </svg>
                 </div>
-
-                {/* ── Divider ── */}
                 <div ref={dividerRef} className={styles.divider} />
 
-                {/* ── Bottom row ── */}
                 <div className={styles.bottom}>
 
                     <div ref={navRef} className={styles.nav}>

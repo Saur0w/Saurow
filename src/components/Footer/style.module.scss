@@ -41,15 +41,6 @@
   gap: 22px;
 }
 
-.eyebrow {
-  font-family: 'DM Mono', 'Courier New', monospace;
-  font-size: clamp(0.6rem, 0.9vw, 0.75rem);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: rgba(247, 247, 247, 0.35);
-  display: block;
-}
-
 .heading {
   font-family: "Cormorant Garamond", Georgia, serif;
   font-size: clamp(3rem, 6vw, 7rem);
