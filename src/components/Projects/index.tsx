@@ -5,9 +5,11 @@ import Project from './projects/index';
 import gsap from 'gsap';
 import Image from 'next/image';
 import Rounded from '@/ui/Rounded/index';
+import Link from 'next/link';
 
 interface ProjectType {
     title: string;
+    type: string;
     src: string;
     color: string;
 }
@@ -19,26 +21,30 @@ interface ModalState {
 
 const projects: ProjectType[] = [
     {
-        title: "C2 Montreal",
-        src: "c2montreal.png",
+        title: "Expandable Navbar",
+        type: "UI Component",
+        src: "menu.png",
         color: "#000000"
     },
     {
-        title: "Office Studio",
-        src: "officestudio.png",
+        title: "SVG Morph",
+        type: "Animation Effect",
+        src: "morph.png",
         color: "#8C8C8C"
     },
     {
-        title: "Locomotive",
-        src: "locomotive.png",
+        title: "Parallax Scroll",
+        type: "Scroll Effect",
+        src: "parallax.png",
         color: "#EFE8D3"
     },
     {
-        title: "Silencio",
-        src: "silencio.png",
+        title: "Magnetic UI",
+        type: "Interactive UI",
+        src: "magnetic.png",
         color: "#706D63"
     }
-]
+];
 
 export default function Home() {
     const [modal, setModal] = useState<ModalState>({ active: false, index: 0 })
@@ -56,13 +62,10 @@ export default function Home() {
     const yMoveCursorLabel = useRef<gsap.QuickToFunc | null>(null);
 
     useEffect(() => {
-        // Move Container
         xMoveContainer.current = gsap.quickTo(modalContainer.current, "left", { duration: 0.8, ease: "power3" });
         yMoveContainer.current = gsap.quickTo(modalContainer.current, "top", { duration: 0.8, ease: "power3" });
-        // Move Cursor
         xMoveCursor.current = gsap.quickTo(cursor.current, "left", { duration: 0.5, ease: "power3" });
         yMoveCursor.current = gsap.quickTo(cursor.current, "top", { duration: 0.5, ease: "power3" });
-        // Move Cursor Label
         xMoveCursorLabel.current = gsap.quickTo(cursorLabel.current, "left", { duration: 0.45, ease: "power3" });
         yMoveCursorLabel.current = gsap.quickTo(cursorLabel.current, "top", { duration: 0.45, ease: "power3" });
     }, [])
@@ -122,12 +125,12 @@ export default function Home() {
             <div className={styles.body}>
                 {
                     projects.map((project: ProjectType, index: number) => {
-                        return <Project index={index} title={project.title} manageModal={manageModal} key={index} />
+                        return <Project index={index} title={project.title} type={project.type} manageModal={manageModal} key={index} />
                     })
                 }
             </div>
             <Rounded>
-                <p>More work</p>
+                <Link href="/project">More Work</Link>
             </Rounded>
             <>
                 <div

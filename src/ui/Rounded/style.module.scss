@@ -8,14 +8,17 @@
   justify-content: center;
   padding: 15px 60px 15px 60px;
 
-  p{
+  p, a {
     position: relative;
     z-index: 1;
     transition: color 0.4s linear;
+    text-decoration: none;
+    color: #151515;
   }
 
+
   &:hover{
-    p{
+    p, a{
       color: white;
     }
   }
