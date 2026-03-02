@@ -4,12 +4,12 @@ import { useRef } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 const projects = [
-    { title: 'MOSS', subtitle: 'Design & Development' },
     { title: 'JPA (Joshi Payal & Associates)', subtitle: 'Design & Development' },
     { title: 'Orange Circle', subtitle: 'Design & Development'},
     { title: 'SnS', subtitle: 'Design & Development' },
+    { title: 'MOSS', subtitle: 'Design & Development' },
     { title: 'LogoDeck', subtitle: 'UI & Animation' },
-    { title: 'FinSaver', subtitle: 'Product & Front-End' }
+    { title: 'TrustSnare', subtitle: 'UI, Animation & Front-End' }
 ];
 export default function Projects() {
     const sectionRef = useRef<HTMLDivElement>(null);
