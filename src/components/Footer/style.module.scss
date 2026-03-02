@@ -1,10 +1,46 @@
 .footer {
-  background-color: #222;
-  color: #fff;
-  padding: 20px;
-  text-align: center;
-  height: 80vh;
-  width: 100vw;
-  z-index: 9999;
+  height: 100dvh;
+  width: 100dvw;
+  background: #f7f7f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+  .container {
+    height: 70dvh;
+    width: 70dvw;
+    background: #1a1a1a;
+    border-radius: 15px;
+    padding: 100px 100px 0;
+    color: #f7f7f7;
+
+    h1 {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(3rem, 6vw, 7rem);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: #f7f7f7;
+      margin: 0;
+
+      .letterI {
+        position: relative;
+        display: inline-block;
+        .dot {
+          position: absolute;
+          top: 0.08em;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 0.13em;
+          height: 0.13em;
+          background: #f7f7f7;
+          border-radius: 50%;
+          display: block;
+          transform-origin: center bottom;
+        }
+      }
+
+
+    }
+  }
 }

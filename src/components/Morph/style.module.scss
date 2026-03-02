@@ -1,14 +1,15 @@
 .container{
-  height: 120dvh;
+  height: 80dvh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #f7f7f7;
   flex-direction: column;
   gap: 5rem;
+  padding-top: 100px;
 
   .heading {
-    margin-top: -300px;
+    margin-top: -200px;
     h1 {
       font-size: 3rem;
       font-weight: 700;
@@ -63,6 +64,4 @@
       }
     }
   }
-
-
 }

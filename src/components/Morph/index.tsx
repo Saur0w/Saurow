@@ -28,6 +28,8 @@ export default function Home() {
     const radius = 20;
     const circles = useRef<(SVGCircleElement | null)[]>([]);
     const paths = useRef<(SVGPathElement | null)[]>([]);
+    const circleContainerRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
         const currentPath = paths.current[index];
@@ -47,10 +49,28 @@ export default function Home() {
                 ease: "power2.out",
             });
         });
-    }, { dependencies: [index] });
+
+        gsap.fromTo(
+            circleContainerRef.current,
+            { height: 50 },
+            {
+                height: 0,
+                ease: "power1.inOut",   // smooth start and end
+                scrollTrigger: {
+                    trigger: containerRef.current,
+                    start: "top top",
+                    end: "90% top",
+                    scrub: true,
+                }
+            }
+        );
+    }, {
+        dependencies: [index] ,
+        scope: containerRef
+    });
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container} ref={containerRef}>
             <div className={styles.heading}>
                 <h1>I can help you with ...</h1>
             </div>
