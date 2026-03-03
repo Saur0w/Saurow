@@ -37,7 +37,7 @@ export default function Description() {
         gsap.from(lineInners, {
             scrollTrigger: {
                 trigger: containerRef.current,
-                start: "top 40%",
+                start: "top 50%",
                 toggleActions: "play none none reverse",
             },
             yPercent: 110,
@@ -49,7 +49,7 @@ export default function Description() {
         gsap.from(socialInners, {
             scrollTrigger: {
                 trigger: containerRef.current,
-                start: "top 40%",
+                start: "top 50%",
                 toggleActions: "play none none reverse",
             },
             yPercent: 110,
@@ -65,15 +65,17 @@ export default function Description() {
         <section className={styles.description} ref={containerRef}>
             <div className={styles.content}>
                 <p className={`reveal-text ${styles.text}`}>
-                    Hi, I&#39;m Saurabh Thapliyal. I&#39;m a developer based in India,
-                    crafting digital experiences that are simple, minimal, and built to perform.
+                    Hi,<br /> I’m Saurabh Thapliyal!  A frontend developer creating clean, <br />
+                    modern websites that are fast, responsive, and enhanced with smooth animations.
                 </p>
 
                 <div className={styles.socials}>
                     {[
-                        { href: "https://www.linkedin.com/in/saurabh-thapliyal-76a0a6306/", label: "LinkedIn" },
                         { href: "https://x.com/sauroww", label: "X" },
+                        { href: "https://www.linkedin.com/in/saurabh-thapliyal-76a0a6306/", label: "LinkedIn" },
                         { href: "https://github.com/Saur0w", label: "GitHub" },
+                        { href: "https://www.behance.net/saurabhthapliy2", label: "Behance" },
+                        { href: "https://dribbble.com/sthapliyal085", label: "Dribbble" }
                     ].map(({ href, label }) => (
 
                         <div className={`social-mask ${styles.socialMask}`} key={label}>
