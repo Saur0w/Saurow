@@ -1,4 +1,3 @@
-import { ViewTransitions } from "next-view-transitions";
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from '@/components/Header/index';
@@ -16,21 +15,19 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <ViewTransitions>
-            <html lang="en">
-            <head>
-                <link
-                    href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@500,600&f[]=space-mono@400,700&display=swap"
-                    rel="stylesheet"
-                />
-                <title>Saurow Portfolio</title>
-            </head>
-            <body>
-            <Header />
-            {children}
-            <Footer />
-            </body>
-            </html>
-        </ViewTransitions>
+        <html lang="en">
+        <head>
+            <link
+                href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=general-sans@500,600&f[]=space-mono@400,700&display=swap"
+                rel="stylesheet"
+            />
+            <title>Saurow Portfolio</title>
+        </head>
+        <body>
+        <Header />
+        {children}
+        <Footer />
+        </body>
+        </html>
     );
 }
