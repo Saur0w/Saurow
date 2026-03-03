@@ -49,7 +49,7 @@ export default function Landing() {
             </div>
 
             <div className={styles.imageContainer} ref={imageRef}>
-                <Image src="/images/rooftop.jpg" alt="image" fill priority />
+                <Image src="/images/road.jpg" alt="image" fill priority />
             </div>
         </section>
     );
