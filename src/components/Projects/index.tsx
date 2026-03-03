@@ -12,6 +12,7 @@ interface ProjectType {
     type: string;
     src: string;
     color: string;
+    videoSrc: string;
 }
 
 interface ModalState {
@@ -24,30 +25,36 @@ const projects: ProjectType[] = [
         title: "Expandable Navbar",
         type: "UI Component",
         src: "menu.png",
-        color: "#000000"
+        color: "#000000",
+        videoSrc: "/videos/Navbar.mp4"
     },
     {
         title: "SVG Morph",
         type: "Animation Effect",
         src: "morph.png",
-        color: "#8C8C8C"
+        color: "#8C8C8C",
+        videoSrc: "/videos/Morph.mp4"
     },
     {
         title: "Parallax Scroll",
         type: "Scroll Effect",
         src: "parallax.png",
-        color: "#EFE8D3"
+        color: "#EFE8D3",
+        videoSrc: "/videos/Parallax.mp4"
     },
     {
         title: "Magnetic UI",
         type: "Interactive UI",
         src: "magnetic.png",
-        color: "#706D63"
+        color: "#706D63",
+        videoSrc: "/videos/Hover.mp4"
     }
 ];
 
 export default function Home() {
-    const [modal, setModal] = useState<ModalState>({ active: false, index: 0 })
+    const [modal, setModal] = useState<ModalState>({ active: false, index: 0 });
+    const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
+    const videoContainerRef = useRef<HTMLDivElement>(null);
     const { active, index } = modal;
 
     const modalContainer = useRef<HTMLDivElement>(null);
@@ -120,12 +127,36 @@ export default function Home() {
         setModal({ active, index });
     }
 
+    const openVideo = (videoSrc: string) => {
+        setSelectedVideo(videoSrc);
+        gsap.to(videoContainerRef.current, {
+            clipPath: "inset(0% 0% 0% 0%)",
+            duration: 0.6,
+            ease: "power4.inOut"
+        });
+    };
+
+    const closeVideo = () => {
+        gsap.to(videoContainerRef.current, {
+            clipPath: 'inset(100% 0% 0% 0%)',
+            duration: 0.6,
+            ease: "power4.inOut",
+            onComplete: () => setSelectedVideo(null)
+        });
+    };
+
     return (
         <main onMouseMove={(e: React.MouseEvent) => { moveItems(e.clientX, e.clientY) }} className={styles.projects}>
             <div className={styles.body}>
                 {
                     projects.map((project: ProjectType, index: number) => {
-                        return <Project index={index} title={project.title} type={project.type} manageModal={manageModal} key={index} />
+                        return <Project index={index}
+                                        title={project.title}
+                                        type={project.type}
+                                        manageModal={manageModal}
+                                        key={index}
+                                        onClick={() => openVideo(project.videoSrc)}
+                                />
                     })
                 }
             </div>
@@ -167,6 +198,16 @@ export default function Home() {
                     className={styles.cursorLabel}
                 >
                     View
+                </div>
+                <div
+                    ref={videoContainerRef}
+                    className={styles.videoOverlay}
+                    style={{ clipPath: 'inset(100% 0% 0% 0%)' }}
+                >
+                    <div className={styles.closeBtn} onClick={closeVideo}>close</div>
+                    {selectedVideo && (
+                        <video src={selectedVideo} autoPlay loop muted playsInline />
+                    )}
                 </div>
             </>
         </main>

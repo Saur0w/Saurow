@@ -69,3 +69,38 @@
 
 
 }
+
+.videoOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  z-index: 10; // Must be higher than your modalContainer (which is 3)
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  video {
+    width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+  }
+
+  .closeBtn {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    z-index: 11;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}

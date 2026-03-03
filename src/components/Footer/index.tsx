@@ -98,7 +98,6 @@ export default function Footer() {
             stagger: 0.1,
         });
 
-        // ── 7. Arrow scale + stroke draw ────────────────────────────────
         gsap.from(arrowRef.current, {
             scrollTrigger: { trigger: footerRef.current, start: 'top 75%' },
             scale: 0.3,
@@ -154,7 +153,7 @@ export default function Footer() {
 
                     <div ref={buttonRef} className={styles.buttons}>
                         <RoundedButton>
-                            <p>saurow3301@gmail.com</p>
+                            <Link href="mailto:sauurow@gmail.com">sauurow@gmail.com</Link>
                         </RoundedButton>
                     </div>
                 </div>
