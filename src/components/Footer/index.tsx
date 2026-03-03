@@ -195,8 +195,9 @@ export default function Footer() {
                                 { label: 'X', href: 'https://x.com/sauroww' },
                                 { label: 'Github',      href: 'https://github.com/Saur0w' },
                                 { label: 'LinkedIn',    href: 'https://www.linkedin.com/in/saurabh-thapliyal-76a0a6306/' },
-                                { label: 'Behance',     href: 'https://www.behance.net/saurabhthapliy2' },
                                 { label: 'Dribbble',    href: 'https://dribbble.com/sthapliyal085' },
+                                { label: 'Behance',     href: 'https://www.behance.net/saurabhthapliy2' }
+
                             ].map(({ label, href }) => (
                                 <Magnetic key={label}>
                                     <li>

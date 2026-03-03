@@ -12,11 +12,11 @@ export default function Landing() {
           <div className={styles.text}>
               <p>
                     <span className={styles.lineOne}>
-                        Somewhere between logic and art,
+                        Building for the web,
                     </span>
                   <br />
                   <span className={styles.lineTwo}>
-                        I build things for the web.
+                        Crafting motion rich web experiences.
                     </span>
               </p>
           </div>
