@@ -42,6 +42,15 @@ code, pre {
 }
 
 
+::-webkit-scrollbar {
+    display: none;
+}
+
+html {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
 
 
 
