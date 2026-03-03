@@ -121,7 +121,6 @@ export default function Footer() {
             });
         }
 
-        // ── 8. Container parallax scrub ─────────────────────────────────
         gsap.to(`.${styles.container}`, {
             scrollTrigger: {
                 trigger: footerRef.current,
@@ -193,10 +192,11 @@ export default function Footer() {
                         <span className={styles.sectionLabel}>Socials</span>
                         <ul>
                             {[
-                                { label: 'X (Twitter)', href: 'https://twitter.com' },
-                                { label: 'Github',      href: 'https://github.com' },
-                                { label: 'LinkedIn',    href: 'https://linkedin.com' },
-                                { label: 'Behance',     href: 'https://behance.net' },
+                                { label: 'X', href: 'https://x.com/sauroww' },
+                                { label: 'Github',      href: 'https://github.com/Saur0w' },
+                                { label: 'LinkedIn',    href: 'https://www.linkedin.com/in/saurabh-thapliyal-76a0a6306/' },
+                                { label: 'Behance',     href: 'https://www.behance.net/saurabhthapliy2' },
+                                { label: 'Dribbble',    href: 'https://dribbble.com/sthapliyal085' },
                             ].map(({ label, href }) => (
                                 <Magnetic key={label}>
                                     <li>
