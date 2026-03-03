@@ -43,6 +43,13 @@ const projects: ProjectType[] = [
         videoSrc: "/videos/Parallax.mp4"
     },
     {
+        title: "Zoom Parallax",
+        type: "Scroll Effect",
+        src: "zoom.png",
+        color: "#EFE8D3",
+        videoSrc: "/videos/zoom.mp4"
+    },
+    {
         title: "Magnetic UI",
         type: "Interactive UI",
         src: "magnetic.png",
