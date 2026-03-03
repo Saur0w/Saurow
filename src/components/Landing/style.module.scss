@@ -10,24 +10,32 @@
 
   .heading {
     position: relative;
-    font-size: 10rem;
-    text-transform: uppercase;
+    h1 {
+      font-size: clamp(3rem, 18vw, 18rem);
+      text-transform: uppercase;
+      color: #151515;
+      text-align: center;
+      line-height: 1;
+    }
   }
 
   .text {
+    padding: 0 clamp(1rem, 4vw, 3rem);
+    text-align: center;
+
     p {
       display: flex;
       flex-direction: column;
     }
 
     .lineOne {
-      font-size: 1.8rem;
+      font-size: clamp(0.85rem, 2vw, 1.8rem);
       font-weight: 500;
       letter-spacing: -0.5px;
     }
 
     .lineTwo {
-      font-size: 1.2rem;
+      font-size: clamp(0.75rem, 1.4vw, 1.2rem);
       font-weight: 300;
       opacity: 0.7;
     }
@@ -35,13 +43,47 @@
 
   .imageContainer {
     position: relative;
-    margin-top: 150px;
-    width: 1500px;
-    height: 800px;
+    margin-top: clamp(40px, 8vw, 150px);
+    width: min(1500px, 92vw);
+    height: clamp(160px, 45vw, 800px);
     overflow: hidden;
     clip-path: inset(10% round 10px);
+
     img {
       object-fit: cover;
+    }
+  }
+
+  @media (max-width: 1380px) {
+    height: 180dvh;
+  }
+
+  @media (max-width: 1024px) {
+    height: 160dvh;
+
+    .text {
+      .lineOne { letter-spacing: -0.3px; }
+    }
+  }
+
+  @media (max-width: 768px) {
+    height: 140dvh;
+    margin-top: -60px;
+
+    .text {
+      .lineOne { letter-spacing: 0; }
+    }
+  }
+
+  @media (max-width: 480px) {
+    height: 120dvh;
+    margin-top: -40px;
+    gap: 0.5rem;
+
+    .imageContainer {
+      width: 92vw;
+      height: clamp(160px, 52vw, 260px);
+      margin-top: 30px;
     }
   }
 }
