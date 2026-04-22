@@ -7,7 +7,7 @@ import { Text } from "@react-three/drei";
 
 export default function Mesh() {
     const planeRef = useRef<THREE.Mesh>(null);
-    const textRef = useRef<any>(null);
+    const textRef = useRef<THREE.Mesh>(null);
     return (
       <group>
           <mesh ref={planeRef}>
