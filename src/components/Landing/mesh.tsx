@@ -1,6 +1,6 @@
 "use client";
 
-import {} from "@react-three/fiber";
+import {useFrame} from "@react-three/fiber";
 import { useRef } from "react";
 import * as THREE from "three";
 import { Text } from "@react-three/drei";
@@ -8,6 +8,10 @@ import { Text } from "@react-three/drei";
 export default function Mesh() {
     const planeRef = useRef<THREE.Mesh>(null);
     const textRef = useRef<THREE.Mesh>(null);
+
+    useFrame(({ clock }) => {
+        const t = clock.getElapsedTime();
+    });
     return (
       <group>
           <mesh ref={planeRef}>
