@@ -10,13 +10,8 @@
 
   .heading {
     position: relative;
-    h1 {
-      font-size: clamp(3rem, 18vw, 18rem);
-      text-transform: uppercase;
-      color: #151515;
-      text-align: center;
-      line-height: 1;
-    }
+    width: 100%;
+    height: clamp(3rem, 25vw, 26rem);
   }
 
   .text {
@@ -54,25 +49,17 @@
     }
   }
 
-  @media (max-width: 1380px) {
-    height: 180dvh;
-  }
+  @media (max-width: 1380px) { height: 180dvh; }
 
   @media (max-width: 1024px) {
     height: 160dvh;
-
-    .text {
-      .lineOne { letter-spacing: -0.3px; }
-    }
+    .text .lineOne { letter-spacing: -0.3px; }
   }
 
   @media (max-width: 768px) {
     height: 140dvh;
     margin-top: -60px;
-
-    .text {
-      .lineOne { letter-spacing: 0; }
-    }
+    .text .lineOne { letter-spacing: 0; }
   }
 
   @media (max-width: 480px) {
