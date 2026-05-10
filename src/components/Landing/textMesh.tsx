@@ -18,8 +18,8 @@ function buildTextTexture(text: string, font: string): THREE.CanvasTexture {
     ctx.fillRect(0, 0, W, H);
 
     const fontSize = Math.floor(H * 0.82);
-    ctx.font         = `500 ${fontSize}px ${font}`;
-    ctx.textAlign    = "center";
+    ctx.font = `700 ${fontSize}px ${font}`;
+    ctx.textAlign = "center";
     ctx.textBaseline = "middle";
 
     const textWidth   = ctx.measureText(text).width;
@@ -35,19 +35,18 @@ function buildTextTexture(text: string, font: string): THREE.CanvasTexture {
         H / 2,
     );
 
-    // Slight stroke pass (same as vanilla) for crispness at large sizes
     ctx.strokeStyle = "#1a1a1a";
-    ctx.lineWidth   = fontSize * 0.005;
+    ctx.lineWidth = fontSize * 0.005;
     for (let i = 0; i < 3; i++) ctx.strokeText(text, 0, 0);
 
     ctx.fillStyle = "#1a1a1a";
     ctx.fillText(text, 0, 0);
 
-    const tex           = new THREE.CanvasTexture(canvas);
-    tex.minFilter       = THREE.LinearFilter;
-    tex.magFilter       = THREE.LinearFilter;
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.minFilter = THREE.LinearFilter;
+    tex.magFilter = THREE.LinearFilter;
     tex.generateMipmaps = false;
-    tex.needsUpdate     = true;
+    tex.needsUpdate = true;
     return tex;
 }
 
@@ -61,10 +60,10 @@ export default function TextMesh() {
     // targetMousePosition ↔ raw target          (set on pointermove)
     // prevPosition        ↔ target from the prior pointermove
     // easeFactor          ↔ 0.02 → 0.2 → 0.02  (same logic as vanilla)
-    const easeFactor         = useRef(0.02);
-    const mousePosition      = useRef(new THREE.Vector2(0.5, 0.5));
+    const easeFactor= useRef(0.02);
+    const mousePosition= useRef(new THREE.Vector2(0.5, 0.5));
     const targetMousePosition= useRef(new THREE.Vector2(0.5, 0.5));
-    const prevPosition       = useRef(new THREE.Vector2(0.5, 0.5));
+    const prevPosition= useRef(new THREE.Vector2(0.5, 0.5));
 
     // Build texture once; swap font string to your actual loaded typeface
     const texture = useMemo(
@@ -72,9 +71,9 @@ export default function TextMesh() {
         [],
     );
 
-    // Plane dimensions: full viewport width, height = width / 4  (4:1 texture)
+    // Plane dimensions: full viewport width, height = width / 2.5 (taller plane)ok coo
     const pw = viewport.width;
-    const ph = viewport.width / 4;
+    const ph = viewport.width / 1.3;
 
     // Uniforms match the shader exactly: u_texture, u_mouse, u_prevMouse
     const uniforms = useMemo(() => ({
