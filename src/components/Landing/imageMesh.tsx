@@ -12,7 +12,7 @@ export default function ImageMesh() {
     const hoverTarget  = useRef(0);
     const hoverCurrent = useRef(0);
 
-    const texture = useTexture("/images/road.jpg");
+    const texture = useTexture("/images/grain.jpg");
     texture.minFilter = THREE.LinearFilter;
 
     const pw = viewport.width;
@@ -21,11 +21,11 @@ export default function ImageMesh() {
     const aspect = pw / ph;
 
     const uniforms = useMemo(() => ({
-        uTexture : { value: texture                      },
-        uMouse   : { value: new THREE.Vector2(0.5, 0.5) },
-        uHover   : { value: 0                            },
-        uTime    : { value: 0                            },
-        uAspect  : { value: aspect                       },
+        u_texture : { value: texture                      },
+        uMouse    : { value: new THREE.Vector2(0.5, 0.5) },
+        uHover    : { value: 0                            },
+        uTime     : { value: 0                            },
+        uAspect   : { value: aspect                       },
     }), [texture, aspect]);
 
     useFrame(({ clock }) => {

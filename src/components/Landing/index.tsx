@@ -46,10 +46,6 @@ export default function Landing() {
                 </p>
             </div>
 
-            {/* ── WebGL image ── */}
-            {/* imageRef lives on this div so GSAP clip-path still works.
-                ImageCanvas fills it with position: absolute inset: 0.
-                The shader does grayscale → colour on hover + FBM displacement. */}
             <div className={styles.imageContainer} ref={imageRef}>
                 <ImageCanvas />
             </div>
