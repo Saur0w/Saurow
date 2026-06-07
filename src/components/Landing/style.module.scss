@@ -1,17 +1,24 @@
 .landing {
+  position: relative;
   height: 200dvh;
-  width: 100dvw;
+  width: 100%;
   background: #f7f7f7;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   margin-top: -100px;
+  overflow: hidden;
+
 
   .heading {
     position: relative;
     width: 100%;
     height: clamp(3rem, 25vw, 26rem);
+    @media (max-width: 480px) {
+      height: 3rem;
+      width: 20rem;
+    }
   }
 
   .text {
@@ -57,8 +64,8 @@
   }
 
   @media (max-width: 480px) {
-    height: 120dvh;
-    margin-top: -40px;
+    height: 100dvh;
+    margin-top: -100px;
     gap: 0.5rem;
 
     .imageContainer {

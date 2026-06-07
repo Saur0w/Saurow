@@ -9,7 +9,7 @@ export default function About() {
             <div className={styles.left}>
                 <h1>ABOUT</h1>
                 <p>
-                    I’m a 22-year-old front-end developer from India with a passion for bringing designs to life
+                    I’m a 23-year-old front-end developer from India with a passion for bringing designs to life
                     through pixel-perfect precision and smooth animations.
                     <br className={styles.desktopBreak} /> With a strong foundation in modern web technologies
                     <br className={styles.desktopBreak} /> and a keen eye for visual storytelling, I specialize in crafting
