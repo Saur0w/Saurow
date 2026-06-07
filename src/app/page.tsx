@@ -7,8 +7,6 @@ import { ReactLenis } from "lenis/react";
 import Des from '@/components/Des/index';
 import Morph from "@/components/Morph";
 
-
-
 export default function Home() {
   return (
       <ReactLenis root>
