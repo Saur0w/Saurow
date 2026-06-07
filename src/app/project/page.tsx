@@ -1,9 +1,10 @@
 "use client";
+
 import styles from './style.module.scss';
 import { useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
-
+import {ReactLenis} from "lenis/react";
 interface Project {
     title: string;
     subtitle: string;
@@ -100,32 +101,34 @@ export default function Projects() {
     const closeModal = () => setSelectedDoc(null);
 
     return (
-        <section className={styles.projects} ref={sectionRef}>
-            <div className={styles.list}>
-                {projects.map((p) => (
-                    <div className={`${styles.projectItem} projectItem`} key={p.title} onClick={() => handleProjectClick(p)}>
-                        <div className={styles.title}>{p.title}</div>
-                        <div className={styles.subtitle}>{p.subtitle}</div>
-                    </div>
-                ))}
-            </div>
-            {selectedDoc && (
-                <div className={styles.modalOverlay} onClick={closeModal}>
-                    <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-                        <h2>{selectedDoc.title}</h2>
-                        {selectedDoc.status && <p><strong>Status:</strong> {selectedDoc.status}</p>}
-                        <p>{selectedDoc.description}</p>
-                        {selectedDoc.link && (
-                            <p>
-                                <a href={selectedDoc.link} target="_blank" rel="noopener noreferrer">
-                                    Learn more ↗
-                                </a>
-                            </p>
-                        )}
-                        <button className={styles.closeButton} onClick={closeModal}>✕</button>
-                    </div>
+        <ReactLenis root>
+            <section className={styles.projects} ref={sectionRef}>
+                <div className={styles.list}>
+                    {projects.map((p) => (
+                        <div className={`${styles.projectItem} projectItem`} key={p.title} onClick={() => handleProjectClick(p)}>
+                            <div className={styles.title}>{p.title}</div>
+                            <div className={styles.subtitle}>{p.subtitle}</div>
+                        </div>
+                    ))}
                 </div>
-            )}
-        </section>
+                {selectedDoc && (
+                    <div className={styles.modalOverlay} onClick={closeModal}>
+                        <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+                            <h2>{selectedDoc.title}</h2>
+                            {selectedDoc.status && <p><strong>Status:</strong> {selectedDoc.status}</p>}
+                            <p>{selectedDoc.description}</p>
+                            {selectedDoc.link && (
+                                <p>
+                                    <a href={selectedDoc.link} target="_blank" rel="noopener noreferrer">
+                                        Learn more ↗
+                                    </a>
+                                </p>
+                            )}
+                            <button className={styles.closeButton} onClick={closeModal}>✕</button>
+                        </div>
+                    </div>
+                )}
+            </section>
+        </ReactLenis>
     );
 }
