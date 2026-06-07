@@ -2,6 +2,7 @@
 
 import React, {JSX, useState} from "react";
 import styles from "./style.module.scss";
+import {ReactLenis} from "lenis/react";
 
 interface FormData {
     name: string;
@@ -65,108 +66,110 @@ export default function Contact(): JSX.Element {
     };
 
     return (
-        <div className={styles.contactContainer}>
-            <h1 className={styles.heading}>
-                Get in Touch
-            </h1>
+        <ReactLenis root>
+            <div className={styles.contactContainer}>
+                <h1 className={styles.heading}>
+                    Get in Touch
+                </h1>
 
-            <div className={styles.contactContent}>
-                <div className={styles.formContainer}>
-                    <form onSubmit={handleSubmit} className={styles.contactForm}>
-                        <div className={styles.formGroup}>
-                            <label htmlFor="name">Your name</label>
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                placeholder="Enter your name"
-                                required
-                            />
-                            <div className={styles.inputLine}></div>
-                        </div>
-
-                        <div className={styles.formGroup}>
-                            <label htmlFor="email">Your Email</label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                placeholder="Enter your email"
-                                required
-                            />
-                            <div className={styles.inputLine}></div>
-                        </div>
-
-                        <div className={styles.formGroup}>
-                            <label htmlFor="service">Service you are looking for</label>
-                            <input
-                                type="text"
-                                id="service"
-                                name="service"
-                                value={formData.service}
-                                onChange={handleChange}
-                                placeholder="Enter the service you need"
-                                required
-                            />
-                            <div className={styles.inputLine}></div>
-                        </div>
-
-                        <div className={styles.formGroup}>
-                            <label htmlFor="message">Message</label>
-                            <textarea
-                                id="message"
-                                name="message"
-                                value={formData.message}
-                                onChange={handleChange}
-                                placeholder="Enter your message"
-                                rows={4}
-                                required
-                            ></textarea>
-                            <div className={styles.inputLine}></div>
-                        </div>
-
-                        <button
-                            type="submit"
-                            className={styles.submitButton}
-                            disabled={isSubmitting}
-                        >
-                            <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
-                            <svg
-                                width="20"
-                                height="20"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    d="M5 12H19M19 12L13 6M19 12L13 18"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
+                <div className={styles.contactContent}>
+                    <div className={styles.formContainer}>
+                        <form onSubmit={handleSubmit} className={styles.contactForm}>
+                            <div className={styles.formGroup}>
+                                <label htmlFor="name">Your name</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    placeholder="Enter your name"
+                                    required
                                 />
-                            </svg>
-                        </button>
-
-                        {submitStatus && (
-                            <div
-                                className={`${styles.statusMessage} ${
-                                    submitStatus.includes("Failed")
-                                        ? styles.errorMessage
-                                        : styles.successMessage
-                                }`}
-                            >
-                                {submitStatus}
+                                <div className={styles.inputLine}></div>
                             </div>
-                        )}
-                    </form>
-                </div>
 
+                            <div className={styles.formGroup}>
+                                <label htmlFor="email">Your Email</label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    placeholder="Enter your email"
+                                    required
+                                />
+                                <div className={styles.inputLine}></div>
+                            </div>
+
+                            <div className={styles.formGroup}>
+                                <label htmlFor="service">Service you are looking for</label>
+                                <input
+                                    type="text"
+                                    id="service"
+                                    name="service"
+                                    value={formData.service}
+                                    onChange={handleChange}
+                                    placeholder="Enter the service you need"
+                                    required
+                                />
+                                <div className={styles.inputLine}></div>
+                            </div>
+
+                            <div className={styles.formGroup}>
+                                <label htmlFor="message">Message</label>
+                                <textarea
+                                    id="message"
+                                    name="message"
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                    placeholder="Enter your message"
+                                    rows={4}
+                                    required
+                                ></textarea>
+                                <div className={styles.inputLine}></div>
+                            </div>
+
+                            <button
+                                type="submit"
+                                className={styles.submitButton}
+                                disabled={isSubmitting}
+                            >
+                                <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
+                                <svg
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M5 12H19M19 12L13 6M19 12L13 18"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                </svg>
+                            </button>
+
+                            {submitStatus && (
+                                <div
+                                    className={`${styles.statusMessage} ${
+                                        submitStatus.includes("Failed")
+                                            ? styles.errorMessage
+                                            : styles.successMessage
+                                    }`}
+                                >
+                                    {submitStatus}
+                                </div>
+                            )}
+                        </form>
+                    </div>
+
+                </div>
             </div>
-        </div>
+        </ReactLenis>
     );
 }
