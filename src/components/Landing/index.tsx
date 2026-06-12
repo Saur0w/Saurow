@@ -11,7 +11,7 @@ import ImageCanvas from "./imageCanvas";
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 export default function Landing() {
-    const imageRef     = useRef<HTMLDivElement>(null);
+    const imageRef = useRef<HTMLDivElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
@@ -21,10 +21,10 @@ export default function Landing() {
             clipPath: "inset(0% round 10px)",
             ease: "none",
             scrollTrigger: {
-                trigger : containerRef.current,
-                start   : "top top",
-                end     : "bottom bottom",
-                scrub   : true,
+                trigger: containerRef.current,
+                start: "top top",
+                end: "bottom bottom",
+                scrub: true,
                 invalidateOnRefresh: true,
             },
         });

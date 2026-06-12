@@ -11,16 +11,16 @@ export default function TextCanvas() {
             camera={{ position: [0, 0, 5], fov: 45, near: 0.1, far: 100 }}
             dpr={[1, 2]}
             gl={{
-                antialias       : true,
-                alpha           : false,           // opaque — matches vanilla renderer
-                powerPreference : "high-performance",
+                antialias: true,
+                alpha: false,           // opaque — matches vanilla renderer
+                powerPreference: "high-performance",
                 // Keep the canvas background white (matches #ffffff in vanilla)
             }}
             style={{
-                position : "absolute",
-                inset    : 0,
-                width    : "100%",
-                height   : "100%",
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
             }}
             // White scene background so edges don't bleed
             onCreated={({ gl }) => {
