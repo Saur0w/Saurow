@@ -29,6 +29,13 @@ const projects: ProjectType[] = [
         videoSrc: "/videos/Navbar.mp4"
     },
     {
+        title: "Image Mask",
+        type: "Animation Effect",
+        src: "mask.png",
+        color: "#ec2626",
+        videoSrc: "/videos/Leuer.mp4"
+    },
+    {
         title: "SVG Morph",
         type: "Animation Effect",
         src: "morph.png",
