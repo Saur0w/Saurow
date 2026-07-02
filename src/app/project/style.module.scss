@@ -1,65 +1,115 @@
 .projects {
   background: #f7f7f7;
   min-height: 100vh;
-  padding: 140px 0 60px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  padding: clamp(100px, 14vh, 180px) 0 clamp(60px, 8vh, 120px) 0;
+  position: relative;
+  width: 100%;
 }
+
 .list {
   width: 100%;
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 clamp(24px, 5vw, 80px);
   display: flex;
   flex-direction: column;
-  gap: 0;
+  box-sizing: border-box;
 }
+
 .projectItem {
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
-  padding: 48px 32px 42px 32px;
-  border-bottom: 1.2px solid #121212;
-  transition: background 0.25s;
+  padding: clamp(28px, 3.5vh, 48px) 16px;
+  border-bottom: 1px solid rgba(18, 18, 18, 0.12);
   position: relative;
   cursor: pointer;
-}
-.title {
-  font-family: "Poppins", "Inter", Arial, sans-serif;
-  font-size: 3.2rem;
-  font-weight: 500;
-  line-height: 1.03;
-  color: #121111;
-  letter-spacing: -0.035em;
-  @media (max-width: 600px) {
-    font-size: 2rem;
-  }
-}
-.subtitle {
-  font-size: 1.08rem;
-  color: #1a1a1a;
-  font-family: "Inter", "Poppins", sans-serif;
-  font-weight: 400;
-  opacity: 0.85;
-  letter-spacing: 0.01em;
-  @media (max-width: 600px) {
-    font-size: .92rem;
-  }
-}
-@media (max-width: 800px) {
-  .projects {
-    padding: 80px 0 40px 0;
-  }
-  .projectItem {
-    padding: 32px 12px 30px 12px;
-  }
-  .list {
-    max-width: 98vw;
-  }
-}
+  overflow: hidden;
+  background: transparent;
+  transition: padding-left 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 
-// Add at the end of your style.module.scss
+  .hoverBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(18, 18, 18, 0.025);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    z-index: 1;
+  }
+
+  .metaLeft, .metaRight {
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    gap: clamp(1.5rem, 3vw, 3rem);
+  }
+
+  .titleIndex {
+    font-family: "Inter", sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    opacity: 0.25;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .title {
+    font-family: "Poppins", "Inter", sans-serif;
+    font-size: clamp(2rem, 4.2vw, 4rem);
+    font-weight: 500;
+    line-height: 1;
+    color: #121212;
+    letter-spacing: -0.03em;
+    margin: 0;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .subtitle {
+    font-family: "Inter", sans-serif;
+    font-size: clamp(0.9rem, 1.05vw, 1.1rem);
+    color: #121212;
+    opacity: 0.5;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .arrowIcon {
+    font-size: 1.4rem;
+    opacity: 0.15;
+    transform: translate(-5px, 5px);
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  &:hover {
+    padding-left: 28px;
+
+    .hoverBackground {
+      opacity: 1;
+    }
+
+    .titleIndex {
+      opacity: 0.8;
+      color: #000;
+    }
+
+    .title {
+      transform: translateX(4px);
+    }
+
+    .subtitle {
+      opacity: 0.85;
+      transform: translateX(-6px);
+    }
+
+    .arrowIcon {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+  }
+}
 
 .modalOverlay {
   position: fixed;
@@ -67,97 +117,122 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(18, 18, 18, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
-  backdrop-filter: blur(3px);
-  padding: 1rem;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+  padding: 24px;
+  opacity: 0;
+  visibility: hidden;
+  will-change: opacity, visibility;
 }
 
 .modalContent {
-  background: #fff;
-  padding: 2.5rem;
-  max-width: 500px;
+  background: #ffffff;
+  padding: clamp(32px, 5vw, 52px);
+  max-width: 580px;
   width: 100%;
-  border-radius: 16px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.1);
   position: relative;
-  animation: modalFadeIn 0.3s ease;
+  will-change: transform, scale;
+
+  .statusTag {
+    display: inline-block;
+    font-family: "Inter", sans-serif;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: #f2f2f2;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    color: #121212;
+  }
 
   h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
+    font-size: clamp(1.8rem, 3.2vw, 2.5rem);
+    margin: 0 0 1rem 0;
     font-family: "Poppins", sans-serif;
     font-weight: 500;
     letter-spacing: -0.02em;
     color: #121212;
+    line-height: 1.15;
   }
 
   p {
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-    color: #333;
-
-    strong {
-      font-weight: 600;
-      color: #000;
-    }
+    font-family: "Inter", sans-serif;
+    font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+    line-height: 1.65;
+    margin: 0 0 2rem 0;
+    color: #444444;
   }
+}
 
-  a {
-    display: inline-block;
-    background: #121212;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: 40px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: background 0.2s;
+.ctaLink {
+  display: inline-flex;
+  align-items: center;
+  background: #121212;
+  color: #ffffff;
+  padding: 14px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.25s ease, transform 0.2s ease;
 
-    &:hover {
-      background: #333;
-    }
+  &:hover {
+    background: #2b2b2b;
+    transform: translateY(-1px);
   }
 }
 
 .closeButton {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: none;
+  top: 24px;
+  right: 24px;
+  background: #f5f5f5;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1rem;
   cursor: pointer;
-  color: #666;
-  width: 32px;
-  height: 32px;
+  color: #121212;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  transition: background 0.2s;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 
   &:hover {
-    background: #f0f0f0;
-    color: #000;
+    background: #ebebeb;
+    transform: scale(1.03);
   }
 }
 
-@keyframes modalFadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
+@media (max-width: 768px) {
+  .projectItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 24px 0;
 
-// Optional: hover effect for project items (if not already present)
-.projectItem:hover {
-  background: rgba(0, 0, 0, 0.02);
+    .metaRight {
+      width: 100%;
+      justify-content: space-between;
+      padding-left: 0;
+    }
+
+    .arrowIcon {
+      display: none;
+    }
+
+    &:hover {
+      padding-left: 0;
+    }
+  }
 }

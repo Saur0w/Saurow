@@ -1,83 +1,81 @@
-
 :root {
   --page-bg: #f7f7f7;
   --ink: #151515;
-  --maxw: 1100px;
-  --pad-x: clamp(16px, 6vw, 100px);
-  --pad-y: clamp(64px, 10vh, 120px);
+  --maxw: 1200px;
 }
 
 .secondPage {
   background: var(--page-bg);
-  width: 100vw;
-  max-width: 100%;
-  height: auto;
-  overflow-x: hidden;
-  display: grid;
+  width: 100%;
+  min-height: 80vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
   box-sizing: border-box;
-  padding-bottom: 400px;
-
-  @media (max-width: 940px) {
-    padding: 50px;
-  }
-
+  padding: clamp(80px, 12vh, 160px) clamp(24px, 7vw, 140px);
 }
 
 .inner {
   width: 100%;
   max-width: var(--maxw);
-  margin-top: 100px;
-  margin-left: 100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
 
-  @media (max-width: 940px) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-  }
+.titleContainer {
+  overflow: hidden;
 }
 
 .title {
   font-family: "Amiamie", Arial, sans-serif;
   font-weight: 700;
   line-height: 0.95;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   color: var(--ink);
-  font-size: clamp(2.25rem, 6vw, 6rem);
-  margin: 0 0 1rem 0;
-  position: relative;
-  will-change: transform, opacity;
-
+  font-size: clamp(3rem, 7vw, 7.5rem);
+  margin: 0;
 }
 
 .lead {
   font-family: "Amiamie", Arial, sans-serif;
   color: var(--ink);
-  max-width: 70ch;
-  font-size: clamp(1rem, 1.1vw + 0.9rem, 1.35rem);
+  max-width: 55ch;
+  font-size: clamp(1.2rem, 1.8vw + 0.2rem, 2.2rem);
   font-weight: 500;
-  line-height: 1.6;
-  margin: 1.25rem 0 0 0;
+  line-height: 1.4;
+  margin: 0;
   text-wrap: pretty;
-  hyphens: auto;
-  will-change: transform, opacity;
 }
 
-.titleSplit,
-.leadSplit {
-  font-kerning: none;
-}
-
-.leadSplit :global(.line) {
-  display: block;
+.titleContainer,
+.lineMask {
   overflow: hidden;
+  display: block;
+}
+
+.char,
+.lineInner {
+  display: inline-block;
+  will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .titleSplit,
-  .leadSplit {
-    transition: none !important;
-    animation: none !important;
+  .char,
+  .lineInner {
+    transform: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .secondPage {
+    padding: 80px 1.5rem;
+  }
+  .inner {
+    gap: 1.5rem;
+  }
+  .lead {
+    max-width: 100%;
   }
 }

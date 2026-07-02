@@ -49,7 +49,6 @@ export default function Landing() {
             <div className={styles.imageContainer} ref={imageRef}>
                 <ImageCanvas />
             </div>
-
         </section>
     );
 }
