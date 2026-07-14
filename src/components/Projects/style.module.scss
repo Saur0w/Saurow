@@ -31,6 +31,10 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 100px;
+
+    @media (max-width: 768px) {
+      margin-bottom: 50px;
+    }
   }
 
   .modalContainer{
@@ -93,10 +97,20 @@
     font-size: 14px;
     font-weight: 300;
     pointer-events: none;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .cursorLabel{
     background-color: transparent;
+  }
+
+  .modalContainer {
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
 

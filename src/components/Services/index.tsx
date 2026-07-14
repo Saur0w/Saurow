@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import styles from './style.module.scss';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -44,54 +44,58 @@ export default function Services() {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
     const descriptionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-    useEffect(() => {
+    const toggleAccordion = (index: number) => {
+        setActiveIndex(prevIndex => (prevIndex === index ? null : index));
+    };
+
+    useGSAP(() => {
         descriptionRefs.current.forEach((el, i) => {
             if (!el) return;
             if (i === activeIndex) {
-                gsap.to(el, { 
-                    height: "auto", 
-                    opacity: 1, 
-                    duration: 0.5, 
+                gsap.to(el, {
+                    height: "auto",
+                    opacity: 1,
+                    duration: 0.5,
                     ease: "power3.out",
                     overwrite: "auto"
                 });
             } else {
-                gsap.to(el, { 
-                    height: 0, 
-                    opacity: 0, 
-                    duration: 0.35, 
+                gsap.to(el, {
+                    height: 0,
+                    opacity: 0,
+                    duration: 0.35,
                     ease: "power3.out",
                     overwrite: "auto"
                 });
             }
         });
-    }, [activeIndex]);
-
+    }, { dependencies: [activeIndex], scope: sectionRef });
+    
     useGSAP(() => {
         if (!sectionRef.current) return;
 
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: sectionRef.current,
-                start: "top 75%",
-                end: "bottom 25%",
+                start: "top 80%",
+                end: "bottom 20%",
                 toggleActions: "play none none reverse"
             }
         });
 
         tl.from(titleRef.current, {
-            y: 50,
+            y: 40,
             opacity: 0,
             duration: 0.8,
             ease: "power3.out"
         })
-        .from(listRef.current?.children || [], {
-            y: 30,
-            opacity: 0,
-            stagger: 0.1,
-            duration: 0.6,
-            ease: "power3.out"
-        }, "-=0.4");
+            .from(listRef.current?.children || [], {
+                y: 30,
+                opacity: 0,
+                stagger: 0.1,
+                duration: 0.6,
+                ease: "power3.out"
+            }, "-=0.4");
 
     }, { scope: sectionRef });
 
@@ -110,12 +114,19 @@ export default function Services() {
                     {services.map((service, index) => {
                         const isOpen = activeIndex === index;
                         return (
-                            <div 
-                                key={index} 
+                            <div
+                                key={index}
                                 className={`${styles.serviceItem} ${isOpen ? styles.active : ''}`}
-                                onMouseEnter={() => setActiveIndex(index)}
-                                onMouseLeave={() => setActiveIndex(null)}
-                                onClick={() => setActiveIndex(isOpen ? null : index)}
+                                onClick={() => toggleAccordion(index)}
+                                role="button"
+                                aria-expanded={isOpen}
+                                tabIndex={0}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        toggleAccordion(index);
+                                    }
+                                }}
                             >
                                 <div className={styles.header}>
                                     <div className={styles.leftHeader}>
@@ -127,8 +138,8 @@ export default function Services() {
                                     </div>
                                 </div>
 
-                                <div 
-                                    ref={el => { descriptionRefs.current[index] = el; }} 
+                                <div
+                                    ref={el => { descriptionRefs.current[index] = el; }}
                                     className={styles.descriptionContainer}
                                     style={{ height: 0, opacity: 0 }}
                                 >

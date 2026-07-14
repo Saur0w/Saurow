@@ -7,6 +7,21 @@
   background-color: #f7f7f7;
   margin-top: -500px;
   color: #1a1a1a;
+
+  @media (max-width: 1024px) {
+    margin-top: -350px;
+  }
+
+  @media (max-width: 768px) {
+    margin-top: -200px;
+    min-height: auto;
+    padding: 80px 24px;
+  }
+
+  @media (max-width: 480px) {
+    margin-top: -100px;
+    padding: 60px 20px;
+  }
 }
 
 .content {
@@ -19,6 +34,10 @@
   line-height: 1.5;
   font-weight: 300;
   margin-bottom: 4rem;
+
+  @media (max-width: 768px) {
+    margin-bottom: 2.5rem;
+  }
 }
 
 :global(.line-outer) {
@@ -35,6 +54,15 @@
 .socials {
   display: flex;
   gap: 2.5rem;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 480px) {
+    gap: 1rem 1.5rem;
+  }
 }
 
 .socialMask {
@@ -56,6 +84,10 @@
   text-transform: uppercase;
   letter-spacing: 0.05em;
   position: relative;
+
+  @media (max-width: 480px) {
+    font-size: 0.95rem;
+  }
 
   &::after {
     content: '';
