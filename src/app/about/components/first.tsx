@@ -91,10 +91,9 @@ export default function About() {
                     <h1 ref={headingRef}>ABOUT</h1>
                 </div>
                 <p ref={textRef}>
-                    I’m a 22-year-old creative front-end/motion developer & designer from India with a passion for bringing designs to life
-                    through pixel-perfect precision and smooth animations. With a strong foundation in modern web technologies
-                    and a keen eye for visual storytelling, I specialize in crafting seamless micro-interactions and engaging user experiences.
-                    My work reflects a blend of creativity and technical expertise, focused on transforming ideas into interactive digital realities.
+                    I&#39;m Saurabh, a 23-year-old creative frontend developer from India focused on building immersive digital experiences.
+                    I combine thoughtful design, motion, and modern web technologies to craft interfaces that feel fluid, responsive, and
+                    intentional—where every interaction has a purpose and every detail matters.
                 </p>
             </div>
 
@@ -102,7 +101,7 @@ export default function About() {
                 <div className={styles.imageWrapper} ref={imageWrapperRef}>
                     <Image
                         ref={imageRef}
-                        src="/images/about.jpg"
+                        src="/images/a.png"
                         alt="profile"
                         fill
                         priority

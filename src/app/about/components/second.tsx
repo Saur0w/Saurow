@@ -63,13 +63,12 @@ export default function Second() {
         <section className={styles.secondPage} ref={scopeRef}>
             <div className={styles.inner}>
                 <div className={styles.titleContainer}>
-                    <h1 ref={titleRef} className={styles.title}>What I do</h1>
+                    <h1 ref={titleRef} className={styles.title}>Crafting Digital Experiences</h1>
                 </div>
                 <p ref={leadRef} className={styles.lead}>
-                    Primary stack: Next.js with TypeScript, modular SCSS, and motion systems built with GSAP and Framer Motion.
-                    Architecture favors clear component boundaries, typed contracts, and maintainability. Delivery focuses on
-                    predictable state, accessible motion defaults, and progressive enhancement for scroll‑driven and route‑level
-                    transitions.
+                    I create immersive websites that blend thoughtful design, fluid motion, and modern frontend engineering.
+                    Every project is built with performance, accessibility, and scalability in mind—using Next.js,
+                    TypeScript, GSAP, and WebGL to deliver experiences that feel fast, polished, and memorable.
                 </p>
             </div>
         </section>
