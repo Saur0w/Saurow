@@ -5,7 +5,7 @@ import Landing from '@/components/Landing/index';
 import Show from '@/components/Projects/index';
 import { ReactLenis } from "lenis/react";
 import Des from '@/components/Des/index';
-import Morph from "@/components/Morph";
+import Services from "@/components/Services";
 
 export default function Home() {
   return (
@@ -14,7 +14,7 @@ export default function Home() {
               <Landing />
               <Des />
               <Show />
-              <Morph />
+              <Services />
           </div>
       </ReactLenis>
   );
