@@ -70,7 +70,7 @@ export default function Services() {
             }
         });
     }, { dependencies: [activeIndex], scope: sectionRef });
-    
+
     useGSAP(() => {
         if (!sectionRef.current) return;
 
@@ -117,7 +117,8 @@ export default function Services() {
                             <div
                                 key={index}
                                 className={`${styles.serviceItem} ${isOpen ? styles.active : ''}`}
-                                onClick={() => toggleAccordion(index)}
+                                onMouseEnter={() => setActiveIndex(index)}
+                                onMouseLeave={() => setActiveIndex(prev => (prev === index ? null : prev))}
                                 role="button"
                                 aria-expanded={isOpen}
                                 tabIndex={0}

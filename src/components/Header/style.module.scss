@@ -30,6 +30,11 @@
       width: 90px;
     }
 
+    @media (max-width: 480px) {
+      height: 46px;
+      width: 80px;
+    }
+
     p {
       position: absolute;
       margin: 0;
@@ -85,6 +90,10 @@
             padding: 8px 20px;
           }
 
+          @media (max-width: 480px) {
+            padding: 6px 14px;
+          }
+
           a {
             display: inline-block;
             text-decoration: none;
@@ -92,13 +101,13 @@
             font-size: 0.9rem;
             font-weight: 400;
             white-space: nowrap;
+
+            @media (max-width: 480px) {
+              font-size: 0.8rem;
+            }
           }
         }
       }
-    }
-
-    &:hover nav {
-      pointer-events: auto;
     }
   }
 }

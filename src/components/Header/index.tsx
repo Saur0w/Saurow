@@ -36,8 +36,11 @@ export default function Header() {
 
         const tl = gsap.timeline({ paused: true });
 
+        // Width is capped to the viewport (minus a 32px margin) instead of a
+        // fixed 600px, so it never overflows on narrow screens. `invalidate()`
+        // is called before every open so this recalculates on resize/rotate.
         tl.to(container, {
-            width: "600px",
+            width: () => `${Math.min(600, window.innerWidth - 32)}px`,
             duration: 0.7,
             ease: "power4.inOut",
         }, 0);
@@ -52,6 +55,7 @@ export default function Header() {
 
         tl.to(nav, {
             opacity: 1,
+            pointerEvents: "auto",
             duration: 0.3,
         }, 0.3);
 
@@ -68,8 +72,44 @@ export default function Header() {
             0.35
         );
 
-        const onMouseEnterHeader = () => tl.play();
-        const onMouseLeaveHeader = () => tl.reverse();
+        let isOpen = false;
+
+        const open = () => {
+            if (isOpen) return;
+            isOpen = true;
+            container.setAttribute("aria-expanded", "true");
+            tl.invalidate().play();
+        };
+
+        const close = () => {
+            if (!isOpen) return;
+            isOpen = false;
+            container.setAttribute("aria-expanded", "false");
+            tl.reverse();
+        };
+
+        const toggle = () => (isOpen ? close() : open());
+
+        // Real hover (mouse/trackpad) gets hover-driven open/close.
+        // Touch gets tap-to-toggle + tap-outside-to-close.
+        const hoverCapable = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+        const onMouseEnterHeader = () => open();
+        const onMouseLeaveHeader = () => close();
+
+        const onClickHeader = (e: MouseEvent) => {
+            e.stopPropagation();
+            toggle();
+        };
+        const onDocumentClick = () => close();
+
+        const onKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                toggle();
+            }
+            if (e.key === "Escape") close();
+        };
 
         const onMouseEnterItem = (e: MouseEvent) => {
             const target = e.currentTarget as HTMLLIElement;
@@ -99,19 +139,31 @@ export default function Header() {
             gsap.to(list.querySelectorAll("a"), { color: "#ffffff", opacity: 1, duration: 0.3 });
         };
 
-        container.addEventListener("mouseenter", onMouseEnterHeader);
-        container.addEventListener("mouseleave", onMouseLeaveHeader);
-        list.addEventListener("mouseleave", onMouseLeaveList);
+        if (hoverCapable) {
+            container.addEventListener("mouseenter", onMouseEnterHeader);
+            container.addEventListener("mouseleave", onMouseLeaveHeader);
+            list.addEventListener("mouseleave", onMouseLeaveList);
+        } else {
+            container.addEventListener("click", onClickHeader);
+            document.addEventListener("click", onDocumentClick);
+        }
+
+        container.addEventListener("keydown", onKeyDown as EventListener);
 
         const navItems = list.querySelectorAll("li");
-        navItems.forEach((item) => {
-            item.addEventListener("mouseenter", onMouseEnterItem as EventListener);
-        });
+        if (hoverCapable) {
+            navItems.forEach((item) => {
+                item.addEventListener("mouseenter", onMouseEnterItem as EventListener);
+            });
+        }
 
         return () => {
             menuSplit.revert();
             container.removeEventListener("mouseenter", onMouseEnterHeader);
             container.removeEventListener("mouseleave", onMouseLeaveHeader);
+            container.removeEventListener("click", onClickHeader);
+            container.removeEventListener("keydown", onKeyDown as EventListener);
+            document.removeEventListener("click", onDocumentClick);
             list.removeEventListener("mouseleave", onMouseLeaveList);
             navItems.forEach((item) => {
                 item.removeEventListener("mouseenter", onMouseEnterItem as EventListener);
@@ -121,7 +173,14 @@ export default function Header() {
 
     return (
         <header className={styles.header}>
-            <div className={styles.container} ref={containerRef}>
+            <div
+                className={styles.container}
+                ref={containerRef}
+                role="button"
+                tabIndex={0}
+                aria-expanded="false"
+                aria-label="Toggle navigation menu"
+            >
                 <p className="menu-text">Menu</p>
                 <nav ref={navRef} className={styles.nav}>
                     <ul ref={listRef}>

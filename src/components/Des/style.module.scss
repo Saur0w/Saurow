@@ -1,12 +1,20 @@
 .description {
-  min-height: 100vh;
+  min-height: 50vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5vw;
+  padding: clamp(60px, 10vw, 140px) 5vw;
   background-color: #f7f7f7;
-  margin-top: -500px;
   color: #1a1a1a;
+
+  @media (max-width: 768px) {
+    min-height: auto;
+    padding: 80px 24px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 60px 20px;
+  }
 
   @media (max-width: 1024px) {
     margin-top: -350px;
