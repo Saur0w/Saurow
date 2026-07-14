@@ -32,22 +32,22 @@ export default function Landing() {
 
     return (
         <section className={styles.landing} ref={containerRef}>
-            <div className={styles.inner}>
-                <div className={styles.heading}>
-                    <TextCanvas />
-                </div>
 
-                <div className={styles.text}>
-                    <p>
-                        <span className={styles.lineOne}>Building for the web,</span>
-                        <br />
-                        <span className={styles.lineTwo}>Crafting motion rich web experiences.</span>
-                    </p>
-                </div>
 
-                <div className={styles.imageContainer} ref={imageRef}>
-                    <ImageCanvas />
-                </div>
+            <div className={styles.heading}>
+                <TextCanvas />
+            </div>
+
+            <div className={styles.text}>
+                <p>
+                    <span className={styles.lineOne}>Building for the web,</span>
+                    <br />
+                    <span className={styles.lineTwo}>Crafting motion rich web experiences.</span>
+                </p>
+            </div>
+
+            <div className={styles.imageContainer} ref={imageRef}>
+                <ImageCanvas />
             </div>
         </section>
     );

@@ -1,21 +1,15 @@
 .landing {
   position: relative;
-  height: 180dvh;
+  height: 200dvh;
   width: 100%;
   background: #f7f7f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   margin-top: -100px;
   overflow: hidden;
 
-  .inner {
-    position: sticky;
-    top: 0;
-    height: 100dvh;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
 
   .heading {
     position: relative;
@@ -70,8 +64,9 @@
   }
 
   @media (max-width: 480px) {
-    height: 80dvh;
+    height: 100dvh;
     margin-top: -100px;
+    gap: 0.5rem;
 
     .imageContainer {
       width: 92vw;
