@@ -67,8 +67,8 @@ export default function Second() {
                 </div>
                 <p ref={leadRef} className={styles.lead}>
                     I create immersive websites that blend thoughtful design, fluid motion, and modern frontend engineering.
-                    Every project is built with performance, accessibility, and scalability in mind—using Next.js,
-                    TypeScript, GSAP, and WebGL to deliver experiences that feel fast, polished, and memorable.
+                    Every project is built with performance, accessibility, and scalability in mind, using Next.js,
+                    TypeScript, GSAP, ThreeJs and WebGL to deliver experiences that feel fast, polished, and memorable.
                 </p>
             </div>
         </section>
