@@ -1,7 +1,7 @@
 .servicesSection {
   background-color: #f7f7f7;
   padding: 140px 24px;
-  width: 100%; // Fixed from 100vw to eliminate structural horizontal scrollbars
+  width: 100%; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -118,7 +118,6 @@
     border-top: 1px solid rgba(247, 247, 247, 0.1);
   }
 
-  // Focus style for keyboard navigation/accessibility
   &:focus-visible {
     outline: 2px solid rgba(247, 247, 247, 0.4);
     outline-offset: 4px;
@@ -193,7 +192,7 @@
     }
 
     .iconWrapper {
-      flex-shrink: 0; // Prevent icon distortion if title text wraps heavily
+      flex-shrink: 0;
     }
 
     .icon {
@@ -246,7 +245,7 @@
   padding-left: 50px;
 
   @media (max-width: 480px) {
-    padding-left: 40px; // Aligns better with title offset on small screens
+    padding-left: 40px; 
   }
 
   p {
