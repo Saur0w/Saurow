@@ -5,10 +5,11 @@ import { useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+import { SplitText } from 'gsap/SplitText';
 import TextCanvas from "./textCanvas";
 import ImageCanvas from "./imageCanvas";
 
-gsap.registerPlugin(ScrollTrigger, useGSAP);
+gsap.registerPlugin(ScrollTrigger, useGSAP, SplitText);
 
 export default function Landing() {
     const imageRef = useRef<HTMLDivElement>(null);
@@ -16,6 +17,38 @@ export default function Landing() {
 
     useGSAP(() => {
         if (!imageRef.current) return;
+        const tl = gsap.timeline({ delay: 0.5 });
+
+        tl.from(`.${styles.heading}`, {
+            y: 80,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power4.out"
+        });
+
+        const splitText = new SplitText(`.${styles.text} p`, {
+            type: "lines",
+            linesClass: "split-parent"
+        });
+        const splitTextLines = new SplitText(splitText.lines, {
+            type: "lines",
+            linesClass: "split-child"
+        });
+
+        tl.from(splitTextLines.lines, {
+            yPercent: 100,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: "power3.out",
+        }, "-=0.8");
+
+        tl.from(imageRef.current, {
+            y: 100,
+            opacity: 0,
+            scale: 0.95,
+            duration: 1.0,
+            ease: "power4.out",
+        }, "-=0.6");
 
         gsap.to(imageRef.current, {
             clipPath: "inset(0% round 10px)",
