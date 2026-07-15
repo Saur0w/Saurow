@@ -21,11 +21,11 @@ export default function ImageMesh() {
     const aspect = pw / ph;
 
     const uniforms = useMemo(() => ({
-        u_texture : { value: texture                      },
-        uMouse    : { value: new THREE.Vector2(0.5, 0.5) },
-        uHover    : { value: 0                            },
-        uTime     : { value: 0                            },
-        uAspect   : { value: aspect                       },
+        u_texture: { value: texture },
+        uMouse: { value: new THREE.Vector2(0.5, 0.5) },
+        uHover: { value: 0 },
+        uTime: { value: 0 },
+        uAspect: { value: aspect },
     }), [texture, aspect]);
 
     useFrame(({ clock }) => {
