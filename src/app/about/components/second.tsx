@@ -41,7 +41,7 @@ export default function Second() {
         });
 
         tl.from(titleSplit.chars, {
-            yPercent: 100,
+            yPercent: 110,
             duration: 0.8,
             ease: "power4.out",
             stagger: 0.02
@@ -52,11 +52,6 @@ export default function Second() {
                 ease: "power4.out",
                 stagger: 0.05
             }, "-=0.4");
-
-        return () => {
-            titleSplit.revert();
-            leadSplit.revert();
-        };
     }, { scope: scopeRef });
 
     return (
