@@ -84,7 +84,7 @@ html {
     align-items: center;
     justify-content: center;
     pointer-events: none;
-    z-index: 10000; 
+    z-index: 10000;
 }
 
 .transition-text h1 {
