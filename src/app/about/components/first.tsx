@@ -41,7 +41,8 @@ export default function About() {
             autoAlpha: 0,
             duration: 0.8,
             ease: "power4.out",
-            stagger: 0.02
+            stagger: 0.02,
+            delay: 0.5
         })
             .from(textSplit.lines, {
                 yPercent: 100,
@@ -56,6 +57,7 @@ export default function About() {
                 clipPath: "polygon(0 0%, 100% 0%, 100% 100%, 0 100%)",
                 duration: 1.4,
                 ease: "power4.inOut",
+                delay: 0.15,
                 scrollTrigger: {
                     trigger: sectionRef.current,
                     start: "top 70%"
@@ -77,11 +79,6 @@ export default function About() {
                 }
             }
         );
-
-        return () => {
-            titleSplit.revert();
-            textSplit.revert();
-        };
     }, { scope: sectionRef });
 
     return (
