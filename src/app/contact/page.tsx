@@ -65,11 +65,6 @@ export default function Contact(): JSX.Element {
             duration: 0.6,
             ease: "power3.out",
         }, "-=0.5");
-
-        return () => {
-            splitChars.revert();
-            splitLines.revert();
-        };
     }, { scope: containerRef });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
