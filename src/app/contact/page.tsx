@@ -1,8 +1,15 @@
 "use client";
 
-import React, {JSX, useState} from "react";
+import React, { JSX, useState, useRef } from "react";
 import styles from "./style.module.scss";
-import {ReactLenis} from "lenis/react";
+import { ReactLenis } from "lenis/react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { SplitText } from "gsap/SplitText";
+
+if (typeof window !== "undefined") {
+    gsap.registerPlugin(SplitText, useGSAP);
+}
 
 interface FormData {
     name: string;
@@ -21,6 +28,49 @@ export default function Contact(): JSX.Element {
 
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const [submitStatus, setSubmitStatus] = useState<string | null>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useGSAP(() => {
+        const container = containerRef.current;
+        if (!container) return;
+        const splitLines = new SplitText(`.${styles.heading}`, {
+            type: "lines",
+            linesClass: "split-parent"
+        });
+        
+        const splitChars = new SplitText(splitLines.lines, {
+            type: "chars",
+            charsClass: "split-child"
+        });
+
+        const tl = gsap.timeline({ delay: 0.5 });
+        tl.from(splitChars.chars, {
+            yPercent: 100,
+            duration: 0.8,
+            stagger: 0.02,
+            ease: "power4.out",
+        });
+
+        tl.from(container.querySelectorAll(`.${styles.formGroup}`), {
+            y: 40,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power3.out",
+        }, "-=0.5");
+
+        tl.from(container.querySelector(`.${styles.submitButton}`), {
+            y: 20,
+            opacity: 0,
+            duration: 0.6,
+            ease: "power3.out",
+        }, "-=0.5");
+
+        return () => {
+            splitChars.revert();
+            splitLines.revert();
+        };
+    }, { scope: containerRef });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
         const { name, value } = e.target;
@@ -67,7 +117,7 @@ export default function Contact(): JSX.Element {
 
     return (
         <ReactLenis root>
-            <div className={styles.contactContainer}>
+            <div className={styles.contactContainer} ref={containerRef}>
                 <h1 className={styles.heading}>
                     Get in Touch
                 </h1>
