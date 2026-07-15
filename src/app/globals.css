@@ -2,6 +2,7 @@
     --font-display: 'Clash Display', sans-serif;
     --font-body: 'General Sans', sans-serif;
     --font-tech: 'Space Mono', monospace;
+    --trasition-grid: #f2f0e6
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -51,6 +52,54 @@ html {
     -ms-overflow-style: none;
 }
 
+.transition-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    pointer-events: none;
+    z-index: 9999;
+    overflow: hidden;
+}
+
+.transition-block {
+    flex: 1;
+    width: 100%;
+    background-color: var(--trasition-grid);
+    transform: scaleX(0);
+    transform-origin: left center;
+    will-change: transform;
+}
+
+.transition-text {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 10000; 
+}
+
+.transition-text h1 {
+    font-size: clamp(1.5rem, 3vw, 4.5rem);
+    font-weight: 500;
+    letter-spacing: -3%;
+    line-height: 1;
+    text-transform: uppercase;
+    color: #121212;
+}
+
+.transition-text .word {
+    transform: translateY(100%);
+    will-change: transform;
+}
 
 
 

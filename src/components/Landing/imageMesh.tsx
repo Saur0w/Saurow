@@ -4,7 +4,7 @@ import { useRef, useMemo } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import { useTexture } from "@react-three/drei";
 import * as THREE from "three";
-import { imageVertex, imageFragment } from "@/lib/shaders";
+import { imageVertex, imageFragment } from "@/lib/Shaders";
 
 export default function ImageMesh() {
     const matRef       = useRef<THREE.ShaderMaterial>(null!);

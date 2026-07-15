@@ -13,15 +13,15 @@ import Link from "next/link";
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export default function Footer() {
-    const footerRef    = useRef<HTMLElement>(null);
-    const dotRef        = useRef<HTMLSpanElement>(null);
-    const headingRef    = useRef<HTMLHeadingElement>(null);
-    const buttonRef     = useRef<HTMLDivElement>(null);
-    const dividerRef    = useRef<HTMLDivElement>(null);
-    const navRef        = useRef<HTMLDivElement>(null);
-    const copyrightRef  = useRef<HTMLDivElement>(null);
-    const nav2Ref        = useRef<HTMLDivElement>(null);
-    const arrowRef       = useRef<HTMLButtonElement>(null);
+    const footerRef = useRef<HTMLElement>(null);
+    const dotRef = useRef<HTMLSpanElement>(null);
+    const headingRef = useRef<HTMLHeadingElement>(null);
+    const buttonRef = useRef<HTMLDivElement>(null);
+    const dividerRef = useRef<HTMLDivElement>(null);
+    const navRef = useRef<HTMLDivElement>(null);
+    const copyrightRef = useRef<HTMLDivElement>(null);
+    const nav2Ref = useRef<HTMLDivElement>(null);
+    const arrowRef = useRef<HTMLButtonElement>(null);
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -45,7 +45,7 @@ export default function Footer() {
                 if (reduceMotion) {
                     gsap.set(
                         [buttonRef.current, dividerRef.current, navRef.current,
-                         copyrightRef.current, nav2Ref.current, arrowRef.current],
+                        copyrightRef.current, nav2Ref.current, arrowRef.current],
                         { clearProps: 'all' }
                     );
                     return;
@@ -68,14 +68,14 @@ export default function Footer() {
                     {
                         scrollTrigger: { trigger: footerRef.current, start: 'top 80%' },
                         keyframes: {
-                            "0%":   { y: -100, scaleY: 1,    scaleX: 1    },
-                            "45%":  { y: 0,    scaleY: 0.5,  scaleX: 1.6  },
-                            "58%":  { y: -30,  scaleY: 1.1,  scaleX: 0.9  },
-                            "70%":  { y: 0,    scaleY: 0.75, scaleX: 1.25 },
-                            "80%":  { y: -12,  scaleY: 1.05, scaleX: 0.95 },
-                            "90%":  { y: 0,    scaleY: 0.9,  scaleX: 1.1  },
-                            "95%":  { y: -4,   scaleY: 1,    scaleX: 1    },
-                            "100%": { y: 0,    scaleY: 1,    scaleX: 1    },
+                            "0%": { y: -100, scaleY: 1, scaleX: 1 },
+                            "45%": { y: 0, scaleY: 0.5, scaleX: 1.6 },
+                            "58%": { y: -30, scaleY: 1.1, scaleX: 0.9 },
+                            "70%": { y: 0, scaleY: 0.75, scaleX: 1.25 },
+                            "80%": { y: -12, scaleY: 1.05, scaleX: 0.95 },
+                            "90%": { y: 0, scaleY: 0.9, scaleX: 1.1 },
+                            "95%": { y: -4, scaleY: 1, scaleX: 1 },
+                            "100%": { y: 0, scaleY: 1, scaleX: 1 },
                         },
                         duration: 1.6,
                         ease: 'power2.in',
@@ -197,9 +197,9 @@ export default function Footer() {
                     aria-label="Back to top"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                         viewBox="0 0 24 24" strokeWidth="1.2" stroke="currentColor" aria-hidden="true">
+                        viewBox="0 0 24 24" strokeWidth="1.2" stroke="currentColor" aria-hidden="true">
                         <path strokeLinecap="round" strokeLinejoin="round"
-                              d="m19.5 4.5-15 15m0 0h11.25m-11.25 0V8.25" />
+                            d="m19.5 4.5-15 15m0 0h11.25m-11.25 0V8.25" />
                     </svg>
                 </button>
 
@@ -211,10 +211,10 @@ export default function Footer() {
                         <span className={styles.sectionLabel}>Navigation</span>
                         <ul>
                             {[
-                                { label: 'Home',     href: '/' },
-                                { label: 'About',    href: '/about' },
+                                { label: 'Home', href: '/' },
+                                { label: 'About', href: '/about' },
                                 { label: 'Projects', href: '/project' },
-                                { label: 'Contact',  href: '/contact' },
+                                { label: 'Contact', href: '/contact' },
                             ].map(({ label, href }) => (
                                 <Magnetic key={label}>
                                     <li><Link href={href}>{label}</Link></li>
@@ -232,10 +232,10 @@ export default function Footer() {
                         <ul>
                             {[
                                 { label: 'X', href: 'https://x.com/sauroww' },
-                                { label: 'Github',      href: 'https://github.com/Saur0w' },
-                                { label: 'LinkedIn',    href: 'https://www.linkedin.com/in/saurabh-thapliyal-76a0a6306/' },
-                                { label: 'Dribbble',    href: 'https://dribbble.com/sthapliyal085' },
-                                { label: 'Behance',     href: 'https://www.behance.net/saurabhthapliy2' }
+                                { label: 'Github', href: 'https://github.com/Saur0w' },
+                                { label: 'LinkedIn', href: 'https://www.linkedin.com/in/saurabh-thapliyal-76a0a6306/' },
+                                { label: 'Dribbble', href: 'https://dribbble.com/sthapliyal085' },
+                                { label: 'Behance', href: 'https://www.behance.net/saurabhthapliy2' }
 
                             ].map(({ label, href }) => (
                                 <Magnetic key={label}>

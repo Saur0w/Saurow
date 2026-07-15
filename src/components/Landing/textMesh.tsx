@@ -3,7 +3,7 @@
 import { useRef, useMemo } from "react";
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
-import { textVertex, textFragment } from "@/lib/shaders";
+import { textVertex, textFragment } from "@/lib/Shaders";
 
 function buildTextTexture(text: string, font: string): THREE.CanvasTexture {
     const W = 4096;

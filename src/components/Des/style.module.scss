@@ -8,17 +8,15 @@
   color: #1a1a1a;
 
   @media (max-width: 1024px) {
-    margin-top: -350px;
+    height: 30vh;
   }
 
   @media (max-width: 768px) {
-    margin-top: -200px;
     min-height: auto;
     padding: 80px 24px;
   }
 
   @media (max-width: 480px) {
-    margin-top: -100px;
     padding: 60px 20px;
   }
 }
