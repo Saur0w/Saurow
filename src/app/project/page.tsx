@@ -25,6 +25,12 @@ interface Project {
 
 const projects: Project[] = [
     {
+        title: 'Astha Sati Portfolio',
+        subtitle: 'Design & Development',
+        link: 'https://helloastha.vercel.app/',
+        external: true
+    },
+    {
         title: 'JPA',
         subtitle: 'Design & Development',
         link: 'https://joshipayalandassociates.com/',
