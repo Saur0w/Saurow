@@ -17,34 +17,26 @@ export default function Description() {
     useGSAP(() => {
         if (!containerRef.current) return;
 
-        const split = new SplitText(".reveal-text", {
+        SplitText.create(".reveal-text", {
             type: "lines",
-            linesClass: "line-outer",
-        });
-
-        split.lines.forEach((line) => {
-            const inner = document.createElement("div");
-            inner.className = "line-inner";
-            while (line.firstChild) {
-                inner.appendChild(line.firstChild);
-            }
-            line.appendChild(inner);
-        });
-
-        const lineInners = containerRef.current.querySelectorAll<HTMLElement>(".line-inner");
-        const socialInners = containerRef.current.querySelectorAll<HTMLElement>(".social-inner");
-
-        gsap.from(lineInners, {
-            scrollTrigger: {
-                trigger: containerRef.current,
-                start: "top 50%",
-                toggleActions: "play none none reverse",
+            mask: "lines",
+            autoSplit: true,
+            onSplit: (self) => {
+                return gsap.from(self.lines, {
+                    scrollTrigger: {
+                        trigger: containerRef.current,
+                        start: "top 50%",
+                        toggleActions: "play none none reverse",
+                    },
+                    yPercent: 110,
+                    duration: 1,
+                    stagger: 0.12,
+                    ease: "power4.out",
+                });
             },
-            yPercent: 110,
-            duration: 1,
-            stagger: 0.12,
-            ease: "power4.out",
         });
+
+        const socialInners = containerRef.current.querySelectorAll<HTMLElement>(".social-inner");
 
         gsap.from(socialInners, {
             scrollTrigger: {
@@ -77,7 +69,6 @@ export default function Description() {
                         { href: "https://www.behance.net/saurabhthapliy2", label: "Behance" },
                         { href: "https://dribbble.com/sthapliyal085", label: "Dribbble" }
                     ].map(({ href, label }) => (
-
                         <div className={`social-mask ${styles.socialMask}`} key={label}>
                             <div className="social-inner">
                                 <Magnetic>
