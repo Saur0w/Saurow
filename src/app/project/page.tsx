@@ -59,25 +59,6 @@ const projects: Project[] = [
         subtitle: 'Design & Development',
         link: 'https://socialswithpooja-d26z.vercel.app/',
         external: true
-    },
-    {
-        title: 'TrustSnare',
-        subtitle: 'Animation & Front-End',
-        docs: {
-            title: 'TrustSnare Extension',
-            status: 'Live',
-            description: 'A custom security-focused extension built with an emphasis on fluid interactive micro-interactions, low overhead state architecture, and clear visual systems.',
-            link: 'https://example.com/trustsnare'
-        }
-    },
-    {
-        title: 'Orange Circle',
-        subtitle: 'Design & Development',
-        docs: {
-            title: 'Orange Circle',
-            status: 'In Production',
-            description: 'This project is currently in production. Full documentation and a thorough interactive case study will be published immediately upon release.'
-        }
     }
 ];
 
