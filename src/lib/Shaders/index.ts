@@ -25,9 +25,9 @@ export const uCurve = uniform(0.4);
 export const uMouse = uniform(new THREE.Vector2(0.5, 0.5));
 export const uHover = uniform(0.0);
 
-// Object-fit cover scaling & color toning controls
+// color toning & Object fit
 export const uCoverScale = uniform(new THREE.Vector2(200 / 220, 1.0));
-export const uBrightness = uniform(0.86);
+export const uBrightness = uniform(0.6);
 export const uContrast = uniform(1.12);
 
 // Dynamic mouse calculation (inverts Y if flipped backface)
