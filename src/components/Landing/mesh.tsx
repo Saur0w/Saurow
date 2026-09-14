@@ -65,20 +65,20 @@ export default function MeshComponent() {
     useGSAP(() => {
         if (!meshRef.current) return;
 
-        const tl = gsap.timeline({ delay: 0.5 });
+        const tl = gsap.timeline({ delay: 0.8 });
 
         tl.to(meshRef.current.scale, {
             x: 0.85,
             y: 0.85,
-            duration: 0.8,
+            duration: 1.0,
             ease: 'power2.out',
         })
             .to(
                 uBend,
                 {
                     value: Math.PI,
-                    duration: 2.2,
-                    ease: 'power3.inOut',
+                    duration: 3.2,
+                    ease: 'power2.inOut',
                 },
                 'flip'
             )
@@ -87,8 +87,8 @@ export default function MeshComponent() {
                 {
                     x: 2.5,
                     y: 2.5,
-                    duration: 2.2,
-                    ease: 'power3.inOut',
+                    duration: 3.2,
+                    ease: 'power2.inOut',
                 },
                 'flip'
             );
