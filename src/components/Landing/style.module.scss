@@ -1,82 +1,77 @@
 .landing {
   position: relative;
-  height: 200dvh;
-  width: 100%;
-  background: #f7f7f7;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  margin-top: -100px;
   overflow: hidden;
+  background: #eeeeee;
 
-
-  .heading {
-    position: relative;
-    width: 100%;
-    height: clamp(3rem, 25vw, 26rem);
-    @media (max-width: 480px) {
-      height: 3rem;
-      width: 20rem;
-    }
-  }
-
-  .text {
-    padding: 0 clamp(1rem, 4vw, 3rem);
-    text-align: center;
-
-    p { display: flex; flex-direction: column; }
-
-    .lineOne {
-      font-size: clamp(0.85rem, 2vw, 1.8rem);
-      font-weight: 500;
-      letter-spacing: -0.5px;
-    }
-
-    .lineTwo {
-      font-size: clamp(0.75rem, 1.4vw, 1.2rem);
-      font-weight: 300;
-      opacity: 0.7;
-    }
+  .scene {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
   }
 
   .imageContainer {
-    position: relative;
-    margin-top: clamp(40px, 8vw, 150px);
-    width: min(1500px, 92vw);
-    height: clamp(160px, 45vw, 800px);
-    overflow: hidden;
-    clip-path: inset(10% round 10px);
-    border-radius: 10px;
+    position: absolute;
+    width: 200px;
+    height: 220px;
+    z-index: 10;
+    pointer-events: none;
   }
 
-  @media (max-width: 1600px) {
-    height: 160dvh;
+  .line {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    height: 1.5px;
+    width: 0;
+    background: #000;
+    z-index: 101;
   }
 
-  @media (max-width: 1380px) {
-    height: 140dvh;
+  .heading {
+    z-index: 101;
+    margin-left: 700px;
+    text-align: right;
+    pointer-events: none;
+
+    h1 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 8rem;
+      font-weight: 600;
+      color: #000;
+
+      .dot {
+        font-size: 0.5em;
+        vertical-align: middle;
+        line-height: 0;
+      }
+    }
   }
 
-  @media (max-width: 1024px) {
-    height: 120dvh;
-    .text .lineOne { letter-spacing: -0.3px; }
-  }
+  .footer {
+    position: absolute;
+    opacity: 0;
+    bottom: 3em;
+    width: calc(100% - 6em);
+    left: 3em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    pointer-events: none;
 
-  @media (max-width: 768px) {
-    height: 80dvh;
-    margin-top: -60px;
-    .text .lineOne { letter-spacing: 0; }
-  }
-
-  @media (max-width: 480px) {
-    height: 50dvh;
-    padding-top: 100px;
-
-    .imageContainer {
-      width: 92vw;
-      height: clamp(160px, 52vw, 260px);
-      margin-top: 30px;
+    h4 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 400;
+      line-height: 1.4;
+      color: #000;
     }
   }
 }

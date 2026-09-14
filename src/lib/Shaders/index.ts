@@ -1,57 +1,55 @@
-export const textVertex =  `
-  varying vec2 vUv;
+import {
+    positionLocal,
+    uv,
+    vec2,
+    vec3,
+    uniform,
+    texture,
+    sin,
+    cos,
+    PI,
+    length,
+    smoothstep,
+    select,
+    float,
+    frontFacing,
+} from 'three/tsl';
+import * as THREE from 'three';
 
-  void main() {
-    vUv         = uv;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }
-`;
+// 1. Uniforms
+export const uBend = uniform(0.0);
+export const uPivot = uniform(0.0);
+export const uCurve = uniform(0.4);
+export const uMouse = uniform(new THREE.Vector2(0.5, 0.5));
+export const uHover = uniform(0.0);
 
-export const textFragment = `
-  varying vec2 vUv;
+// 2. Dynamic mouse calculation (inverts Y if flipped backface)
+const isBackFacingAngle = cos(uBend).lessThan(0.0);
+const mouseY = select(isBackFacingAngle, float(1.0).sub(uMouse.y), uMouse.y);
+const mouse = vec2(uMouse.x, mouseY);
 
-  uniform sampler2D u_texture;
-  uniform vec2      u_mouse;
-  uniform vec2      u_prevMouse;
+// 3. Falloff & Hover ripple
+const dist = length(uv().sub(mouse));
+const falloff = smoothstep(0.25, 0.0, dist);
+const faceDir = select(cos(uBend).greaterThanEqual(0.0), float(1.0), float(-1.0));
+const hoverOffset = falloff.mul(0.2).mul(uHover).mul(faceDir);
 
-  void main() {
-    // Snap to a 40 × 40 grid
-    vec2 gridUV        = floor(vUv * vec2(40.0, 40.0)) / vec2(40.0, 40.0);
-    vec2 centerOfPixel = gridUV + vec2(1.0 / 40.0, 1.0 / 40.0);
+// 4. Flex Curvature
+const flex = sin(uv().y.mul(PI)).mul(uCurve).mul(sin(uBend));
+const initialZ = positionLocal.z.add(hoverOffset).sub(flex);
 
-    // How far / fast the mouse moved this frame
-    vec2  mouseDirection       = u_mouse - u_prevMouse;
+// 5. Pivot Rotation along Y and Z
+const distY = positionLocal.y.sub(uPivot);
+const distZ = initialZ;
 
-    // Distance from this grid cell's centre to the mouse
-    vec2  pixelToMouse         = centerOfPixel - u_mouse;
-    float pixelDistanceToMouse = length(pixelToMouse);
+const newY = uPivot.add(distY.mul(cos(uBend))).sub(distZ.mul(sin(uBend)));
+const newZ = distY.mul(sin(uBend)).add(distZ.mul(cos(uBend)));
 
-    // Cells close to the cursor get a strong pull; cells far away get nothing
-    float strength = smoothstep(0.3, 0.0, pixelDistanceToMouse);
+export const flipVertexNode = vec3(positionLocal.x, newY, newZ);
 
-    // Shift UVs opposite to the mouse direction (gives the "dragging" look)
-    vec2 uvOffset = strength * -mouseDirection * 0.3;
-    vec2 uv       = vUv - uvOffset;
-
-    gl_FragColor = texture2D(u_texture, uv);
-  }
-`;
-
-export const imageVertex = `
-  varying vec2 vUv;
-
-  void main() {
-    vUv = uv;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }
-`;
-
-export const imageFragment = `
-  varying vec2 vUv;
-
-  uniform sampler2D u_texture;
-
-  void main() {
-    gl_FragColor = texture2D(u_texture, vUv);
-  }
-`;
+// 6. Fragment color with automatic backface UV flip
+export const createTextureNode = (map: THREE.Texture) => {
+    const backUv = vec2(uv().x, float(1.0).sub(uv().y));
+    const correctedUv = select(frontFacing, uv(), backUv);
+    return texture(map, correctedUv);
+};
