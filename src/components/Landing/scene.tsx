@@ -39,14 +39,14 @@ export default function Scene() {
         <Canvas
             flat
             frameloop={isReady ? 'always' : 'never'}
-            gl={(props: any) => {
+            gl={(props) => {
                 const renderer = new WebGPURenderer({
-                    canvas: props.canvas,
+                    canvas: props.canvas as HTMLCanvasElement,
                     antialias: true,
                     alpha: true,
                 });
                 renderer.toneMapping = THREE.NoToneMapping;
-                return renderer as any;
+                return renderer as unknown as THREE.WebGLRenderer;
             }}
             camera={{ position: [0, 0, 5], fov: 45 }}
             style={{ width: '100%', height: '100%' }}

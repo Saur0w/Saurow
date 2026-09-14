@@ -25,6 +25,15 @@ declare module '@react-three/fiber' {
     }
 }
 
+interface TextureImage {
+    naturalWidth?: number;
+    naturalHeight?: number;
+    videoWidth?: number;
+    videoHeight?: number;
+    width?: number;
+    height?: number;
+}
+
 export default function MeshComponent() {
     const { viewport, size } = useThree();
     const texture = useTexture('/images/a.png');
@@ -40,7 +49,7 @@ export default function MeshComponent() {
         if (!texture) return;
         texture.colorSpace = THREE.SRGBColorSpace;
 
-        const img = texture.image as any;
+        const img = texture.image as TextureImage | undefined;
         const imgWidth = img?.naturalWidth || img?.videoWidth || img?.width || 1254;
         const imgHeight = img?.naturalHeight || img?.videoHeight || img?.height || 1254;
         const imageAspect = imgWidth / (imgHeight || 1);
