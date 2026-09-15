@@ -108,13 +108,6 @@ export default function MeshComponent() {
                 },
                 'flip'
             )
-            .to(uCurve, {
-                value: 0.18,
-                duration: 0.17,
-                ease: "power2.out",
-                yoyo: true,
-                repeat: 1
-            }, 'flip')
             .to(
                 meshRef.current.scale,
                 {
