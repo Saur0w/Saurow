@@ -16,7 +16,6 @@ import {
     uCoverScale,
 } from '@/lib/Shaders';
 
-// Register MeshBasicNodeMaterial for R3F JSX
 extend({ MeshBasicNodeMaterial });
 
 declare module '@react-three/fiber' {
@@ -39,12 +38,9 @@ export default function MeshComponent() {
     const texture = useTexture('/images/a.png');
     const meshRef = useRef<THREE.Mesh>(null!);
     const matRef = useRef<MeshBasicNodeMaterial>(null!);
-
-    // Match sizing to the 200px x 220px image container
     const w = viewport.width * (200 / (size.width || 1));
     const h = viewport.height * (220 / (size.height || 1));
 
-    // Dynamic object-fit: cover scaling
     useEffect(() => {
         if (!texture) return;
         texture.colorSpace = THREE.SRGBColorSpace;
@@ -56,15 +52,12 @@ export default function MeshComponent() {
         const meshAspect = w / (h || 1);
 
         if (meshAspect < imageAspect) {
-            // Mesh is taller/narrower than image: fill height, crop width (X)
             uCoverScale.value.set(meshAspect / imageAspect, 1.0);
         } else {
-            // Mesh is wider than image: fill width, crop height (Y)
             uCoverScale.value.set(1.0, imageAspect / meshAspect);
         }
     }, [texture, w, h]);
-
-    // Build the color node once texture is loaded
+    
     const colorNode = useMemo(() => createTextureNode(texture), [texture]);
 
     const handlePointerMove = (e: ThreeEvent<PointerEvent>) => {
