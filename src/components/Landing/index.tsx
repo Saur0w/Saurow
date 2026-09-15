@@ -6,8 +6,9 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useRef } from 'react';
 import dynamic from 'next/dynamic';
-
+import Link from "next/link";
 const Scene = dynamic(() => import('./scene'), { ssr: false });
+import Magnetic from "@/ui/Magnetic"
 
 interface ImageProps {
     src: string;
@@ -122,9 +123,9 @@ export default function Landing() {
 
                 <div className={styles.col}>
                     <p className={styles.metaLabel}>AVAILABLE TO DO FREELANCE</p>
-                    <a href="mailto:sauurow@gmail.com" className={styles.metaLink}>
+                    <Link href="mailto:sauurow@gmail.com" className={styles.metaLink}>
                         SAUUROW@GMAIL.COM
-                    </a>
+                    </Link>
                 </div>
 
                 <div className={styles.col}>
@@ -134,7 +135,11 @@ export default function Landing() {
 
                 <div className={styles.colSocial}>
                     <p className={styles.metaLabel}>SOCIAL</p>
-                    <p className={styles.metaLabel}>X DR LI</p>
+                    <ul>
+                        <Magnetic><li><Link href="https://x.com/sauroww">X</Link></li></Magnetic>
+                        <Magnetic><li><Link href="https://www.linkedin.com/in/saurabh-thapliyal-76a0a6306/">Li</Link></li></Magnetic>
+
+                    </ul>
                 </div>
             </header>
             <div className={styles.scene} ref={sceneRef} style={{ opacity: 0 }}>
@@ -164,7 +169,6 @@ export default function Landing() {
                     <p>SAUROW</p>
                 </div>
                 <div className={styles.footerRight}>
-                    <p>C-NR. 07186749</p>
                     <p>DEV. SAUROW</p>
                 </div>
             </footer>
