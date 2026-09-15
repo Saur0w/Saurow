@@ -70,7 +70,6 @@ export default function Landing() {
             opacity: 1,
         });
 
-        // Animate name in — staggered letter reveal
         const nameChars = nameRef.current?.querySelectorAll('.name-char');
         if (nameChars) {
             gsap.from(nameChars, {
@@ -82,7 +81,6 @@ export default function Landing() {
             });
         }
 
-        // Animate role tagline
         gsap.from(roleRef.current, {
             yPercent: 100,
             opacity: 0,
@@ -91,13 +89,11 @@ export default function Landing() {
             delay: 3.4,
         });
 
-        // Footer reveal
         tl.set(footerRef.current, {
             opacity: 1,
             delay: 1,
         });
 
-        // Scroll indicator
         gsap.from(scrollRef.current, {
             opacity: 0,
             y: 20,
@@ -106,7 +102,6 @@ export default function Landing() {
             delay: 4,
         });
 
-        // Pulse animation for scroll indicator
         gsap.to(scrollRef.current, {
             y: 8,
             repeat: -1,
@@ -148,7 +143,6 @@ export default function Landing() {
             </div>
             <div className={styles.line} ref={lineRef} />
 
-            {/* Name & Role */}
             <div className={styles.identity}>
                 <div className={styles.nameWrapper}>
                     <h1 className={styles.name} ref={nameRef}>
@@ -160,13 +154,6 @@ export default function Landing() {
                 </div>
             </div>
 
-            {/* Scroll indicator */}
-            <div className={styles.scrollIndicator} ref={scrollRef}>
-                <span className={styles.scrollLine} />
-                <span className={styles.scrollText}>SCROLL</span>
-            </div>
-
-            {/* Footer bar */}
             <div className={styles.footer} ref={footerRef}>
                 <h4>
                     AVAILABLE FOR<br />FREELANCE
