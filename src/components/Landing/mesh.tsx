@@ -14,7 +14,8 @@ import {
     uHover,
     uMouse,
     uCoverScale,
-    uHeight
+    uHeight,
+    uCurve
 } from '@/lib/Shaders';
 
 extend({ MeshBasicNodeMaterial });
@@ -90,29 +91,36 @@ export default function MeshComponent() {
     useGSAP(() => {
         if (!meshRef.current) return;
 
-        const tl = gsap.timeline({ delay: 0.8 });
+        const tl = gsap.timeline({ delay: 0.3 });
 
         tl.to(meshRef.current.scale, {
-            x: 0.85,
-            y: 0.85,
-            duration: 1.0,
+            x: 0.88,
+            y: 0.88,
+            duration: 1.02,
             ease: 'power2.out',
         })
             .to(
                 uBend,
                 {
                     value: Math.PI,
-                    duration: 3.2,
-                    ease: 'power2.inOut',
+                    duration: 3.0,
+                    ease: 'power3.inOut',
                 },
                 'flip'
             )
+            .to(uCurve, {
+                value: 0.18,
+                duration: 0.17,
+                ease: "power2.out",
+                yoyo: true,
+                repeat: 1
+            }, 'flip')
             .to(
                 meshRef.current.scale,
                 {
                     x: 2.5,
                     y: 2.5,
-                    duration: 3.2,
+                    duration: 3.0,
                     ease: 'power2.inOut',
                 },
                 'flip'
