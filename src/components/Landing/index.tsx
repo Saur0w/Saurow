@@ -117,7 +117,24 @@ export default function Landing() {
         <section className={styles.landing}>
             <header ref={headerRef}>
                 <div className={styles.colBrand}>
-                    <span className={styles.title}>Saurow</span>
+                    <span className={styles.brandTitle}>SAUROW</span>
+                </div>
+
+                <div className={styles.col}>
+                    <p className={styles.metaLabel}>AVAILABLE TO DO FREELANCE</p>
+                    <a href="mailto:sauurow@gmail.com" className={styles.metaLink}>
+                        SAUUROW@GMAIL.COM
+                    </a>
+                </div>
+
+                <div className={styles.col}>
+                    <p className={styles.metaLabel}>WEB DESIGN UI UX</p>
+                    <p className={styles.metaLabel}>MOTION DESIGN</p>
+                </div>
+
+                <div className={styles.colSocial}>
+                    <p className={styles.metaLabel}>SOCIAL</p>
+                    <p className={styles.metaLabel}>X DR LI</p>
                 </div>
             </header>
             <div className={styles.scene} ref={sceneRef} style={{ opacity: 0 }}>
@@ -142,12 +159,14 @@ export default function Landing() {
             <div className={styles.line} ref={lineRef} />
 
             <footer ref={footerRef}>
-                <h4>
-                    AVAILABLE FOR<br />FREELANCE
-                </h4>
-                <h4>
-                    PORTFOLIO &mdash; 2026<br />SAUROW
-                </h4>
+                <div className={styles.footerLeft}>
+                    <p>© DESIGN</p>
+                    <p>SAUROW</p>
+                </div>
+                <div className={styles.footerRight}>
+                    <p>C-NR. 07186749</p>
+                    <p>DEV. SAUROW</p>
+                </div>
             </footer>
         </section>
     );
