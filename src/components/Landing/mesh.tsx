@@ -104,7 +104,7 @@ export default function MeshComponent() {
                 {
                     value: Math.PI,
                     duration: 3.0,
-                    ease: 'power3.inOut',
+                    ease: 'power4.inOut',
                 },
                 'flip'
             )
@@ -113,7 +113,7 @@ export default function MeshComponent() {
                 {
                     x: 2.5,
                     y: 2.5,
-                    duration: 3.0,
+                    duration: 3.4,
                     ease: 'power2.inOut',
                 },
                 'flip'
