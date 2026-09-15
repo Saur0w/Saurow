@@ -14,6 +14,7 @@ import {
     uHover,
     uMouse,
     uCoverScale,
+    uHeight
 } from '@/lib/Shaders';
 
 extend({ MeshBasicNodeMaterial });
@@ -42,6 +43,7 @@ export default function MeshComponent() {
     const h = viewport.height * (220 / (size.height || 1));
 
     useEffect(() => {
+        uHeight.value = h;
         if (!texture) return;
         texture.colorSpace = THREE.SRGBColorSpace;
 
@@ -57,7 +59,7 @@ export default function MeshComponent() {
             uCoverScale.value.set(1.0, imageAspect / meshAspect);
         }
     }, [texture, w, h]);
-    
+
     const colorNode = useMemo(() => createTextureNode(texture), [texture]);
 
     const handlePointerMove = (e: ThreeEvent<PointerEvent>) => {

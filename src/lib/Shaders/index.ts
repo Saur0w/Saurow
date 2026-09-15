@@ -15,6 +15,7 @@ import {
     select,
     float,
     frontFacing,
+    sqrt
 } from 'three/tsl';
 import * as THREE from 'three';
 
@@ -24,6 +25,7 @@ export const uPivot = uniform(0.0);
 export const uCurve = uniform(0.4);
 export const uMouse = uniform(new THREE.Vector2(0.5, 0.5));
 export const uHover = uniform(0.0);
+export const uHeight = uniform(1.0);
 
 // color toning & Object fit
 export const uCoverScale = uniform(new THREE.Vector2(200 / 220, 1.0));
@@ -40,13 +42,18 @@ const falloff = smoothstep(0.25, 0.0, dist);
 const faceDir = select(cos(uBend).greaterThanEqual(0.0), float(1.0), float(-1.0));
 const hoverOffset = falloff.mul(0.2).mul(uHover).mul(faceDir);
 
-const flex = sin(uv().y.mul(PI)).mul(uCurve).mul(sin(uBend));
+const bendCurve = uCurve.mul(sin(uBend));
+const flex = sin(uv().y.mul(PI)).mul(bendCurve);
 const initialZ = positionLocal.z.add(hoverOffset).sub(flex);
 
-const distY = positionLocal.y.sub(uPivot);
+const curveSlope = bendCurve.mul(PI).div(uHeight);
+const stretchFactor = sqrt(float(1.0).add(float(0.5).mul(curveSlope).mul(curveSlope)));
+
+const distY = positionLocal.y.sub(uPivot).div(stretchFactor);
 const distZ = initialZ;
 const newY = uPivot.add(distY.mul(cos(uBend))).sub(distZ.mul(sin(uBend)));
 const newZ = distY.mul(sin(uBend)).add(distZ.mul(cos(uBend)));
+
 
 export const flipVertexNode = vec3(positionLocal.x, newY, newZ);
 
