@@ -1,6 +1,7 @@
 'use client';
 
 import React, { Suspense, useEffect, useState } from 'react';
+import * as THREE from 'three';
 import { Canvas, useThree } from '@react-three/fiber';
 import { WebGPURenderer } from 'three/webgpu';
 import MeshComponent from './mesh';
@@ -36,6 +37,7 @@ export default function Scene() {
 
     return (
         <Canvas
+            flat
             frameloop={isReady ? 'always' : 'never'}
             gl={(props: any) => {
                 const renderer = new WebGPURenderer({
@@ -43,6 +45,7 @@ export default function Scene() {
                     antialias: true,
                     alpha: true,
                 });
+                renderer.toneMapping = THREE.NoToneMapping;
                 return renderer as any;
             }}
             camera={{ position: [0, 0, 5], fov: 45 }}

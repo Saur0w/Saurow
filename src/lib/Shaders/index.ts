@@ -3,6 +3,8 @@ import {
     uv,
     vec2,
     vec3,
+    vec4,
+    clamp,
     uniform,
     texture,
     sin,
@@ -22,6 +24,11 @@ export const uPivot = uniform(0.0);
 export const uCurve = uniform(0.4);
 export const uMouse = uniform(new THREE.Vector2(0.5, 0.5));
 export const uHover = uniform(0.0);
+
+// Object-fit cover scaling & color toning controls
+export const uCoverScale = uniform(new THREE.Vector2(200 / 220, 1.0));
+export const uBrightness = uniform(0.86);
+export const uContrast = uniform(1.12);
 
 // 2. Dynamic mouse calculation (inverts Y if flipped backface)
 const isBackFacingAngle = cos(uBend).lessThan(0.0);
@@ -47,9 +54,22 @@ const newZ = distY.mul(sin(uBend)).add(distZ.mul(cos(uBend)));
 
 export const flipVertexNode = vec3(positionLocal.x, newY, newZ);
 
-// 6. Fragment color with automatic backface UV flip
+// 6. Fragment color with object-fit cover, backface UV flip, and balanced color toning
 export const createTextureNode = (map: THREE.Texture) => {
-    const backUv = vec2(uv().x, float(1.0).sub(uv().y));
-    const correctedUv = select(frontFacing, uv(), backUv);
-    return texture(map, correctedUv);
+    // 1. Object-fit: cover transformation (centers image and scales UVs to prevent distortion)
+    const centeredUv = uv().sub(vec2(0.5, 0.5));
+    const coverUv = centeredUv.mul(uCoverScale).add(vec2(0.5, 0.5));
+
+    // 2. Automatic backface UV flip for bend rotation
+    const backUv = vec2(coverUv.x, float(1.0).sub(coverUv.y));
+    const correctedUv = select(frontFacing, coverUv, backUv);
+
+    // 3. Sample texture
+    const sampled = texture(map, correctedUv);
+
+    // 4. Color toning: correct excessive brightness and enrich contrast & shadows
+    const tonedRgb = sampled.rgb.mul(uBrightness);
+    const contrastedRgb = clamp(tonedRgb.sub(0.5).mul(uContrast).add(0.5), 0.0, 1.0);
+
+    return vec4(contrastedRgb, sampled.a);
 };

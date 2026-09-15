@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useMemo } from 'react';
+import React, { useRef, useMemo, useEffect } from 'react';
 import * as THREE from 'three';
 import { extend, useThree, ThreeEvent, ThreeElement } from '@react-three/fiber';
 import { useTexture } from '@react-three/drei';
@@ -13,6 +13,7 @@ import {
     uBend,
     uHover,
     uMouse,
+    uCoverScale,
 } from '@/lib/Shaders';
 
 // Register MeshBasicNodeMaterial for R3F JSX
@@ -33,6 +34,26 @@ export default function MeshComponent() {
     // Match sizing to the 200px x 220px image container
     const w = viewport.width * (200 / (size.width || 1));
     const h = viewport.height * (220 / (size.height || 1));
+
+    // Dynamic object-fit: cover scaling
+    useEffect(() => {
+        if (!texture) return;
+        texture.colorSpace = THREE.SRGBColorSpace;
+
+        const img = texture.image as any;
+        const imgWidth = img?.naturalWidth || img?.videoWidth || img?.width || 1254;
+        const imgHeight = img?.naturalHeight || img?.videoHeight || img?.height || 1254;
+        const imageAspect = imgWidth / (imgHeight || 1);
+        const meshAspect = w / (h || 1);
+
+        if (meshAspect < imageAspect) {
+            // Mesh is taller/narrower than image: fill height, crop width (X)
+            uCoverScale.value.set(meshAspect / imageAspect, 1.0);
+        } else {
+            // Mesh is wider than image: fill width, crop height (Y)
+            uCoverScale.value.set(1.0, imageAspect / meshAspect);
+        }
+    }, [texture, w, h]);
 
     // Build the color node once texture is loaded
     const colorNode = useMemo(() => createTextureNode(texture), [texture]);
