@@ -103,7 +103,7 @@ export default function MeshComponent() {
                 uBend,
                 {
                     value: Math.PI,
-                    duration: 3.0,
+                    duration: 2.5,
                     ease: 'power4.inOut',
                 },
                 'flip'
@@ -113,7 +113,7 @@ export default function MeshComponent() {
                 {
                     x: 2.5,
                     y: 2.5,
-                    duration: 3.4,
+                    duration: 2.2,
                     ease: 'power2.inOut',
                 },
                 'flip'
