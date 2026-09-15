@@ -36,6 +36,7 @@ export default function Landing() {
     const roleRef = useRef<HTMLDivElement>(null);
     const footerRef = useRef<HTMLDivElement>(null);
     const scrollRef = useRef<HTMLDivElement>(null);
+    const headerRef = useRef<HTMLElement>(null);
 
     useGSAP(() => {
         const imgs = containerRef.current?.querySelectorAll('img');
@@ -112,16 +113,13 @@ export default function Landing() {
         });
     }, []);
 
-    const splitName = (text: string) => {
-        return text.split('').map((char, i) => (
-            <span key={i} className={`name-char ${styles.nameChar}`}>
-                {char === ' ' ? '\u00A0' : char}
-            </span>
-        ));
-    };
-
     return (
         <section className={styles.landing}>
+            <header ref={headerRef}>
+                <div className={styles.colBrand}>
+                    <span className={styles.title}>Saurow</span>
+                </div>
+            </header>
             <div className={styles.scene} ref={sceneRef} style={{ opacity: 0 }}>
                 <Scene />
             </div>
@@ -143,25 +141,14 @@ export default function Landing() {
             </div>
             <div className={styles.line} ref={lineRef} />
 
-            <div className={styles.identity}>
-                <div className={styles.nameWrapper}>
-                    <h1 className={styles.name} ref={nameRef}>
-                        {splitName('SAURABH')}
-                    </h1>
-                </div>
-                <div className={styles.roleWrapper} >
-                    <p className={styles.role} ref={roleRef}>Creative Developer</p>
-                </div>
-            </div>
-
-            <div className={styles.footer} ref={footerRef}>
+            <footer ref={footerRef}>
                 <h4>
                     AVAILABLE FOR<br />FREELANCE
                 </h4>
                 <h4>
                     PORTFOLIO &mdash; 2026<br />SAUROW
                 </h4>
-            </div>
+            </footer>
         </section>
     );
 }
