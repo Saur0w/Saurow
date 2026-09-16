@@ -179,6 +179,7 @@ export default function Landing() {
                     />
                 ))}
             </div>
+            
             <div className={styles.line} ref={lineRef} />
 
             <footer ref={footerRef} style={{ opacity: 0 }}>
