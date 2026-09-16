@@ -69,7 +69,6 @@ export default function Landing() {
             opacity: 1,
         });
 
-        // Header mask reveal animation
         const headerInners = headerRef.current?.querySelectorAll(`.${styles.maskInner}`);
         if (headerInners && headerRef.current) {
             gsap.set(headerRef.current, { opacity: 1 });
@@ -88,7 +87,6 @@ export default function Landing() {
             );
         }
 
-        // Footer mask reveal animation
         const footerInners = footerRef.current?.querySelectorAll(`.${styles.maskInner}`);
         if (footerInners && footerRef.current) {
             gsap.set(footerRef.current, { opacity: 1 });
