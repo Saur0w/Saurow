@@ -33,10 +33,7 @@ export default function Landing() {
     const containerRef = useRef<HTMLDivElement>(null);
     const sceneRef = useRef<HTMLDivElement>(null);
     const lineRef = useRef<HTMLDivElement>(null);
-    const nameRef = useRef<HTMLDivElement>(null);
-    const roleRef = useRef<HTMLDivElement>(null);
     const footerRef = useRef<HTMLDivElement>(null);
-    const scrollRef = useRef<HTMLDivElement>(null);
     const headerRef = useRef<HTMLElement>(null);
 
     useGSAP(() => {
@@ -72,73 +69,91 @@ export default function Landing() {
             opacity: 1,
         });
 
-        const nameChars = nameRef.current?.querySelectorAll('.name-char');
-        if (nameChars) {
-            gsap.from(nameChars, {
-                yPercent: 120,
-                duration: 1.2,
-                ease: 'expo.out',
-                stagger: 0.04,
-                delay: 2.8,
-            });
+        // Header mask reveal animation
+        const headerInners = headerRef.current?.querySelectorAll(`.${styles.maskInner}`);
+        if (headerInners && headerRef.current) {
+            gsap.set(headerRef.current, { opacity: 1 });
+            gsap.fromTo(
+                headerInners,
+                {
+                    yPercent: 120,
+                },
+                {
+                    yPercent: 0,
+                    duration: 1.1,
+                    stagger: 0.04,
+                    ease: 'power4.out',
+                    delay: 2.8,
+                }
+            );
         }
 
-        gsap.from(roleRef.current, {
-            yPercent: 100,
-            opacity: 0,
-            duration: 1,
-            ease: 'expo.out',
-            delay: 3.4,
-        });
-
-        tl.set(footerRef.current, {
-            opacity: 1,
-            delay: 1,
-        });
-
-        gsap.from(scrollRef.current, {
-            opacity: 0,
-            y: 20,
-            duration: 0.8,
-            ease: 'power2.out',
-            delay: 4,
-        });
-
-        gsap.to(scrollRef.current, {
-            y: 8,
-            repeat: -1,
-            yoyo: true,
-            duration: 1.2,
-            ease: 'sine.inOut',
-            delay: 4.5,
-        });
+        // Footer mask reveal animation
+        const footerInners = footerRef.current?.querySelectorAll(`.${styles.maskInner}`);
+        if (footerInners && footerRef.current) {
+            gsap.set(footerRef.current, { opacity: 1 });
+            gsap.fromTo(
+                footerInners,
+                {
+                    yPercent: 120,
+                },
+                {
+                    yPercent: 0,
+                    duration: 1.1,
+                    stagger: 0.04,
+                    ease: 'power4.out',
+                    delay: 2.9,
+                }
+            );
+        }
     }, []);
 
     return (
         <section className={styles.landing}>
-            <header ref={headerRef}>
+            <header ref={headerRef} style={{ opacity: 0 }}>
                 <div className={styles.colBrand}>
-                    <Link href="/" className={styles.brandTitle}>SAUROW</Link>
+                    <div className={styles.mask}>
+                        <Link href="/" className={`${styles.brandTitle} ${styles.maskInner}`}>
+                            SAUROW
+                        </Link>
+                    </div>
                 </div>
 
                 <div className={styles.col}>
-                    <p className={styles.metaLabel}>AVAILABLE TO DO FREELANCE</p>
-                    <Link href="mailto:sauurow@gmail.com" className={styles.metaLink}>
-                        SAUUROW@GMAIL.COM
-                    </Link>
+                    <div className={styles.mask}>
+                        <p className={`${styles.metaLabel} ${styles.maskInner}`}>AVAILABLE TO DO FREELANCE</p>
+                    </div>
+                    <div className={styles.mask}>
+                        <Link href="mailto:sauurow@gmail.com" className={`${styles.metaLink} ${styles.maskInner}`}>
+                            SAUUROW@GMAIL.COM
+                        </Link>
+                    </div>
                 </div>
 
                 <div className={styles.col}>
-                    <p className={styles.metaLabel}>Frontend Dev.</p>
-                    <p className={styles.metaLabel}>WEB DESIGN UI UX</p>
+                    <div className={styles.mask}>
+                        <p className={`${styles.metaLabel} ${styles.maskInner}`}>Frontend Dev.</p>
+                    </div>
+                    <div className={styles.mask}>
+                        <p className={`${styles.metaLabel} ${styles.maskInner}`}>WEB DESIGN UI UX</p>
+                    </div>
                 </div>
 
                 <div className={styles.colSocial}>
-                    <p className={styles.metaLabel}>SOCIAL</p>
+                    <div className={styles.mask}>
+                        <p className={`${styles.metaLabel} ${styles.maskInner}`}>SOCIAL</p>
+                    </div>
                     <ul>
-                        <Magnetic><li><Link href="https://x.com/sauroww">X</Link></li></Magnetic>
-                        <Magnetic><li><Link href="https://www.linkedin.com/in/saurabh-thapliyal-76a0a6306/">Li</Link></li></Magnetic>
-
+                        <Magnetic>
+                            <li className={styles.maskInline}>
+                                <Link href="https://x.com/sauroww" className={styles.maskInner}>X</Link>
+                            </li>
+                        </Magnetic>
+                        <Magnetic>
+                            <li className={styles.maskInline}>
+                                <Link href="https://www.linkedin.com/in/saurabh-thapliyal-76a0a6306/" className={styles.maskInner}>Li</Link>
+                            </li>
+                        </Magnetic>
                     </ul>
                 </div>
             </header>
@@ -163,13 +178,19 @@ export default function Landing() {
             </div>
             <div className={styles.line} ref={lineRef} />
 
-            <footer ref={footerRef}>
+            <footer ref={footerRef} style={{ opacity: 0 }}>
                 <div className={styles.footerLeft}>
-                    <p>© DESIGN</p>
-                    <p>SAUROW</p>
+                    <div className={styles.mask}>
+                        <p className={styles.maskInner}>© DESIGN</p>
+                    </div>
+                    <div className={styles.mask}>
+                        <p className={styles.maskInner}>SAUROW</p>
+                    </div>
                 </div>
                 <div className={styles.footerRight}>
-                    <p>DEV. SAUROW</p>
+                    <div className={styles.mask}>
+                        <p className={styles.maskInner}>DEV. SAUROW</p>
+                    </div>
                 </div>
             </footer>
         </section>

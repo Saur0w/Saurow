@@ -127,4 +127,21 @@
       text-align: right;
     }
   }
+
+  .mask {
+    overflow: hidden;
+    display: block;
+    padding-bottom: 2px;
+  }
+
+  .maskInline {
+    overflow: hidden;
+    display: inline-flex;
+    padding-bottom: 2px;
+  }
+
+  .maskInner {
+    display: block;
+    will-change: transform;
+  }
 }
