@@ -94,12 +94,18 @@ html {
     line-height: 1;
     text-transform: uppercase;
     color: #121212;
+    overflow: hidden;
+    visibility: hidden; 
 }
 
+.transition-text h1:has(.word) {
+    visibility: visible;
+}
 .transition-text .word {
     transform: translateY(100%);
     will-change: transform;
 }
+
 
 
 
