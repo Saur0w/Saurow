@@ -118,7 +118,7 @@ export default function Landing() {
         <section className={styles.landing}>
             <header ref={headerRef}>
                 <div className={styles.colBrand}>
-                    <span className={styles.brandTitle}>SAUROW</span>
+                    <Link href="/" className={styles.brandTitle}>SAUROW</Link>
                 </div>
 
                 <div className={styles.col}>
@@ -129,8 +129,8 @@ export default function Landing() {
                 </div>
 
                 <div className={styles.col}>
+                    <p className={styles.metaLabel}>Frontend Dev.</p>
                     <p className={styles.metaLabel}>WEB DESIGN UI UX</p>
-                    <p className={styles.metaLabel}>MOTION DESIGN</p>
                 </div>
 
                 <div className={styles.colSocial}>

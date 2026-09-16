@@ -27,6 +27,7 @@
         text-transform: uppercase;
         display: block;
         color: #0e0e0e;
+        text-decoration: none;
       }
     }
 
@@ -42,10 +43,14 @@
         gap: 0.5rem;
         li {
           a {
+            font-size: 0.65rem;
+            font-weight: 600;
+            line-height: 1.35;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: #3b3b3b;
+            margin: 0;
             text-decoration: none;
-            color: #0e0e0e;
-            font-size: 0.9rem;
-            font-weight: 400;
           }
         }
       }
