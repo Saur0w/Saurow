@@ -20,7 +20,7 @@ import {
 import * as THREE from 'three';
 
 // Uniforms
-export const uBend = uniform(0.0);
+export const uBend = uniform(0.1);
 export const uPivot = uniform(0.0);
 export const uCurve = uniform(0.24);
 export const uMouse = uniform(new THREE.Vector2(0.5, 0.5));
