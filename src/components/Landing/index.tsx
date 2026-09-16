@@ -117,7 +117,7 @@ export default function Landing() {
                     </div>
                 </div>
 
-                <div className={styles.col}>
+                <div className={`${styles.col} ${styles.colStatus}`}>
                     <div className={styles.mask}>
                         <p className={`${styles.metaLabel} ${styles.maskInner}`}>AVAILABLE TO DO FREELANCE</p>
                     </div>
@@ -128,7 +128,7 @@ export default function Landing() {
                     </div>
                 </div>
 
-                <div className={styles.col}>
+                <div className={`${styles.col} ${styles.colRole}`}>
                     <div className={styles.mask}>
                         <p className={`${styles.metaLabel} ${styles.maskInner}`}>Frontend Dev.</p>
                     </div>

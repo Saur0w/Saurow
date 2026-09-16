@@ -35,13 +35,28 @@ interface TextureImage {
     height?: number;
 }
 
+function getCardDimensions(width: number) {
+    if (width <= 480) return { w: 130, h: 143 };
+    if (width <= 768) return { w: 150, h: 165 };
+    if (width <= 1024) return { w: 175, h: 192 };
+    return { w: 200, h: 220 };
+}
+
+function getTargetScale(width: number) {
+    if (width <= 480) return 2.1;
+    if (width <= 768) return 2.2;
+    if (width <= 1024) return 2.3;
+    return 2.5;
+}
+
 export default function MeshComponent() {
     const { viewport, size } = useThree();
     const texture = useTexture('/images/a.png');
     const meshRef = useRef<THREE.Mesh>(null!);
     const matRef = useRef<MeshBasicNodeMaterial>(null!);
-    const w = viewport.width * (200 / (size.width || 1));
-    const h = viewport.height * (220 / (size.height || 1));
+    const card = useMemo(() => getCardDimensions(size.width), [size.width]);
+    const w = viewport.width * (card.w / (size.width || 1));
+    const h = viewport.height * (card.h / (size.height || 1));
 
     useEffect(() => {
         uHeight.value = h;
@@ -91,6 +106,7 @@ export default function MeshComponent() {
     useGSAP(() => {
         if (!meshRef.current) return;
 
+        const targetScale = getTargetScale(size.width);
         const tl = gsap.timeline({ delay: 0.3 });
 
         tl.to(meshRef.current.scale, {
@@ -111,8 +127,8 @@ export default function MeshComponent() {
             .to(
                 meshRef.current.scale,
                 {
-                    x: 2.5,
-                    y: 2.5,
+                    x: targetScale,
+                    y: targetScale,
                     duration: 2.2,
                     ease: 'power2.inOut',
                 },
