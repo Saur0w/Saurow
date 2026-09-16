@@ -41,7 +41,6 @@ export default function Footer() {
                     reduceMotion: boolean;
                 };
 
-                // Respect reduced-motion: skip animation entirely, just show final state
                 if (reduceMotion) {
                     gsap.set(
                         [buttonRef.current, dividerRef.current, navRef.current,
@@ -54,7 +53,7 @@ export default function Footer() {
                 const split = new SplitText(headingRef.current, { type: 'chars' });
 
                 gsap.from(split.chars, {
-                    scrollTrigger: { trigger: footerRef.current, start: 'top 80%' },
+                    scrollTrigger: { trigger: footerRef.current, start: 'top 90%' },
                     yPercent: 120,
                     opacity: 0,
                     duration: 0.85,
@@ -62,7 +61,6 @@ export default function Footer() {
                     stagger: 0.03,
                 });
 
-                // Dot — falls and bounces onto the "i"
                 gsap.fromTo(dotRef.current,
                     { y: -100 },
                     {
@@ -84,7 +82,6 @@ export default function Footer() {
                     }
                 );
 
-                // Email button slide up
                 gsap.from(buttonRef.current, {
                     scrollTrigger: { trigger: footerRef.current, start: 'top 75%' },
                     y: 30,
@@ -94,7 +91,6 @@ export default function Footer() {
                     delay: 0.25,
                 });
 
-                // Divider line draw
                 gsap.from(dividerRef.current, {
                     scrollTrigger: { trigger: dividerRef.current, start: 'top 92%' },
                     scaleX: 0,
@@ -103,7 +99,6 @@ export default function Footer() {
                     ease: 'expo.inOut',
                 });
 
-                // Bottom row stagger
                 gsap.from([navRef.current, copyrightRef.current, nav2Ref.current], {
                     scrollTrigger: { trigger: dividerRef.current, start: 'top 90%' },
                     y: 24,
@@ -114,7 +109,7 @@ export default function Footer() {
                 });
 
                 gsap.from(arrowRef.current, {
-                    scrollTrigger: { trigger: footerRef.current, start: 'top 75%' },
+                    scrollTrigger: { trigger: footerRef.current, start: 'top 85%' },
                     scale: 0.3,
                     opacity: 0,
                     rotation: -120,
@@ -128,7 +123,7 @@ export default function Footer() {
                     const length = arrowPath.getTotalLength?.() ?? 60;
                     gsap.set(arrowPath, { strokeDasharray: length, strokeDashoffset: length });
                     gsap.to(arrowPath, {
-                        scrollTrigger: { trigger: footerRef.current, start: 'top 75%' },
+                        scrollTrigger: { trigger: footerRef.current, start: 'top 85%' },
                         strokeDashoffset: 0,
                         duration: 0.9,
                         ease: 'power2.inOut',
@@ -136,10 +131,6 @@ export default function Footer() {
                     });
                 }
 
-                // Desktop only: scroll-scrubbed parallax on the card.
-                // Mobile gets a plain settle-in instead — scrub tied to a
-                // resizing/auto-height container is unreliable and costs
-                // more on lower-powered devices for a barely-visible effect.
                 if (isDesktop) {
                     gsap.to(`.${styles.container}`, {
                         scrollTrigger: {
@@ -240,9 +231,9 @@ export default function Footer() {
                             ].map(({ label, href }) => (
                                 <Magnetic key={label}>
                                     <li>
-                                        <a href={href} target="_blank" rel="noopener noreferrer">
+                                        <Link href={href} target="_blank" rel="noopener noreferrer">
                                             {label}
-                                        </a>
+                                        </Link>
                                     </li>
                                 </Magnetic>
                             ))}
