@@ -152,6 +152,11 @@ export default function Landing() {
                                 <Link href="https://www.linkedin.com/in/saurabh-thapliyal-76a0a6306/" className={styles.maskInner}>Li</Link>
                             </li>
                         </Magnetic>
+                        <Magnetic>
+                            <li className={styles.maskInline}>
+                                <Link href="https://www.instagram.com/saur0w" className={styles.maskInner}>In</Link>
+                            </li>
+                        </Magnetic>
                     </ul>
                 </div>
             </header>

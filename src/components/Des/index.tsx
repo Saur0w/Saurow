@@ -25,7 +25,7 @@ export default function Description() {
                 return gsap.from(self.lines, {
                     scrollTrigger: {
                         trigger: containerRef.current,
-                        start: "top 50%",
+                        start: "top 85%",
                         toggleActions: "play none none reverse",
                     },
                     yPercent: 110,
