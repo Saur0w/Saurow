@@ -4,10 +4,15 @@ import styles from './style.module.scss';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useRef, useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import Magnetic from '@/ui/Magnetic';
+
+if (typeof window !== 'undefined') {
+    gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 
 const Scene = dynamic(() => import('./scene'), { ssr: false });
 
@@ -31,6 +36,7 @@ const images: ImageProps[] = [
 ];
 
 export default function Landing() {
+    const landingRef = useRef<HTMLElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const sceneRef = useRef<HTMLDivElement>(null);
     const lineRef = useRef<HTMLDivElement>(null);
@@ -153,10 +159,68 @@ export default function Landing() {
                 }
             );
         }
+
+        // Parallax effects on landing page scrolling
+        if (landingRef.current) {
+            const isMobile = window.innerWidth <= 768;
+
+            if (sceneRef.current) {
+                gsap.to(sceneRef.current, {
+                    y: isMobile ? -50 : -90,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: landingRef.current,
+                        start: 'top top',
+                        end: 'bottom top',
+                        scrub: 0.6,
+                    },
+                });
+            }
+
+            if (paraRef.current) {
+                gsap.to(paraRef.current, {
+                    y: isMobile ? -95 : -170,
+                    opacity: 0.35,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: landingRef.current,
+                        start: 'top top',
+                        end: 'bottom top',
+                        scrub: 0.6,
+                    },
+                });
+            }
+
+            if (headerRef.current) {
+                gsap.to(headerRef.current, {
+                    y: -35,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: landingRef.current,
+                        start: 'top top',
+                        end: '35% top',
+                        scrub: 0.5,
+                    },
+                });
+            }
+
+            if (footerRef.current) {
+                gsap.to(footerRef.current, {
+                    y: -20,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: landingRef.current,
+                        start: 'top top',
+                        end: '35% top',
+                        scrub: 0.5,
+                    },
+                });
+            }
+        }
     }, []);
 
     return (
-        <section className={styles.landing}>
+        <section ref={landingRef} className={styles.landing}>
             <header ref={headerRef} style={{ opacity: 0 }}>
                 <div className={styles.colBrand}>
                     <div className={styles.mask}>

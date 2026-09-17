@@ -354,6 +354,7 @@
     align-items: center;
     justify-content: center;
     z-index: 10;
+    will-change: transform;
   }
 
   .imageContainer {
@@ -399,6 +400,7 @@
     text-align: right;
     pointer-events: none;
     user-select: none;
+    will-change: transform, opacity;
 
     h1 {
       font-family: var(--font-roboto), "Roboto", sans-serif;
