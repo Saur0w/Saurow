@@ -13,9 +13,6 @@ import {
     uBend,
     uHover,
     uMouse,
-    uCoverScale,
-    uHeight,
-    uCurve
 } from '@/lib/Shaders';
 
 extend({ MeshBasicNodeMaterial });
@@ -24,15 +21,6 @@ declare module '@react-three/fiber' {
     interface ThreeElements {
         meshBasicNodeMaterial: ThreeElement<typeof MeshBasicNodeMaterial>;
     }
-}
-
-interface TextureImage {
-    naturalWidth?: number;
-    naturalHeight?: number;
-    videoWidth?: number;
-    videoHeight?: number;
-    width?: number;
-    height?: number;
 }
 
 function getCardDimensions(width: number) {
@@ -59,22 +47,10 @@ export default function MeshComponent() {
     const h = viewport.height * (card.h / (size.height || 1));
 
     useEffect(() => {
-        uHeight.value = h;
-        if (!texture) return;
-        texture.colorSpace = THREE.SRGBColorSpace;
-
-        const img = texture.image as TextureImage | undefined;
-        const imgWidth = img?.naturalWidth || img?.videoWidth || img?.width || 1254;
-        const imgHeight = img?.naturalHeight || img?.videoHeight || img?.height || 1254;
-        const imageAspect = imgWidth / (imgHeight || 1);
-        const meshAspect = w / (h || 1);
-
-        if (meshAspect < imageAspect) {
-            uCoverScale.value.set(meshAspect / imageAspect, 1.0);
-        } else {
-            uCoverScale.value.set(1.0, imageAspect / meshAspect);
+        if (texture) {
+            texture.colorSpace = THREE.SRGBColorSpace;
         }
-    }, [texture, w, h]);
+    }, [texture]);
 
     const colorNode = useMemo(() => createTextureNode(texture), [texture]);
 
@@ -107,20 +83,20 @@ export default function MeshComponent() {
         if (!meshRef.current) return;
 
         const targetScale = getTargetScale(size.width);
-        const tl = gsap.timeline({ delay: 0.3 });
+        const tl = gsap.timeline({ delay: 0.5 });
 
         tl.to(meshRef.current.scale, {
-            x: 0.88,
-            y: 0.88,
-            duration: 1.02,
+            x: 0.85,
+            y: 0.85,
+            duration: 0.8,
             ease: 'power2.out',
         })
             .to(
                 uBend,
                 {
                     value: Math.PI,
-                    duration: 2.5,
-                    ease: 'power4.inOut',
+                    duration: 2.2,
+                    ease: 'power3.inOut',
                 },
                 'flip'
             )
@@ -130,7 +106,7 @@ export default function MeshComponent() {
                     x: targetScale,
                     y: targetScale,
                     duration: 2.2,
-                    ease: 'power2.inOut',
+                    ease: 'power3.inOut',
                 },
                 'flip'
             );
@@ -144,7 +120,7 @@ export default function MeshComponent() {
             onPointerEnter={handlePointerEnter}
             onPointerLeave={handlePointerLeave}
         >
-            <planeGeometry args={[w, h, 128, 256]} />
+            <planeGeometry args={[w, h, 128, 128]} />
             <meshBasicNodeMaterial
                 ref={matRef}
                 side={THREE.DoubleSide}
