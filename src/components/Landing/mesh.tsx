@@ -104,7 +104,7 @@ export default function MeshComponent() {
         if (!meshRef.current) return;
 
         const targetScale = getTargetScale(size.width);
-        const tl = gsap.timeline({ delay: 0.5 });
+        const tl = gsap.timeline({ delay: 1 });
 
         tl.to(meshRef.current.scale, {
             x: 0.85,
@@ -116,7 +116,7 @@ export default function MeshComponent() {
                 uBend,
                 {
                     value: Math.PI,
-                    duration: 2.2,
+                    duration: 1.8,
                     ease: 'power3.inOut',
                 },
                 'flip'
@@ -126,7 +126,7 @@ export default function MeshComponent() {
                 {
                     x: targetScale,
                     y: targetScale,
-                    duration: 2.2,
+                    duration: 1.8,
                     ease: 'power3.inOut',
                 },
                 'flip'
