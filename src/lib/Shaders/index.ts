@@ -18,9 +18,9 @@ import {
 import * as THREE from 'three';
 
 // Uniforms
-export const uBend = uniform(0.0);
+export const uBend = uniform(-0.2);
 export const uPivot = uniform(0.0);
-export const uCurve = uniform(0.4);
+export const uCurve = uniform(0.35);
 export const uMouse = uniform(new THREE.Vector2(0.5, 0.5));
 export const uHover = uniform(0.0);
 export const uBrightness = uniform(0.75);
