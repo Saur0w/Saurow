@@ -13,6 +13,9 @@ export default function MagneticWrapper({ children }: MagneticProps) {
 
     useGSAP(() => {
         if (!magnetic.current) return;
+        if (typeof window !== 'undefined' && !window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+            return;
+        }
 
         const element = magnetic.current;
 

@@ -18,73 +18,7 @@
     grid-template-columns: 2fr 1.5fr 1.5fr 1fr;
     align-items: flex-start;
     gap: 1.5rem;
-    z-index: 50;
-
-    @media (max-width: 1024px) {
-      top: 1.8rem;
-      left: 1.8rem;
-      right: 1.8rem;
-      grid-template-columns: 1.4fr 1.2fr 1.1fr auto;
-      gap: 1.2rem;
-    }
-
-    @media (max-width: 768px) {
-      top: 1.25rem;
-      left: 1.25rem;
-      right: 1.25rem;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.2rem 1rem;
-
-      .colBrand {
-        grid-column: 1;
-        grid-row: 1;
-      }
-
-      .colSocial {
-        grid-column: 2;
-        grid-row: 1;
-        align-items: flex-end;
-        text-align: right;
-
-        ul {
-          justify-content: flex-end;
-        }
-      }
-
-      .colStatus {
-        grid-column: 1;
-        grid-row: 2;
-      }
-
-      .colRole {
-        grid-column: 2;
-        grid-row: 2;
-        align-items: flex-end;
-        text-align: right;
-      }
-    }
-
-    @media (max-width: 480px) {
-      top: 1rem;
-      left: 1rem;
-      right: 1rem;
-      gap: 0.85rem 0.5rem;
-
-      .colBrand {
-        .brandTitle {
-          font-size: 0.82rem;
-        }
-      }
-
-      .metaLabel,
-      .metaLink {
-        font-size: 0.58rem;
-      }
-
-      .colSocial ul li a {
-        font-size: 0.58rem;
-      }
-    }
+    z-index: 200;
 
     .colBrand {
       .brandTitle {
@@ -95,6 +29,10 @@
         display: block;
         color: #0e0e0e;
         text-decoration: none;
+
+        @media (max-width: 480px) {
+          font-size: 0.82rem;
+        }
       }
     }
 
@@ -103,11 +41,13 @@
       display: flex;
       flex-direction: column;
       gap: 0.25rem;
+
       ul {
         list-style: none;
         display: flex;
         flex-direction: row;
         gap: 0.5rem;
+
         li {
           a {
             font-size: 0.65rem;
@@ -137,6 +77,273 @@
 
     .metaLink:hover {
       text-decoration: underline;
+    }
+
+    /* Normal / desktop screen: hamburger is completely hidden, original 4-column header is visible */
+    .mobileNav {
+      display: none;
+    }
+
+    .hamburger {
+      background: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 6px;
+      padding: 12px;
+      margin: -12px;
+      z-index: 50;
+
+      .line1,
+      .line2 {
+        display: block;
+        height: 1.5px;
+        background: #0e0e0e;
+        border-radius: 1px;
+        transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        transform-origin: center;
+      }
+
+      .line1 {
+        width: 24px;
+      }
+
+      .line2 {
+        width: 16px;
+      }
+
+      &:hover {
+        .line1 {
+          width: 16px;
+        }
+        .line2 {
+          width: 24px;
+        }
+      }
+
+      &.isOpen {
+        .line1 {
+          width: 22px;
+          transform: translateY(3.75px) rotate(45deg);
+        }
+        .line2 {
+          width: 22px;
+          transform: translateY(-3.75px) rotate(-45deg);
+        }
+
+        &:hover {
+          .line1,
+          .line2 {
+            width: 22px;
+          }
+        }
+      }
+
+      @media (max-width: 480px) {
+        gap: 5px;
+
+        .line1 {
+          width: 20px;
+        }
+        .line2 {
+          width: 14px;
+        }
+
+        &.isOpen {
+          .line1 {
+            width: 20px;
+            transform: translateY(3.25px) rotate(45deg);
+          }
+          .line2 {
+            width: 20px;
+            transform: translateY(-3.25px) rotate(-45deg);
+          }
+        }
+      }
+    }
+
+    /* Responsive queries: normal screens retain full 4-column layout; small devices switch to minimal hamburger */
+    @media (max-width: 1024px) {
+      top: 1.8rem;
+      left: 1.8rem;
+      right: 1.8rem;
+      grid-template-columns: 1.4fr 1.2fr 1.1fr auto;
+      gap: 1.2rem;
+    }
+
+    @media (max-width: 768px) {
+      top: 1.25rem;
+      left: 1.25rem;
+      right: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      /* Hide text columns on small devices */
+      .colStatus,
+      .colRole,
+      .colSocial {
+        display: none;
+      }
+
+      /* Display minimal hamburger on small devices */
+      .mobileNav {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      top: 1rem;
+      left: 1rem;
+      right: 1rem;
+    }
+  }
+
+  /* Mobile Drawer: strictly hidden on desktop (> 768px), full-screen blur overlay on small devices */
+  .mobileDrawer {
+    display: none;
+
+    @media (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      background: rgba(238, 238, 238, 0.98);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      z-index: 150;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-10px);
+      transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 5.5rem 1.5rem 2.25rem 1.5rem;
+      box-sizing: border-box;
+
+      &.drawerOpen {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      .drawerContent {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+      }
+
+      .drawerNav {
+        ul {
+          list-style: none;
+          padding: 0;
+          margin: 1rem 0 0 0;
+          display: flex;
+          flex-direction: column;
+          gap: 1.15rem;
+
+          li {
+            overflow: hidden;
+
+            a {
+              display: flex;
+              align-items: baseline;
+              gap: 0.85rem;
+              text-decoration: none;
+              color: #0e0e0e;
+              font-family: var(--font-roboto), -apple-system, sans-serif;
+              transition: transform 0.2s ease, color 0.2s ease;
+
+              .navNum {
+                font-size: 0.72rem;
+                font-weight: 500;
+                letter-spacing: 0.1em;
+                color: #888888;
+              }
+
+              .navText {
+                font-size: clamp(2.1rem, 7.5vw, 2.85rem);
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: -0.02em;
+                line-height: 1;
+              }
+
+              &:hover,
+              &:active {
+                color: #555555;
+                transform: translateX(6px);
+              }
+            }
+          }
+        }
+      }
+
+      .drawerFooter {
+        display: flex;
+        flex-direction: column;
+        gap: 1.35rem;
+        padding-top: 1.75rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+        .drawerMeta,
+        .drawerSocials {
+          display: flex;
+          flex-direction: column;
+          gap: 0.3rem;
+        }
+
+        .drawerLabel {
+          font-size: 0.62rem;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: #888888;
+          margin: 0;
+        }
+
+        .drawerVal,
+        .drawerEmail {
+          font-size: 0.78rem;
+          font-weight: 600;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          color: #222222;
+          margin: 0;
+          text-decoration: none;
+        }
+
+        .drawerEmail:hover {
+          text-decoration: underline;
+        }
+
+        .drawerSocialLinks {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;
+
+          a {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #222222;
+            text-decoration: none;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
     }
   }
 
@@ -223,16 +430,16 @@
     }
 
     @media (max-width: 768px) {
-      margin-left: clamp(160px, 24vw, 240px);
+      margin-left: clamp(120px, 20vw, 200px);
       h1 {
-        font-size: clamp(2.6rem, 5vw, 3.6rem);
+        font-size: clamp(2.3rem, 5.2vw, 3.2rem);
       }
     }
 
     @media (max-width: 480px) {
-      margin-left: 120px;
+      margin-left: clamp(50px, 16vw, 90px);
       h1 {
-        font-size: 2.2rem;
+        font-size: clamp(1.6rem, 7vw, 2.1rem);
       }
     }
   }

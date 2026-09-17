@@ -36,11 +36,14 @@ export default function Header() {
 
         const tl = gsap.timeline({ paused: true });
 
-        // Width is capped to the viewport (minus a 32px margin) instead of a
-        // fixed 600px, so it never overflows on narrow screens. `invalidate()`
-        // is called before every open so this recalculates on resize/rotate.
+        const getTargetWidth = () => {
+            const margin = window.innerWidth <= 480 ? 24 : 32;
+            return Math.min(600, window.innerWidth - margin);
+        };
+
+        // Width is capped to the viewport instead of a fixed 600px
         tl.to(container, {
-            width: () => `${Math.min(600, window.innerWidth - 32)}px`,
+            width: () => `${getTargetWidth()}px`,
             duration: 0.7,
             ease: "power4.inOut",
         }, 0);
@@ -78,7 +81,7 @@ export default function Header() {
             if (isOpen) return;
             isOpen = true;
             container.setAttribute("aria-expanded", "true");
-            tl.invalidate().play();
+            tl.play();
         };
 
         const close = () => {
@@ -98,10 +101,21 @@ export default function Header() {
         const onMouseLeaveHeader = () => close();
 
         const onClickHeader = (e: MouseEvent) => {
+            const target = e.target as HTMLElement;
+            // When clicking an anchor link, allow Next.js navigation and simply close the menu
+            if (target.closest("a")) {
+                close();
+                return;
+            }
             e.stopPropagation();
             toggle();
         };
-        const onDocumentClick = () => close();
+
+        const onDocumentPointerDown = (e: PointerEvent) => {
+            if (container && !container.contains(e.target as Node)) {
+                close();
+            }
+        };
 
         const onKeyDown = (e: KeyboardEvent) => {
             if (e.key === "Enter" || e.key === " ") {
@@ -109,6 +123,16 @@ export default function Header() {
                 toggle();
             }
             if (e.key === "Escape") close();
+        };
+
+        const onResize = () => {
+            if (isOpen) {
+                gsap.to(container, {
+                    width: `${getTargetWidth()}px`,
+                    duration: 0.25,
+                    ease: "power2.out",
+                });
+            }
         };
 
         const onMouseEnterItem = (e: MouseEvent) => {
@@ -139,13 +163,18 @@ export default function Header() {
             gsap.to(list.querySelectorAll("a"), { color: "#ffffff", opacity: 1, duration: 0.3 });
         };
 
+        const onCustomToggle = () => toggle();
+        window.addEventListener("saurow:toggle-menu", onCustomToggle);
+        window.addEventListener("resize", onResize);
+
+        // Click and pointerdown toggle works on touch and desktop
+        container.addEventListener("click", onClickHeader);
+        document.addEventListener("pointerdown", onDocumentPointerDown);
+
         if (hoverCapable) {
             container.addEventListener("mouseenter", onMouseEnterHeader);
             container.addEventListener("mouseleave", onMouseLeaveHeader);
             list.addEventListener("mouseleave", onMouseLeaveList);
-        } else {
-            container.addEventListener("click", onClickHeader);
-            document.addEventListener("click", onDocumentClick);
         }
 
         container.addEventListener("keydown", onKeyDown as EventListener);
@@ -159,11 +188,13 @@ export default function Header() {
 
         return () => {
             menuSplit.revert();
+            window.removeEventListener("saurow:toggle-menu", onCustomToggle);
+            window.removeEventListener("resize", onResize);
             container.removeEventListener("mouseenter", onMouseEnterHeader);
             container.removeEventListener("mouseleave", onMouseLeaveHeader);
             container.removeEventListener("click", onClickHeader);
             container.removeEventListener("keydown", onKeyDown as EventListener);
-            document.removeEventListener("click", onDocumentClick);
+            document.removeEventListener("pointerdown", onDocumentPointerDown);
             list.removeEventListener("mouseleave", onMouseLeaveList);
             navItems.forEach((item) => {
                 item.removeEventListener("mouseenter", onMouseEnterItem as EventListener);

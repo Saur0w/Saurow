@@ -78,6 +78,16 @@
           opacity: 0;
           z-index: 0;
           will-change: transform, width, opacity;
+
+          @media (max-width: 768px) {
+            height: 36px;
+            border-radius: 20px;
+          }
+
+          @media (max-width: 480px) {
+            height: 32px;
+            border-radius: 18px;
+          }
         }
 
         li {
@@ -85,13 +95,15 @@
           z-index: 1;
           padding: 10px 35px;
           cursor: pointer;
+          user-select: none;
+          -webkit-tap-highlight-color: transparent;
 
           @media (max-width: 768px) {
-            padding: 8px 20px;
+            padding: 8px clamp(10px, 2.8vw, 20px);
           }
 
           @media (max-width: 480px) {
-            padding: 6px 14px;
+            padding: 6px clamp(6px, 1.8vw, 10px);
           }
 
           a {
@@ -101,10 +113,19 @@
             font-size: 0.9rem;
             font-weight: 400;
             white-space: nowrap;
+            transition: opacity 0.2s ease;
+
+            @media (max-width: 768px) {
+              font-size: clamp(0.78rem, 2.2vw, 0.86rem);
+            }
 
             @media (max-width: 480px) {
-              font-size: 0.8rem;
+              font-size: clamp(0.72rem, 3.2vw, 0.8rem);
             }
+          }
+
+          &:active a {
+            opacity: 0.65;
           }
         }
       }
