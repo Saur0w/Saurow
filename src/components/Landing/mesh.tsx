@@ -141,7 +141,7 @@ export default function MeshComponent() {
             onPointerEnter={handlePointerEnter}
             onPointerLeave={handlePointerLeave}
         >
-            <planeGeometry args={[w, h, 128, 128]} />
+            <planeGeometry args={[w, h, 128, 256]} />
             <meshBasicNodeMaterial
                 ref={matRef}
                 side={THREE.DoubleSide}
