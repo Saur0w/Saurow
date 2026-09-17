@@ -105,8 +105,6 @@ export default function MeshComponent() {
         const scrollY = typeof window !== 'undefined' ? window.scrollY : 0;
         const vh = typeof window !== 'undefined' ? window.innerHeight : 800;
         const progress = Math.min(1.5, Math.max(0, scrollY / (vh || 1)));
-
-        // Subtle 3D tilt and elevation shift during landing page scroll
         meshRef.current.rotation.x = -progress * 0.15;
         meshRef.current.position.y = -progress * 0.1;
     });
