@@ -1,11 +1,13 @@
 'use client';
 
 import styles from './style.module.scss';
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useRef } from 'react';
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
+import Magnetic from '@/ui/Magnetic';
 
 const Scene = dynamic(() => import('./scene'), { ssr: false });
 
@@ -34,6 +36,7 @@ export default function Landing() {
     const lineRef = useRef<HTMLDivElement>(null);
     const paraRef = useRef<HTMLDivElement>(null);
     const footerRef = useRef<HTMLDivElement>(null);
+    const headerRef = useRef<HTMLElement>(null);
 
     useGSAP(() => {
         const imgs = containerRef.current?.querySelectorAll('img');
@@ -75,14 +78,98 @@ export default function Landing() {
             opacity: 1,
         });
 
-        tl.set(footerRef.current, {
-            opacity: 1,
-            delay: 1,
-        });
+        const headerInners = headerRef.current?.querySelectorAll(`.${styles.maskInner}`);
+        if (headerInners && headerRef.current) {
+            gsap.set(headerRef.current, { opacity: 1 });
+            gsap.fromTo(
+                headerInners,
+                {
+                    yPercent: 120,
+                },
+                {
+                    yPercent: 0,
+                    duration: 1.1,
+                    stagger: 0.04,
+                    ease: 'power4.out',
+                    delay: 2.8,
+                }
+            );
+        }
+
+        const footerInners = footerRef.current?.querySelectorAll(`.${styles.maskInner}`);
+        if (footerInners && footerRef.current) {
+            gsap.set(footerRef.current, { opacity: 1 });
+            gsap.fromTo(
+                footerInners,
+                {
+                    yPercent: 120,
+                },
+                {
+                    yPercent: 0,
+                    duration: 1.1,
+                    stagger: 0.04,
+                    ease: 'power4.out',
+                    delay: 2.9,
+                }
+            );
+        }
     }, []);
 
     return (
         <section className={styles.landing}>
+            <header ref={headerRef} style={{ opacity: 0 }}>
+                <div className={styles.colBrand}>
+                    <div className={styles.mask}>
+                        <Link href="/" className={`${styles.brandTitle} ${styles.maskInner}`}>
+                            SAUROW
+                        </Link>
+                    </div>
+                </div>
+
+                <div className={`${styles.col} ${styles.colStatus}`}>
+                    <div className={styles.mask}>
+                        <p className={`${styles.metaLabel} ${styles.maskInner}`}>AVAILABLE TO DO FREELANCE</p>
+                    </div>
+                    <div className={styles.mask}>
+                        <Link href="mailto:sauurow@gmail.com" className={`${styles.metaLink} ${styles.maskInner}`}>
+                            SAUUROW@GMAIL.COM
+                        </Link>
+                    </div>
+                </div>
+
+                <div className={`${styles.col} ${styles.colRole}`}>
+                    <div className={styles.mask}>
+                        <p className={`${styles.metaLabel} ${styles.maskInner}`}>Frontend Dev.</p>
+                    </div>
+                    <div className={styles.mask}>
+                        <p className={`${styles.metaLabel} ${styles.maskInner}`}>WEB DESIGN UI UX</p>
+                    </div>
+                </div>
+
+                <div className={styles.colSocial}>
+                    <div className={styles.mask}>
+                        <p className={`${styles.metaLabel} ${styles.maskInner}`}>SOCIAL</p>
+                    </div>
+                    <ul>
+                        <Magnetic>
+                            <li className={styles.maskInline}>
+                                <Link href="https://x.com/sauroww" className={styles.maskInner}>X</Link>
+                            </li>
+                        </Magnetic>
+                        <Magnetic>
+                            <li className={styles.maskInline}>
+                                <Link href="https://www.linkedin.com/in/saurabh-thapliyal-76a0a6306/" className={styles.maskInner}>Li</Link>
+                            </li>
+                        </Magnetic>
+                        <Magnetic>
+                            <li className={styles.maskInline}>
+                                <Link href="https://www.instagram.com/saur0w" className={styles.maskInner}>In</Link>
+                            </li>
+                        </Magnetic>
+                    </ul>
+                </div>
+            </header>
+
             <div className={styles.scene} ref={sceneRef} style={{ opacity: 0 }}>
                 <Scene />
             </div>
@@ -111,14 +198,21 @@ export default function Landing() {
                 </h1>
             </div>
 
-            <div className={styles.footer} ref={footerRef}>
-                <h4>
-                    &copy; DESIGN <br />SAUROW
-                </h4>
-                <h4>
-                    C-NR. 07186749<br />DEV. SAUROW
-                </h4>
-            </div>
+            <footer ref={footerRef} style={{ opacity: 0 }}>
+                <div className={styles.footerLeft}>
+                    <div className={styles.mask}>
+                        <p className={styles.maskInner}>© DESIGN</p>
+                    </div>
+                    <div className={styles.mask}>
+                        <p className={styles.maskInner}>SAUROW</p>
+                    </div>
+                </div>
+                <div className={styles.footerRight}>
+                    <div className={styles.mask}>
+                        <p className={styles.maskInner}>DEV. SAUROW</p>
+                    </div>
+                </div>
+            </footer>
         </section>
     );
 }
