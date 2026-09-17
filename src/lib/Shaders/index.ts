@@ -51,9 +51,11 @@ const newZ = distY.mul(sin(uBend)).add(distZ.mul(cos(uBend)));
 
 export const flipVertexNode = vec3(positionLocal.x, newY, newZ);
 
-// Fragment shader texture node with automatic backface UV flip
+// Fragment shader texture node with object-fit cover and automatic backface UV flip
 export const createTextureNode = (map: THREE.Texture) => {
-    const backUv = vec2(uv().x, float(1.0).sub(uv().y));
-    const correctedUv = select(frontFacing, uv(), backUv);
+    const centeredUv = uv().sub(vec2(0.5, 0.5));
+    const coverUv = centeredUv.mul(uCoverScale).add(vec2(0.5, 0.5));
+    const backUv = vec2(coverUv.x, float(1.0).sub(coverUv.y));
+    const correctedUv = select(frontFacing, coverUv, backUv);
     return texture(map, correctedUv);
 };

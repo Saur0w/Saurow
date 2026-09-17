@@ -13,6 +13,7 @@ import {
     uBend,
     uHover,
     uMouse,
+    uCoverScale,
 } from '@/lib/Shaders';
 
 extend({ MeshBasicNodeMaterial });
@@ -21,6 +22,15 @@ declare module '@react-three/fiber' {
     interface ThreeElements {
         meshBasicNodeMaterial: ThreeElement<typeof MeshBasicNodeMaterial>;
     }
+}
+
+interface TextureImage {
+    naturalWidth?: number;
+    naturalHeight?: number;
+    videoWidth?: number;
+    videoHeight?: number;
+    width?: number;
+    height?: number;
 }
 
 function getCardDimensions(width: number) {
@@ -47,10 +57,21 @@ export default function MeshComponent() {
     const h = viewport.height * (card.h / (size.height || 1));
 
     useEffect(() => {
-        if (texture) {
-            texture.colorSpace = THREE.SRGBColorSpace;
+        if (!texture) return;
+        texture.colorSpace = THREE.SRGBColorSpace;
+
+        const img = texture.image as TextureImage | undefined;
+        const imgWidth = img?.naturalWidth || img?.videoWidth || img?.width || 1254;
+        const imgHeight = img?.naturalHeight || img?.videoHeight || img?.height || 1254;
+        const imageAspect = imgWidth / (imgHeight || 1);
+        const meshAspect = w / (h || 1);
+
+        if (meshAspect < imageAspect) {
+            uCoverScale.value.set(meshAspect / imageAspect, 1.0);
+        } else {
+            uCoverScale.value.set(1.0, imageAspect / meshAspect);
         }
-    }, [texture]);
+    }, [texture, w, h]);
 
     const colorNode = useMemo(() => createTextureNode(texture), [texture]);
 
