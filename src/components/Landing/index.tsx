@@ -35,6 +35,9 @@ const images: ImageProps[] = [
     { src: '/images/narin.jpg', alt: 'Narin' },
 ];
 
+const ROUNDS = 2;
+const STEP_DURATION = 0.1; // 0.1s per image * 11 images * 2 rounds = 2.2s
+
 export default function Landing() {
     const landingRef = useRef<HTMLElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -43,7 +46,9 @@ export default function Landing() {
     const paraRef = useRef<HTMLDivElement>(null);
     const footerRef = useRef<HTMLDivElement>(null);
     const headerRef = useRef<HTMLElement>(null);
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isPreloaderDone, setIsPreloaderDone] = useState(false);
 
     const toggleMenu = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -72,93 +77,48 @@ export default function Landing() {
         };
     }, [isMenuOpen]);
 
+    // 1. Preloader Timeline (2 rounds of image switching + line expansion) & Scroll Parallax
     useGSAP(() => {
         const imgs = containerRef.current?.querySelectorAll('img');
-        if (!imgs) return;
+        if (!imgs || imgs.length === 0) return;
 
-        const tl2 = gsap.timeline();
-        tl2.to(lineRef.current, {
+        // Keep heading offset initially so it slides in cleanly when preloader ends
+        gsap.set(paraRef.current, { x: 300 });
+
+        const totalCycleDuration = ROUNDS * imgs.length * STEP_DURATION;
+
+        // Expand center line while the 2 rounds of images cycle
+        gsap.to(lineRef.current, {
             width: '75vw',
-            duration: 2.5,
+            duration: totalCycleDuration + 0.4,
             ease: 'expo.inOut',
         });
 
-        gsap.from(paraRef.current, {
-            delay: 2.2,
-            x: 300,
-            duration: 1.5,
-            ease: 'expo.inOut',
+        const tl = gsap.timeline({
+            delay: 0.4,
+            onComplete: () => {
+                setIsPreloaderDone(true);
+            },
         });
 
-        tl2.to(lineRef.current, {
-            width: 0,
-            duration: 1.2,
-            ease: 'expo.inOut',
-        });
-
-        const tl = gsap.timeline({ delay: 1 });
-
-        imgs.forEach((img, i) => {
-            tl.set(
-                img,
-                {
-                    opacity: 0,
-                },
-                i * 0.15
-            );
-        });
-
-        tl.set(sceneRef.current, {
-            opacity: 1,
-        });
-
-        const isSmallScreen = typeof window !== 'undefined' && window.innerWidth <= 768;
-        const headerDelay = isSmallScreen ? 0.3 : 2.8;
-
-        const headerInners = headerRef.current?.querySelectorAll(`.${styles.maskInner}`);
-        if (headerInners && headerRef.current) {
-            gsap.set(headerRef.current, { opacity: 1 });
-            gsap.fromTo(
-                headerInners,
-                {
-                    yPercent: 120,
-                },
-                {
-                    yPercent: 0,
-                    duration: 1.1,
-                    stagger: 0.04,
-                    ease: 'power4.out',
-                    delay: headerDelay,
-                }
-            );
-
-            const hamburger = headerRef.current?.querySelector(`.${styles.hamburger}`);
-            if (hamburger) {
-                gsap.fromTo(
-                    hamburger,
-                    { opacity: 0, scale: 0.8 },
-                    { opacity: 1, scale: 1, duration: 0.6, ease: 'power3.out', delay: headerDelay }
-                );
+        for (let round = 0; round < ROUNDS; round++) {
+            // Reset all images to opacity: 1 at the exact start of Round 2
+            if (round > 0) {
+                tl.set(imgs, { opacity: 1 }, round * imgs.length * STEP_DURATION);
             }
+
+            imgs.forEach((img, i) => {
+                // Keep the final image of Round 1 visible until Round 2 resets the stack
+                const isLastOfPreviousRound = round < ROUNDS - 1 && i === imgs.length - 1;
+                if (!isLastOfPreviousRound) {
+                    const stepTime = (round * imgs.length + (i + 1)) * STEP_DURATION;
+                    tl.set(img, { opacity: 0 }, stepTime);
+                }
+            });
         }
 
-        const footerInners = footerRef.current?.querySelectorAll(`.${styles.maskInner}`);
-        if (footerInners && footerRef.current) {
-            gsap.set(footerRef.current, { opacity: 1 });
-            gsap.fromTo(
-                footerInners,
-                {
-                    yPercent: 120,
-                },
-                {
-                    yPercent: 0,
-                    duration: 1.1,
-                    stagger: 0.04,
-                    ease: 'power4.out',
-                    delay: 2.9,
-                }
-            );
-        }
+        // Reveal the 3D scene the instant the final image of Round 2 hides
+        tl.set(sceneRef.current, { opacity: 1 });
 
         // Parallax effects on landing page scrolling
         if (landingRef.current) {
@@ -218,6 +178,69 @@ export default function Landing() {
             }
         }
     }, []);
+
+    // 2. Post-Preloader Reveal: Fires the moment the 2 rounds of images finish
+    useGSAP(() => {
+        if (!isPreloaderDone) return;
+
+        // Collapse the horizontal line
+        gsap.to(lineRef.current, {
+            width: 0,
+            duration: 1.2,
+            ease: 'expo.inOut',
+        });
+
+        // Slide in the heading
+        gsap.to(paraRef.current, {
+            x: 0,
+            duration: 1.5,
+            ease: 'expo.inOut',
+        });
+
+        const isSmallScreen = typeof window !== 'undefined' && window.innerWidth <= 768;
+        const uiDelay = isSmallScreen ? 0.1 : 0.4;
+
+        const headerInners = headerRef.current?.querySelectorAll(`.${styles.maskInner}`);
+        if (headerInners && headerRef.current) {
+            gsap.set(headerRef.current, { opacity: 1 });
+            gsap.fromTo(
+                headerInners,
+                { yPercent: 120 },
+                {
+                    yPercent: 0,
+                    duration: 1.1,
+                    stagger: 0.04,
+                    ease: 'power4.out',
+                    delay: uiDelay,
+                }
+            );
+
+            const hamburger = headerRef.current?.querySelector(`.${styles.hamburger}`);
+            if (hamburger) {
+                gsap.fromTo(
+                    hamburger,
+                    { opacity: 0, scale: 0.8 },
+                    { opacity: 1, scale: 1, duration: 0.6, ease: 'power3.out', delay: uiDelay }
+                );
+            }
+        }
+
+        const footerInners = footerRef.current?.querySelectorAll(`.${styles.maskInner}`);
+        if (footerInners && footerRef.current) {
+            gsap.set(footerRef.current, { opacity: 1 });
+            gsap.fromTo(
+                footerInners,
+                { yPercent: 120 },
+                {
+                    yPercent: 0,
+                    duration: 1.1,
+                    stagger: 0.04,
+                    ease: 'power4.out',
+                    delay: uiDelay + 0.1,
+                }
+            );
+        }
+    }, [isPreloaderDone]);
 
     return (
         <section ref={landingRef} className={styles.landing}>
@@ -351,30 +374,33 @@ export default function Landing() {
             </div>
 
             <div className={styles.scene} ref={sceneRef} style={{ opacity: 0 }}>
-                <Scene />
+                <Scene startAnimation={isPreloaderDone} />
             </div>
 
-            <div className={styles.imageContainer} ref={containerRef}>
-                {images.map((image, index) => (
-                    <Image
-                        key={index}
-                        src={image.src}
-                        alt={image.alt}
-                        fill
-                        sizes="200px"
-                        style={{
-                            objectFit: 'cover',
-                            zIndex: images.length - index,
-                        }}
-                    />
-                ))}
-            </div>
+            {!isPreloaderDone && (
+                <div className={styles.imageContainer} ref={containerRef}>
+                    {images.map((image, index) => (
+                        <Image
+                            key={image.src}
+                            src={image.src}
+                            alt={image.alt}
+                            fill
+                            priority
+                            sizes="200px"
+                            style={{
+                                objectFit: 'cover',
+                                zIndex: images.length - index,
+                            }}
+                        />
+                    ))}
+                </div>
+            )}
 
             <div className={styles.line} ref={lineRef} />
 
             <div className={styles.heading} ref={paraRef}>
                 <h1>
-                    AS<span className={styles.dot}>●</span>01<br />/04
+                    ST<span className={styles.dot}>●</span>03<br />/08
                 </h1>
             </div>
 

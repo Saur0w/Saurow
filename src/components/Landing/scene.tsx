@@ -32,7 +32,7 @@ function WebGPUInitializer({ onReady }: { onReady: () => void }) {
     return null;
 }
 
-export default function Scene() {
+export default function Scene({ startAnimation }: { startAnimation: boolean }) {
     const [isReady, setIsReady] = useState(false);
 
     return (
@@ -55,7 +55,7 @@ export default function Scene() {
 
             {isReady && (
                 <Suspense fallback={null}>
-                    <MeshComponent />
+                    <MeshComponent startAnimation={startAnimation} />
                 </Suspense>
             )}
         </Canvas>

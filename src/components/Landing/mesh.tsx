@@ -18,6 +18,9 @@ import {
 
 extend({ MeshBasicNodeMaterial });
 
+// Preload the 3D texture while the 2D images are cycling
+useTexture.preload('/images/a.png');
+
 declare module '@react-three/fiber' {
     interface ThreeElements {
         meshBasicNodeMaterial: ThreeElement<typeof MeshBasicNodeMaterial>;
@@ -47,7 +50,7 @@ function getTargetScale(width: number) {
     return 2.5;
 }
 
-export default function MeshComponent() {
+export default function MeshComponent({ startAnimation }: { startAnimation: boolean }) {
     const { viewport, size } = useThree();
     const texture = useTexture('/images/a.png');
     const meshRef = useRef<THREE.Mesh>(null!);
@@ -110,37 +113,31 @@ export default function MeshComponent() {
     });
 
     useGSAP(() => {
-        if (!meshRef.current) return;
+        if (!meshRef.current || !startAnimation) return;
 
         const targetScale = getTargetScale(size.width);
-        const tl = gsap.timeline({ delay: 1 });
+        const tl = gsap.timeline();
 
-        tl.to(meshRef.current.scale, {
-            x: 0.85,
-            y: 0.85,
-            duration: 0.8,
-            ease: 'power2.out',
-        })
-            .to(
-                uBend,
-                {
-                    value: Math.PI,
-                    duration: 1.8,
-                    ease: 'power3.inOut',
-                },
-                'flip'
-            )
-            .to(
-                meshRef.current.scale,
-                {
-                    x: targetScale,
-                    y: targetScale,
-                    duration: 1.8,
-                    ease: 'power3.inOut',
-                },
-                'flip'
-            );
-    }, { scope: meshRef });
+        // Flips and scales up immediately from size 1 with no initial shrink
+        tl.to(
+            uBend,
+            {
+                value: Math.PI,
+                duration: 1.8,
+                ease: 'power3.inOut',
+            },
+            0
+        ).to(
+            meshRef.current.scale,
+            {
+                x: targetScale,
+                y: targetScale,
+                duration: 1.8,
+                ease: 'power3.inOut',
+            },
+            0
+        );
+    }, { dependencies: [startAnimation], scope: meshRef });
 
     return (
         <mesh
