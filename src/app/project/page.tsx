@@ -25,6 +25,12 @@ interface Project {
 
 const projects: Project[] = [
     {
+        title: "Orbita",
+        subtitle: "Development",
+        link: "https://orbita-lamp.vercel.app/",
+        external: true
+    },
+    {
         title: 'STRIDE',
         subtitle: 'Development',
         link: 'https://str1de.vercel.app/',
